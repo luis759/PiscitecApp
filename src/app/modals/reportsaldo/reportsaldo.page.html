@@ -1,0 +1,79 @@
+<ion-toolbar color="principal">
+  <ion-buttons slot="start">
+    <ion-button (click)="finalizar()">
+      <ion-icon slot="icon-only" name="arrow-back-sharp"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+    <ion-title>
+      <div class="ion-text-wrap">
+       Reporte Saldos
+      </div>
+    </ion-title>
+</ion-toolbar>
+<ion-content>
+  <ion-fab vertical="bottom" horizontal="end"  slot="fixed"  *ngIf="!ingreso">
+    <ion-fab-button color="principal" (click)="nuevoingreso()" >
+      <ion-icon name="add-circle-outline">
+      </ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-list *ngIf="ingreso">
+    <ion-item >
+      <ion-label  color="dark">Especie *</ion-label>
+      <ionic-selectable 
+        [(ngModel)]="DataForm.especie"
+        [items]="especies"
+        itemValueField="IDESP"
+        itemTextField="ESPECIE"
+        [canSearch]="true"
+        (onChange)="changeEspecies($event)"
+        closeButtonText="Cerrar">
+      </ionic-selectable>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked" style="font-size: larger;">Saldo de Especie * </ion-label>
+      <ion-input [(ngModel)]="DataForm.saldo.value" min="0" inputmode="decimal" placeholder="" type="number"></ion-input>
+    </ion-item>
+    <ion-grid *ngIf="!update">
+      <ion-row >
+         <ion-col size="6">
+          <ion-button expand="full" tappable color="danger" (click)="finalizarGuardado()">Finalizar</ion-button>
+        </ion-col>
+        <ion-col size="6"> <ion-button expand="full" tappable color="principal" (click)="ValidarInfo(false)">Continuar</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-grid *ngIf="update">
+      <ion-row >
+         <ion-col size="6">
+          <ion-button expand="full" tappable color="danger" (click)="CancelarEdit()">Cancelar</ion-button>
+        </ion-col>
+        <ion-col size="6"> <ion-button expand="full" tappable color="principal" (click)="ValidarInfo(true)">Grabar</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-list>
+
+  <ion-list *ngIf="!ingreso">
+    <ion-list-header>
+      <ion-label>Lista de Registros </ion-label>
+    </ion-list-header>
+    <div *ngIf="Saldoss.length==0" class="ion-text-center">
+      <ion-label>No Hay Data</ion-label>
+    </div>
+    <ion-item  *ngFor="let Saldoss of Saldoss,let i = index">
+        <ion-label class="ion-text-wrap">
+          <p>Numero:  {{(Saldoss.id)}}</p>
+          <p>Especie: {{(Saldoss.especie?Saldoss.especie.ESPECIE:'NADA')}}</p>
+          <p>Saldo:  {{(Saldoss.saldo)}}</p>           
+        </ion-label>
+        <ion-button color="primary" (click)="edit(i)" slot="end">  <ion-icon name="create-outline">
+        </ion-icon>       
+         </ion-button>
+        <ion-button color="danger" (click)="borrar(i)" slot="end">  <ion-icon name="close">
+        </ion-icon>       
+         </ion-button>
+    </ion-item>
+  </ion-list>
+</ion-content>

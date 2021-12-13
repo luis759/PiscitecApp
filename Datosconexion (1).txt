@@ -1,0 +1,26 @@
+Servidor SQL: tcp:piscitec2.database.windows.net,1433
+Catalogo: P3SC3T2C
+Usuario: excapps
+Pass: Anka*2015
+
+URL: https://piscitec.azurewebsites.net
+
+GIT local
+URI de Git Clone
+https://piscitec.scm.azurewebsites.net:443/piscitec.git
+Compilación
+Proveedor de compilación
+Servicio de compilación de App Service
+Pila del entorno en tiempo de ejecución
+PHP
+Versión
+7.4
+
+App Service admite varias tecnologías para acceder al contenido de la aplicación, publicarlo y modificarlo. Las credenciales de FTPS se pueden restringir a la aplicación o al usuario.
+Punto de conexión de FTPS: ftps://waws-prod-dm1-109.ftp.azurewebsites.windows.net/site/wwwroot
+URI de Git Clone: https://piscitec.scm.azurewebsites.net:443/piscitec.git
+Ámbito de la aplicación
+Las credenciales de ámbito de la aplicación se generan automáticamente y solo proporcionan acceso a este espacio de implementación o a esta aplicación específica. Dichas credenciales se pueden usar con FTPS, GIT local y WebDeploy. No se pueden configurar manualmente, pero se pueden restablecer en cualquier momento. Más información
+Nombre de usuario: piscitec\$piscitec
+Contraseña: ci7SPqax11N9EolFaAbyqtWqwjST5ZmcFHnicdgdybmbRm5bpNl0YGFz1QSt
+Ámbito de usuario

@@ -1,0 +1,19 @@
+Datos API
+
+URL: https://acuaguajaro.azurewebsites.net
+Nombre de host de FTP: ftp://waws-prod-dm1-239.ftp.azurewebsites.windows.net/site/wwwroot
+Nombre de host de FTPS: ftps://waws-prod-dm1-239.ftp.azurewebsites.windows.net/site/wwwroot
+
+GIT Local
+URI de Git Clone: https://acuaguajaro.scm.azurewebsites.net:443/acuaguajaro.git
+Proveedor de compilación
+Servicio de compilación de App Service
+Pila del entorno en tiempo de ejecución
+PHP
+Versión
+7.4
+
+Punto de conexión de FTPS: ftps://waws-prod-dm1-239.ftp.azurewebsites.windows.net/site/wwwroot
+URI de Git Clone: https://acuaguajaro.scm.azurewebsites.net:443/acuaguajaro.git
+Nombre de usuario: acuaguajaro\$acuaguajaro
+Contraseña: 5m6pzWSz23ltbBnaG3CqpHi3zRcdlRJ9ZoP40lYDLxDgZeAdlzuffmhP9J1e

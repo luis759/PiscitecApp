@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Piscitec</string>
+    <string name="title_activity_main">Piscitec</string>
+    <string name="package_name">com.piscitec.app</string>
+    <string name="custom_url_scheme">com.piscitec.app</string>
+</resources>

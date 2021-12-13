@@ -1,0 +1,5 @@
+Configuración SQL Azure
+URL: tcp:aceg2.database.windows.net,1433
+Catalogo: ACEG
+Usuario Admin: excapps
+Password: Gestion.12.archivos
