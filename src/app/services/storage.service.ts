@@ -25,6 +25,7 @@ export class StorageService {
     "DetallePrueb":"DetallePrueb",
     "ReporteGenerados":"ReporteGenerados",
     "VacunaReporte":"VacunaReporte",
+    "FisiscosQuimicosRep":"FisiscosQuimicosRep",
     "UsuarioActivo":"UsuarioActivo"
   } 
   constructor(private storage:Storage) {

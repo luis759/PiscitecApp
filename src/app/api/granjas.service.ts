@@ -51,8 +51,6 @@ export class GranjasService {
   //API PARA LLAMAR TODOS LOS ESPACIOS
   getAllEspacios(IDEMP:any,IDGRAN:any):Promise<any>{
     return new Promise((resolve)=>{
-      console.log(IDEMP)
-      console.log(IDGRAN)
       let nativecall=this.httpnative.get(environment.urlApi+'espacios/'+IDEMP+'/'+IDGRAN,{},{'Content-Type': 'application/json'})
       nativecall.then((Data)=>{
           if(Data.status==200 || Data.status==201){

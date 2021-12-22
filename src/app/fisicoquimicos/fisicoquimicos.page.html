@@ -1,0 +1,136 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="principal">
+    <ion-buttons  slot="start" >
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      <div class="ion-text-wrap">
+        Reporte Fisico Quimicos
+       </div>
+
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-fab vertical="bottom" horizontal="end"  slot="fixed">
+    <ion-fab-button color="principal" (click)="ValidarRegistro()" >
+      <ion-icon name="arrow-forward-circle">
+      </ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-list>
+
+  <ion-item >
+    <ion-label  color="dark">Empresa *</ion-label>
+    <ionic-selectable 
+      [(ngModel)]="DataForm.empresa"
+      [items]="empresas"
+      itemValueField="IDEMP"
+      itemTextField="EMPRESA"
+      [canSearch]="true"
+      (onChange)="changeEmpresas($event)"
+      closeButtonText="Cerrar">
+    </ionic-selectable>
+  </ion-item>
+  <ion-item >
+    <ion-label  color="dark">Granja *</ion-label>
+    <ionic-selectable 
+      [(ngModel)]="DataForm.granja"
+      [items]="granjas"
+      itemValueField="IDGRA"
+      itemTextField="NOMBRE"
+      [canSearch]="true"
+      (onChange)="changeGranjas($event)"
+      closeButtonText="Cerrar">
+    </ionic-selectable>
+  </ion-item>
+  <ion-item >
+    <ion-label  color="dark">Responsable *</ion-label>
+    <ionic-selectable 
+      [(ngModel)]="DataForm.responsable"
+      [items]="responsables"
+      itemValueField="ID"
+      itemTextField="NOMBRES"
+      [canSearch]="true"
+      (onChange)="changeResponsable($event)"
+      closeButtonText="Cerrar">
+    </ionic-selectable>
+  </ion-item>
+  <ion-item >
+    <ion-label  color="dark">Espacios *</ion-label>
+    <ionic-selectable 
+    #portComponent
+    [(ngModel)]="DataForm.espacio"
+      [items]="espacios"
+      itemValueField="NOMBRE"
+      itemTextField="NOMBRE"
+      [canSearch]="true"
+      (onOpen)="onOpen($event)"
+      (onChange)="changeLotes($event)"
+      closeButtonText="Cerrar">
+    </ionic-selectable>
+  </ion-item>
+  <ion-item>
+    <ion-label  position="" class="ion-text-wrap">Fecha *</ion-label>
+    <ion-datetime monthShortNames='Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Sep, Oct, Nov, Dic' min="1980" max="2030" cancelText="CANCELAR"  doneText="ACEPTAR" placeholder="Selecciona la Fecha" [(ngModel)]="DataForm.fecha" ></ion-datetime>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked" style="font-size: larger;">Temperatura (Cº) * </ion-label>
+    <ion-input [(ngModel)]="DataForm.temperatura"  min="0" placeholder="0" inputmode="numeric" type="number"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked" style="font-size: larger;">Alcalinidad total *:</ion-label>
+    <ion-input [(ngModel)]="DataForm.alcalinidadtotal"   min="0" placeholder="0"  type="numeric"></ion-input>
+  </ion-item>
+  
+  <ion-item>
+    <ion-label position="stacked" style="font-size: larger;">Turbidez *:</ion-label>
+    <ion-input [(ngModel)]="DataForm.turbidez"   min="0" placeholder="0"  type="numeric"></ion-input>
+  </ion-item>
+  
+  <ion-item>
+    <ion-label position="stacked" style="font-size: larger;">Dureza total *:</ion-label>
+    <ion-input [(ngModel)]="DataForm.durezatotal"   min="0" placeholder="0"  type="numeric"></ion-input>
+  </ion-item>
+  
+  <ion-item>
+    <ion-label position="stacked" style="font-size: larger;">Oxigeno Disuelto *:</ion-label>
+    <ion-input [(ngModel)]="DataForm.oxigenodisuelto"   min="0" placeholder="0"  type="numeric"></ion-input>
+  </ion-item>
+  
+  <ion-item>
+    <ion-label position="stacked" style="font-size: larger;">Nitritos *:</ion-label>
+    <ion-input [(ngModel)]="DataForm.nitritos"   min="0" placeholder="0"  type="numeric"></ion-input>
+  </ion-item>
+  
+  <ion-item>
+    <ion-label position="stacked" style="font-size: larger;">Amonio Total *:</ion-label>
+    <ion-input [(ngModel)]="DataForm.amoniototal"   min="0" placeholder="0"  type="numeric"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked" style="font-size: larger;">PH *:</ion-label>
+    <ion-input [(ngModel)]="DataForm.ph"   min="0" placeholder="0"  type="numeric"></ion-input>
+  </ion-item>
+
+  <ion-row>
+    <ion-col size="6">
+      <ion-item class="ion-text-center">
+        <ion-label  position="floating" class="ion-text-wrap" style="font-size:12px;">Hora de inicio</ion-label>
+        <ion-datetime [min]="yearMin"  [max]="yearMax" display-format="HH:mm" picker-format="HH:mm " value="1990-02-19T07:43Z" cancelText="CANCELAR"  doneText="ACEPTAR" [(ngModel)]="DataForm.startdate" ></ion-datetime>
+      </ion-item>
+    </ion-col>
+    <ion-col size="6">
+      <ion-item class="ion-text-center">
+        <ion-label  position="floating" class="ion-text-wrap" style="font-size:12px;">Hora de Fin</ion-label>
+        <ion-datetime [min]="yearMin"  [max]="yearMax" display-format="HH:mm" picker-format="HH:mm" value="1990-02-19T07:43Z" cancelText="CANCELAR"  doneText="ACEPTAR" [(ngModel)]="DataForm.enddate" ></ion-datetime>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-item>
+    <ion-label position="stacked" style="font-size: larger;">Observaciones:</ion-label>
+    <ion-input [(ngModel)]="DataForm.observaciones"  placeholder="observaciones" type="text"></ion-input>
+  </ion-item>
+  </ion-list>
+</ion-content>

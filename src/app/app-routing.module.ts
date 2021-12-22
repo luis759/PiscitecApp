@@ -17,7 +17,11 @@ const routes: Routes = [
   {
     path: 'load',
     loadChildren: () => import('./load/load.module').then( m => m.LoadPageModule)
+  },  {
+    path: 'fisicoquimicos',
+    loadChildren: () => import('./fisicoquimicos/fisicoquimicos.module').then( m => m.FisicoquimicosPageModule)
   }
+
 ];
 
 @NgModule({
