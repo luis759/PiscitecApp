@@ -184,17 +184,7 @@ seguir(){
       valor.IDGRA=this.DataForm.granja['IDGRA']
       valor.OBSERVA=this.DataForm.observacion
       valor.RESPONSABLE=this.DataForm.responsable['COD']
-      let valorDetalle={
-        temperatura:this.DataForm.temperatura,
-        alcalinidad:this.DataForm.alcalinidadtotal,
-        turbidez:this.DataForm.turbidez,
-        dureza:this.DataForm.durezatotal,
-        oxigeno:this.DataForm.oxigenodisuelto,
-        nitritos:this.DataForm.nitritos,
-        amonio:this.DataForm.amoniototal,
-        ph:this.DataForm.ph
-      }
-      valor.detalljson=JSON.stringify(valorDetalle)
+      valor.detallejson=JSON.stringify(this.retornodeArrayFisicoQuimicos())
       valor.ANEXO=''
       valor.USUARIO=id
         this.master.fisicoquimicos.postNewFisicoQuimicos(valor).then((NewFisicosQuimicos)=>{
@@ -224,6 +214,55 @@ seguir(){
       })
   })
 
+}
+retornodeArrayFisicoQuimicos():any[]{
+  let arreglo=[]
+  let variable={
+    variable:'',
+    valor:0
+  }
+          if(this.DataForm.temperatura){
+            variable.valor=this.DataForm.temperatura    
+            variable.variable='Tipo1'
+            arreglo.push(variable)
+          }
+          if(this.DataForm.alcalinidadtotal){
+            variable.valor=this.DataForm.alcalinidadtotal    
+            variable.variable='Tipo2'
+            arreglo.push(variable)
+          }
+          if(this.DataForm.turbidez){
+            variable.valor=this.DataForm.turbidez    
+            variable.variable='Tipo3'
+            arreglo.push(variable)
+          }
+
+          if(this.DataForm.durezatotal){
+            variable.valor=this.DataForm.durezatotal    
+            variable.variable='Tipo4'
+            arreglo.push(variable)
+          }
+          if(this.DataForm.oxigenodisuelto){
+            variable.valor=this.DataForm.oxigenodisuelto    
+            variable.variable='Tipo5'
+            arreglo.push(variable)
+          }
+          if(this.DataForm.nitritos){
+            variable.valor=this.DataForm.nitritos    
+            variable.variable='Tipo6'
+            arreglo.push(variable)
+          }
+          if(this.DataForm.amoniototal){
+            variable.valor=this.DataForm.amoniototal    
+            variable.variable='Tipo7'
+            arreglo.push(variable)
+          }
+          if(this.DataForm.ph){
+            variable.valor=this.DataForm.ph    
+            variable.variable='Tipo8'
+            arreglo.push(variable)
+          }
+  return arreglo
 }
 GuardarRegistroDeReportes(Report,Enviado,Erroes){
   this.master.storage.getItems(this.master.storage.arrayname.FisiscosQuimicosRep).then((Info)=>{

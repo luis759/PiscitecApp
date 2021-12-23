@@ -16,7 +16,7 @@ export class FisicoquimicosService {
     RESPONSABLE:'',
     OBSERVA:'',
     USUARIO:'',
-    detalljson:''
+    detallejson:''
   }
   constructor(private httpnative:HTTP) { }
 
