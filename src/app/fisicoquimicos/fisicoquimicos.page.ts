@@ -193,27 +193,30 @@ seguir(){
       valor.detallejson=JSON.stringify(this.retornodeArrayFisicoQuimicos())
       valor.USUARIO=id
         this.master.fisicoquimicos.postNewFisicoQuimicos(valor).then((NewFisicosQuimicos)=>{
-          console.log(NewFisicosQuimicos)
           let ReporteGen=this.master.storage.vacunareporte
           ReporteGen.ReporteInicial=valor
           ReporteGen.enviado=false
           if(!NewFisicosQuimicos['correcto'] && NewFisicosQuimicos['data']['status']==-1){
             this.GuardarRegistroDeReportes(ReporteGen,false,false)
             this.loadingController.dismiss()
+            this.limpiarData()
           }else{
             if(NewFisicosQuimicos['correcto']){
               ReporteGen.dataEnviado=NewFisicosQuimicos['data']
               ReporteGen.enviado=true
               this.GuardarRegistroDeReportes(ReporteGen,true,false)
               this.loadingController.dismiss()
+              this.limpiarData()
             }else if(NewFisicosQuimicos['correcto'] && NewFisicosQuimicos['mensaje']=="errorapi"){ 
               ReporteGen.enviado=true
               ReporteGen.dataEnviado=NewFisicosQuimicos['data']
               this.GuardarRegistroDeReportes(ReporteGen,true,true)
               this.loadingController.dismiss()
+              this.limpiarData()
             }else{
               this.GuardarRegistroDeReportes(ReporteGen,false,true)
               this.loadingController.dismiss()
+              this.limpiarData()
             }
           }
         })

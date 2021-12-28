@@ -85,6 +85,25 @@ export class ReportlistPage implements OnInit {
       }
      this.agregarNombreEmpresasGranjasRespon(array)
     })
+  }else if(this.tipodereporte==3){
+    this.master.storage.getItems(this.master.storage.arrayname.FisiscosQuimicosRep).then((Data)=>{
+      let Extraccion=[]
+      if(Data){
+        Extraccion=Data[0]
+      }
+      for(var i=0;i<Extraccion.length;i++){
+        if(this.tipo=="Send"){
+          if(Extraccion[i]['enviado']){
+            let agregar=array.push({Reporte:Extraccion[i],numero:i})
+          }
+        }else{
+          if(!Extraccion[i]['enviado']){
+            let agregar=array.push({Reporte:Extraccion[i],numero:i})
+          }
+        } 
+      }
+     this.agregarNombreEmpresasGranjasRespon(array)
+    })
   }
   
 
@@ -125,6 +144,8 @@ export class ReportlistPage implements OnInit {
         this.enviarReportesTipo1(i,valor)
     }else if(this.tipodereporte==2){
       this.enviarReportesTipo2(i,valor)
+    }else if(this.tipodereporte==3){
+      this.enviarReportesTipo3(i,valor)
     }
   }
   enviarReportesTipo1(i,valor){
@@ -175,13 +196,39 @@ export class ReportlistPage implements OnInit {
       }
     })
   }
+  enviarReportesTipo3(i,valor){
+    valor=this.reportes[i]['Reporte']['ReporteInicial']
+    this.master.fisicoquimicos.postNewFisicoQuimicos(valor).then((Newfisicoquimicos)=>{
+      if(!Newfisicoquimicos['correcto'] && Newfisicoquimicos['data']['status']==-1){
+        this.reportes[i]['Reporte']['enviado']=false
+      }else{
+        if(Newfisicoquimicos['correcto']){
+          this.reportes[i]['Reporte']['dataEnviado']=Newfisicoquimicos['data']
+          this.reportes[i]['Reporte']['enviado']=true
+        }else if(Newfisicoquimicos['correcto'] && Newfisicoquimicos['mensaje']=="errorapi"){ 
+          this.reportes[i]['Reporte']['dataEnviado']=Newfisicoquimicos['data']
+          this.reportes[i]['Reporte']['enviado']=true
+        }else{
+          this.reportes[i]['Reporte']['enviado']=false
+        }
+      }
+      this.enviado.cantidad=this.enviado.cantidad+1
+      if(this.enviado.cantidad<this.enviado.limite){
+        this.EnviarRegistros(this.enviado.cantidad)
+      }else{
+        this.GuardarRegistrosDeReportes()
+      }
+    })
+  }
   GuardarRegistrosDeReportes(){
     this.loadingController.dismiss()
     if(this.tipodereporte==1){
       this.guardartipo1()
-  }else if(this.tipodereporte==2){
+    }else if(this.tipodereporte==2){
     this.guardartipo2()
-  }
+    }else if(this.tipodereporte==3){
+      this.guardartipo3()
+      }
   }
   guardartipo1(){
     this.master.storage.getItems(this.master.storage.arrayname.ReporteGenerados).then((DataReportes)=>{
@@ -212,6 +259,26 @@ export class ReportlistPage implements OnInit {
         }
         this.master.storage.DeleteKey(this.master.storage.arrayname.VacunaReporte).then(()=>{
           this.master.storage.addItem(this.master.storage.arrayname.VacunaReporte,ReportesGlobales).then(()=>{
+            this.loadingController.dismiss().finally(()=>{
+              this.segmentChanged({detail:{value:this.tipo}})
+              this.master.MensajeAlert("Enviados los reportes","Mensajes")
+            })
+          })
+        })
+      }else{
+        this.loadingController.dismiss()
+      }
+    })
+  }
+  guardartipo3(){
+    this.master.storage.getItems(this.master.storage.arrayname.FisiscosQuimicosRep).then((DataReportes)=>{
+      if(DataReportes){
+        let ReportesGlobales=DataReportes[0]
+        for(var i=0;i<this.reportes.length;i++){
+            ReportesGlobales[this.reportes[i]['numero']]=this.reportes[i]['Reporte']
+        }
+        this.master.storage.DeleteKey(this.master.storage.arrayname.FisiscosQuimicosRep).then(()=>{
+          this.master.storage.addItem(this.master.storage.arrayname.FisiscosQuimicosRep,ReportesGlobales).then(()=>{
             this.loadingController.dismiss().finally(()=>{
               this.segmentChanged({detail:{value:this.tipo}})
               this.master.MensajeAlert("Enviados los reportes","Mensajes")
