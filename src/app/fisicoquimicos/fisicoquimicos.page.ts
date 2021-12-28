@@ -116,8 +116,10 @@ export class FisicoquimicosPage implements OnInit {
       responsable:null
     }
   }
-  ValidarRegistro(){
-      if(this.DataForm.empresa){
+  ValidarRegistro()
+  {
+    
+    if(this.DataForm.empresa){
         if(this.DataForm.granja){
           if(this.DataForm.responsable){
             if(this.DataForm.espacio){
@@ -157,18 +159,18 @@ validarInfoDataEnvio(){
       datajson.mensaje="Debe ser mayor o igual a "+this.todoslosparametros[cantidad]['VALMIN']+" "+this.todoslosparametros[cantidad]['UNIDAD']
     }
     cantidad++;
-  }while ((cantidad<=this.todoslosparametros.length) && datajson.paso); 
+  }while ((cantidad<this.todoslosparametros.length) && datajson.paso); 
   cantidad=0;  
   if(datajson.paso){
     datajson.paso=false
     datajson.mensaje="Debes seleccion algun parametro"
     do {
-      if((this.todoslosparametros[cantidad]['valoratomar']) !== 0){
+      if((this.todoslosparametros[cantidad]['valoratomar'])){
           datajson.paso=true
           datajson.mensaje=""
       }
       cantidad++;
-    }while ((cantidad<=this.todoslosparametros.length) && !datajson.paso); 
+    }while ((cantidad<this.todoslosparametros.length) && !datajson.paso); 
   }
 
   return datajson;
@@ -191,6 +193,7 @@ seguir(){
       valor.detallejson=JSON.stringify(this.retornodeArrayFisicoQuimicos())
       valor.USUARIO=id
         this.master.fisicoquimicos.postNewFisicoQuimicos(valor).then((NewFisicosQuimicos)=>{
+          console.log(NewFisicosQuimicos)
           let ReporteGen=this.master.storage.vacunareporte
           ReporteGen.ReporteInicial=valor
           ReporteGen.enviado=false
@@ -226,6 +229,7 @@ retornodeArrayFisicoQuimicos():any[]{
   }
   for (let i = 0; i < this.todoslosparametros.length; i++) {
     if(this.todoslosparametros[i]['valoratomar']){
+      console.log(this.todoslosparametros[i])
       variable.valor= this.todoslosparametros[i]['valoratomar']
       variable.variable=this.todoslosparametros[i]['PARAMETRO']
       arreglo.push(variable)

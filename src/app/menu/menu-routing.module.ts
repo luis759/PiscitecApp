@@ -30,6 +30,10 @@ const routes: Routes = [
       {
         path: 'reportvacun',
         loadChildren: () => import('../reportvacun/reportvacun.module').then( m => m.ReportvacunPageModule)
+      },
+      {
+        path: 'fisicoquimicos',
+        loadChildren: () => import('../fisicoquimicos/fisicoquimicos.module').then( m => m.FisicoquimicosPageModule)
       }
     ]
   }

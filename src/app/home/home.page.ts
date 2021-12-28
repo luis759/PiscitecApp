@@ -14,6 +14,9 @@ export class HomePage {
   },{
     id:2,
     name:"Vacunas"
+  },{
+    id:3,
+    name:"Reporte Fisico Quimicos"
   }]
   valorinicial=0
   constructor(private navcontorll:NavController,private master:MasterService) {}
@@ -26,8 +29,10 @@ export class HomePage {
     }else{
       if(this.valorinicial==1){
         this.navcontorll.navigateForward("menu/reportinicial")
-      }else{
+      }else  if(this.valorinicial==2){
         this.navcontorll.navigateForward("menu/reportvacun")
+      }else{
+        this.navcontorll.navigateForward("menu/fisicoquimicos")
       }
     }
   }

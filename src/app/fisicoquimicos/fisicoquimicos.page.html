@@ -13,6 +13,12 @@
 </ion-header>
 
 <ion-content>
+  <ion-fab vertical="bottom" horizontal="end"  slot="fixed" *ngIf="todoslosparametros.length>0">
+    <ion-fab-button color="principal" (click)="ValidarRegistro()" >
+      <ion-icon name="arrow-forward-circle">
+      </ion-icon>
+    </ion-fab-button>
+  </ion-fab>
   <div *ngIf="todoslosparametros.length==0">
     <ion-item>
       <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
@@ -33,16 +39,31 @@
       <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
       <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
     </ion-item>
+    <ion-item>
+     
+      <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+    </ion-item>
+    <ion-item>
+     
+      <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+    </ion-item>
+    <ion-item>
+     
+      <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+    </ion-item>
+    <ion-item>
+     
+      <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+    </ion-item>
   </div>
  
  
   <div *ngIf="todoslosparametros.length>0">
-    <ion-fab vertical="bottom" horizontal="end"  slot="fixed">
-      <ion-fab-button color="principal" (click)="ValidarRegistro()" >
-        <ion-icon name="arrow-forward-circle">
-        </ion-icon>
-      </ion-fab-button>
-    </ion-fab>
+ 
     <ion-list>
   
     <ion-item >
@@ -104,17 +125,15 @@
     </ion-item>
   
     <ion-row>
-      <ion-col size="6">
-        <ion-item class="ion-text-center">
-          <ion-label  position="floating" class="ion-text-wrap" style="font-size:12px;">Hora de inicio</ion-label>
-          <ion-datetime [min]="yearMin"  [max]="yearMax" display-format="HH:mm" picker-format="HH:mm " value="1990-02-19T07:43Z" cancelText="CANCELAR"  doneText="ACEPTAR" [(ngModel)]="DataForm.startdate" ></ion-datetime>
-        </ion-item>
+      <ion-col size="3">
       </ion-col>
       <ion-col size="6">
         <ion-item class="ion-text-center">
-          <ion-label  position="floating" class="ion-text-wrap" style="font-size:12px;">Hora de Fin</ion-label>
-          <ion-datetime [min]="yearMin"  [max]="yearMax" display-format="HH:mm" picker-format="HH:mm" value="1990-02-19T07:43Z" cancelText="CANCELAR"  doneText="ACEPTAR" [(ngModel)]="DataForm.enddate" ></ion-datetime>
+          <ion-label  position="floating" class="ion-text-wrap" style="font-size:12px;">Hora</ion-label>
+          <ion-datetime [min]="yearMin"  [max]="yearMax" display-format="HH:mm" picker-format="HH:mm " value="1990-02-19T07:43Z" cancelText="CANCELAR"  doneText="ACEPTAR" [(ngModel)]="DataForm.startdate" ></ion-datetime>
         </ion-item>
+      </ion-col>
+      <ion-col size="3">
       </ion-col>
     </ion-row>
     <ion-item>
