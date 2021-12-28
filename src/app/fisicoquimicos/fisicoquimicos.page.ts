@@ -153,10 +153,10 @@ validarInfoDataEnvio(){
   do {
     if(this.todoslosparametros[cantidad]['valoratomar']>this.todoslosparametros[cantidad]['VALMAX']){
       datajson.paso=false;
-      datajson.mensaje="Debe ser menor o igual a "+this.todoslosparametros[cantidad]['VALMAX']+" "+this.todoslosparametros[cantidad]['UNIDAD']
+      datajson.mensaje=this.todoslosparametros[cantidad]['PARAMETRO']+", debe ser menor o igual a "+this.todoslosparametros[cantidad]['VALMAX']+" "+this.todoslosparametros[cantidad]['UNIDAD']
     }else if (this.todoslosparametros[cantidad]['valoratomar']<this.todoslosparametros[cantidad]['VALMIN'] ){
       datajson.paso=false;
-      datajson.mensaje="Debe ser mayor o igual a "+this.todoslosparametros[cantidad]['VALMIN']+" "+this.todoslosparametros[cantidad]['UNIDAD']
+      datajson.mensaje=this.todoslosparametros[cantidad]['PARAMETRO']+", debe ser mayor o igual a "+this.todoslosparametros[cantidad]['VALMIN']+" "+this.todoslosparametros[cantidad]['UNIDAD']
     }
     cantidad++;
   }while ((cantidad<this.todoslosparametros.length) && datajson.paso); 
@@ -232,13 +232,13 @@ retornodeArrayFisicoQuimicos():any[]{
   }
   for (let i = 0; i < this.todoslosparametros.length; i++) {
     if(this.todoslosparametros[i]['valoratomar']){
-      console.log(this.todoslosparametros[i])
-      variable.valor= this.todoslosparametros[i]['valoratomar']
-      variable.variable=this.todoslosparametros[i]['PARAMETRO']
-      arreglo.push(variable)
+      arreglo.push({
+        variable:this.todoslosparametros[i]['PARAMETRO'],
+        valor:this.todoslosparametros[i]['valoratomar']
+      })
     }
   }
-         
+    console.log(arreglo)     
   return arreglo
 }
 GuardarRegistroDeReportes(Report,Enviado,Erroes){
