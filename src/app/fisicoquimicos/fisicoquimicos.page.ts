@@ -34,6 +34,9 @@ export class FisicoquimicosPage implements OnInit {
 
   ngOnInit() {
     this.menu.activarmenuDesactivar(false);
+    this.incializar()
+  }
+  incializar(){
     this.master.fisicoquimicos.getAllFisicosQuimicosParametros().then((ParametrosFisicosQuimicos)=>{
       if(!ParametrosFisicosQuimicos['correcto']){
         if(ParametrosFisicosQuimicos['data']['status']==-1){
@@ -115,6 +118,12 @@ export class FisicoquimicosPage implements OnInit {
       espacio:null,
       responsable:null
     }
+    this.empresas=[]
+    this.granjas=[]
+    this.espacios=[]
+    this.responsables=[]
+    this.todoslosparametros=[]
+    this.incializar()
   }
   ValidarRegistro()
   {
