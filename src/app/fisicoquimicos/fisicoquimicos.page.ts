@@ -37,22 +37,12 @@ export class FisicoquimicosPage implements OnInit {
     this.incializar()
   }
   incializar(){
-    this.master.fisicoquimicos.getAllFisicosQuimicosParametros().then((ParametrosFisicosQuimicos)=>{
-      if(!ParametrosFisicosQuimicos['correcto']){
-        if(ParametrosFisicosQuimicos['data']['status']==-1){
-          this.todoslosparametros=[]
-          this.master.toastMensaje("No tienes internets",2000)
-        }else{
-          this.todoslosparametros=[]
-          this.master.toastMensaje("No se pudo extraer informacion",2000)
-        }
+    this.master.storage.getItems(this.master.storage.arrayname.ParametroFisico).then((Parametros)=>{
+      if(Parametros[0].length>0){
+        this.todoslosparametros=Parametros[0]
       }else{
-        if(ParametrosFisicosQuimicos['data']['parametros'].length>0){
-          this.todoslosparametros=ParametrosFisicosQuimicos['data']['parametros']
-        }else{
-          this.master.toastMensaje("No hay informacion",2000)
-          this.todoslosparametros=[]
-        }
+        this.master.toastMensaje("No hay informacion",2000)
+        this.todoslosparametros=[]
       }
     })
     this.master.storage.getItems(this.master.storage.arrayname.Empresas).then((Empresass)=>{
@@ -275,25 +265,15 @@ GuardarRegistroDeReportes(Report,Enviado,Erroes){
     if(this.DataForm.empresa){
       if(this.DataForm.granja){
         this.master.Load(this.loadingController).then(()=>{
-          this.master.granja.getAllEspaciosWithCOD(this.DataForm.empresa['IDEMP'],this.DataForm.granja['IDGRA']).then((Data)=>{
-            if(!Data['correcto']){
-              if(Data['data']['status']==-1){
-                this.espacios=[]
-                this.portComponent.close();
-                this.master.toastMensaje("No tienes internets",2000)
-              }else{
-                this.espacios=[]
-                this.portComponent.close();
-                this.master.toastMensaje("No se pudo extraer informacion",2000)
+          this.master.storage.getItems(this.master.storage.arrayname.EspaciosByCod).then((DataEspacios)=>{
+            let espacioss=[]
+            if(DataEspacios){
+              for(let i=0;i<DataEspacios[0].length;i++){
+                if(DataEspacios[0][i]['IDEMP']==this.DataForm.empresa['IDEMP'] && DataEspacios[0][i]['IDGRA']==this.DataForm.granja['IDGRA']){
+                  let val=espacioss.push(DataEspacios[0][i])
+                }
               }
-            }else{
-              if(Data['data']['espacios'].length>0){
-                this.espacios=Data['data']['espacios']
-              }else{
-                this.master.toastMensaje("No hay informacion",2000)
-                this.espacios=[]
-                this.portComponent.close();
-              }
+              this.espacios=espacioss
             }
             this.loadingController.dismiss()
           })  

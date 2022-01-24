@@ -42,6 +42,11 @@ export class LoadPage implements OnInit {
               let Datagranjas=granjas
               this.master.permisos.getAllPermisos().then((permisos)=>{
                 let Datapermisos=permisos
+                this.master.fisicoquimicos.getAllFisicosQuimicosParametros().then((ParametrosFisicosQuimicos)=>{
+                  let DataFisicoQuimicos=ParametrosFisicosQuimicos
+                  this.master.granja.getAllEspaciosWithCOD().then((Espacios)=>{
+                    let dataEspacios=Espacios
+
                 if(Datausuarios['correcto'])
                 {
                   if(Dataempresas['correcto'])
@@ -54,33 +59,46 @@ export class LoadPage implements OnInit {
                         {
                           if(Datapermisos['correcto'])
                           {
-                            this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],Dataempresas['data']['empresas'],Dataresponsables['data']['responsables'],Dataespecies['data']['especies'],Datagranjas['data']['granjas'],Datapermisos['data']['permisos'])
+                            if(DataFisicoQuimicos['correcto']){
+
+                              if(dataEspacios['correcto'])
+                              {
+                                this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],Dataempresas['data']['empresas'],Dataresponsables['data']['responsables'],Dataespecies['data']['especies'],Datagranjas['data']['granjas'],Datapermisos['data']['permisos'],DataFisicoQuimicos['data']['parametros'],dataEspacios['data']['espacios'])
+                              }else{
+                              this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],Dataempresas['data']['empresas'],Dataresponsables['data']['responsables'],Dataespecies['data']['especies'],Datagranjas['data']['granjas'],Datapermisos['data']['permisos'],DataFisicoQuimicos['data']['parametros'],null)
+                              }
+                            }else{
+                              this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],Dataempresas['data']['empresas'],Dataresponsables['data']['responsables'],Dataespecies['data']['especies'],Datagranjas['data']['granjas'],Datapermisos['data']['permisos'],null,null)
+                            }
                           }
                           else
                           {
-                            this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],Dataempresas['data']['empresas'],Dataresponsables['data']['responsables'],Dataespecies['data']['especies'],Datagranjas['data']['granjas'],null)
+                            this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],Dataempresas['data']['empresas'],Dataresponsables['data']['responsables'],Dataespecies['data']['especies'],Datagranjas['data']['granjas'],null,null,null)
                           }
                         }
                         else
                         {
-                          this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],Dataempresas['data']['empresas'],Dataresponsables['data']['responsables'],Dataespecies['data']['especies'],null,null)
+                          this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],Dataempresas['data']['empresas'],Dataresponsables['data']['responsables'],Dataespecies['data']['especies'],null,null,null,null)
                         }
                       }
                       else
                       {
-                        this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],Dataempresas['data']['empresas'],Dataresponsables['data']['responsables'],null,null,null)
+                        this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],Dataempresas['data']['empresas'],Dataresponsables['data']['responsables'],null,null,null,null,null)
                       }
                     }else{
-                      this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],Dataempresas['data']['empresas'],null,null,null,null)
+                      this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],Dataempresas['data']['empresas'],null,null,null,null,null,null)
                     }
                   }
                   else
                   {
-                    this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],null,null,null,null,null)
+                    this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],null,null,null,null,null,null,null)
                   }
                 }else{
-                  this.guardarinfoenBasedeDatos(null,null,null,null,null,null)
+                  this.guardarinfoenBasedeDatos(null,null,null,null,null,null,null,null)
                 }
+                
+                })
+               })
               })
             })
           })
@@ -88,7 +106,7 @@ export class LoadPage implements OnInit {
       })
     })
   }
-  guardarinfoenBasedeDatos(usuario,empresas,responsable,especies,granja,permisos){
+  guardarinfoenBasedeDatos(usuario,empresas,responsable,especies,granja,permisos,fisicoquimicos,espacios){
       if(usuario){
         this.master.storage.DeleteKey(this.master.storage.arrayname.Usuarios).then(()=>{
           this.master.storage.addItem(this.master.storage.arrayname.Usuarios,usuario).then(()=>{
@@ -107,7 +125,23 @@ export class LoadPage implements OnInit {
                                     if(permisos){
                                       this.master.storage.DeleteKey(this.master.storage.arrayname.Permisos).then(()=>{
                                         this.master.storage.addItem(this.master.storage.arrayname.Permisos,permisos).then(()=>{
-                                          this.finalizaciondeBusqueda()
+                                          if(fisicoquimicos){
+                                            this.master.storage.DeleteKey(this.master.storage.arrayname.ParametroFisico).then(()=>{
+                                              this.master.storage.addItem(this.master.storage.arrayname.ParametroFisico,fisicoquimicos).then(()=>{
+                                                if(espacios){
+                                                  this.master.storage.DeleteKey(this.master.storage.arrayname.EspaciosByCod).then(()=>{
+                                                    this.master.storage.addItem(this.master.storage.arrayname.EspaciosByCod,espacios).then(()=>{
+                                                      this.finalizaciondeBusqueda()
+                                                    })
+                                                  })
+                                                }else{
+                                                  this.finalizaciondeBusqueda()
+                                                }
+                                              })
+                                            })
+                                          }else{
+                                            this.finalizaciondeBusqueda()
+                                          }
                                         })
                                       })
                                     }else{
