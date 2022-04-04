@@ -42,6 +42,9 @@ export class LoadPage implements OnInit {
               let Datagranjas=granjas
               this.master.permisos.getAllPermisos().then((permisos)=>{
                 let Datapermisos=permisos
+                this.master.fisicoquimicos.getAllFisicosQuimicosParametros().then((fisicoquimicos)=>{
+                  let datafisicoquimicos=fisicoquimicos
+                  
                 if(Datausuarios['correcto'])
                 {
                   if(Dataempresas['correcto'])
@@ -54,33 +57,41 @@ export class LoadPage implements OnInit {
                         {
                           if(Datapermisos['correcto'])
                           {
-                            this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],Dataempresas['data']['empresas'],Dataresponsables['data']['responsables'],Dataespecies['data']['especies'],Datagranjas['data']['granjas'],Datapermisos['data']['permisos'])
-                          }
+                                if(datafisicoquimicos['correcto'])
+                              {
+                                this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],Dataempresas['data']['empresas'],Dataresponsables['data']['responsables'],Dataespecies['data']['especies'],Datagranjas['data']['granjas'],Datapermisos['data']['permisos'],datafisicoquimicos['data']['parametros'])
+                              }
+                              else
+                              {
+                                this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],Dataempresas['data']['empresas'],Dataresponsables['data']['responsables'],Dataespecies['data']['especies'],Datagranjas['data']['granjas'],Datapermisos['data']['permisos'],null)                          
+                              }
+                           }
                           else
                           {
-                            this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],Dataempresas['data']['empresas'],Dataresponsables['data']['responsables'],Dataespecies['data']['especies'],Datagranjas['data']['granjas'],null)
+                            this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],Dataempresas['data']['empresas'],Dataresponsables['data']['responsables'],Dataespecies['data']['especies'],Datagranjas['data']['granjas'],null,null)
                           }
                         }
                         else
                         {
-                          this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],Dataempresas['data']['empresas'],Dataresponsables['data']['responsables'],Dataespecies['data']['especies'],null,null)
+                          this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],Dataempresas['data']['empresas'],Dataresponsables['data']['responsables'],Dataespecies['data']['especies'],null,null,null)
                         }
                       }
                       else
                       {
-                        this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],Dataempresas['data']['empresas'],Dataresponsables['data']['responsables'],null,null,null)
+                        this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],Dataempresas['data']['empresas'],Dataresponsables['data']['responsables'],null,null,null,null)
                       }
                     }else{
-                      this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],Dataempresas['data']['empresas'],null,null,null,null)
+                      this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],Dataempresas['data']['empresas'],null,null,null,null,null)
                     }
                   }
                   else
                   {
-                    this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],null,null,null,null,null)
+                    this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],null,null,null,null,null,null)
                   }
                 }else{
-                  this.guardarinfoenBasedeDatos(null,null,null,null,null,null)
+                  this.guardarinfoenBasedeDatos(null,null,null,null,null,null,null)
                 }
+                })
               })
             })
           })
@@ -88,7 +99,7 @@ export class LoadPage implements OnInit {
       })
     })
   }
-  guardarinfoenBasedeDatos(usuario,empresas,responsable,especies,granja,permisos){
+  guardarinfoenBasedeDatos(usuario,empresas,responsable,especies,granja,permisos,fisicosquimicosparametros){
       if(usuario){
         this.master.storage.DeleteKey(this.master.storage.arrayname.Usuarios).then(()=>{
           this.master.storage.addItem(this.master.storage.arrayname.Usuarios,usuario).then(()=>{
@@ -107,7 +118,15 @@ export class LoadPage implements OnInit {
                                     if(permisos){
                                       this.master.storage.DeleteKey(this.master.storage.arrayname.Permisos).then(()=>{
                                         this.master.storage.addItem(this.master.storage.arrayname.Permisos,permisos).then(()=>{
-                                          this.finalizaciondeBusqueda()
+                                          if(fisicosquimicosparametros){
+                                            this.master.storage.DeleteKey(this.master.storage.arrayname.fisicosquimicosparametros).then(()=>{
+                                              this.master.storage.addItem(this.master.storage.arrayname.fisicosquimicosparametros,fisicosquimicosparametros).then(()=>{
+                                                this.finalizaciondeBusqueda()
+                                              })
+                                            })
+                                          }else{
+                                            this.finalizaciondeBusqueda()
+                                          }
                                         })
                                       })
                                     }else{

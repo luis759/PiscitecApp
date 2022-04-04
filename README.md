@@ -1,4 +1,4 @@
-# PISCITEC APP V-4
+# PISCITEC APP V-5
 ## Que se realiza en la aplicacion
 Se realiza primeramente el control de todo lo relacionado a los animales acuatico, como tambien la parte de control natal donde esta realiza la conexion a una aplicacion de escritorio por medio de una api, se usa para todo lo relacionado a los traajadores de campos
 ## Como Instalar
@@ -8,3 +8,10 @@ Se realiza primeramente el control de todo lo relacionado a los animales acuatic
 * luego ejecuta **ionic serve** para que puedas instalar angular en el ionic
 * ya de hay tu decides si deseas ejecutar la aplicacion en cordova o con capacitor
 * la aplicacion la api developer se encuentran en enveroiment
+## Debes tener
+* Ionic v-5
+* capacitor
+* node.js
+* android studio
+
+> version incluye la parte de fisicos quimicos sin el error de el internet 

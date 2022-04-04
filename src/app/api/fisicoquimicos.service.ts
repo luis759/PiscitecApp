@@ -72,6 +72,7 @@ postNewFisicoQuimicos(FisicoQuimico:any):Promise<any>{
    //API PARA LLAMAR TODOS LOS PARAMETROS FISICOS QUIMICOS
    getAllFisicosQuimicosParametros():Promise<any>{
     return new Promise((resolve)=>{
+      this.httpnative.setRequestTimeout(60)
       let nativecall=this.httpnative.get(environment.urlApi+'fisicoquimicos/parametros',{},{'Content-Type': 'application/json'})
       nativecall.then((Data)=>{
           if(Data.status==200 || Data.status==201){

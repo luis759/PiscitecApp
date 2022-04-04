@@ -38,16 +38,16 @@ export class FisicoquimicosPage implements OnInit {
       if(!ParametrosFisicosQuimicos['correcto']){
         if(ParametrosFisicosQuimicos['data']['status']==-1){
           this.todoslosparametros=[]
-          this.master.toastMensaje("No tienes internets",2000)
+          this.parametrosempty()
         }else{
           this.todoslosparametros=[]
-          this.master.toastMensaje("No se pudo extraer informacion",2000)
+          this.parametrosempty()
         }
       }else{
         if(ParametrosFisicosQuimicos['data']['parametros'].length>0){
           this.todoslosparametros=ParametrosFisicosQuimicos['data']['parametros']
         }else{
-          this.master.toastMensaje("No hay informacion",2000)
+          this.parametrosempty()
           this.todoslosparametros=[]
         }
       }
@@ -59,6 +59,16 @@ export class FisicoquimicosPage implements OnInit {
         this.empresas=[]
        }
     })
+  }
+  parametrosempty(){
+    this.master.storage.getItems(this.master.storage.arrayname.fisicosquimicosparametros).then((fisicosquimicosparametros)=>{
+      if(fisicosquimicosparametros){
+       this.todoslosparametros=fisicosquimicosparametros[0]
+      }else{
+       this.master.toastMensaje("No hay informacion",2000)
+       this.todoslosparametros=[]
+      }
+   })
   }
   changeResponsable(evento){
 
