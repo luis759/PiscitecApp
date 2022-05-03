@@ -173,7 +173,7 @@ validarInfoDataEnvio(){
   cantidad=0;  
   if(datajson.paso){
     datajson.paso=false
-    datajson.mensaje="Debes seleccion algun parametro"
+    datajson.mensaje="Debes seleccionar algun parametro"
     do {
       if((this.todoslosparametros[cantidad]['valoratomar'])){
           datajson.paso=true
@@ -201,6 +201,7 @@ seguir(){
       valor.OBSERVA=this.DataForm.observaciones
       valor.RESPONSABLE=this.DataForm.responsable['COD']
       valor.detallejson=JSON.stringify(this.retornodeArrayFisicoQuimicos())
+      console.log(valor)
       valor.USUARIO=id
         this.master.fisicoquimicos.postNewFisicoQuimicos(valor).then((NewFisicosQuimicos)=>{
           let ReporteGen=this.master.storage.vacunareporte
@@ -236,11 +237,12 @@ seguir(){
 }
 retornodeArrayFisicoQuimicos():any[]{
   let arreglo=[]
-  let variable={
-    variable:'',
-    valor:0
-  }
+  
   for (let i = 0; i < this.todoslosparametros.length; i++) {
+    let variable={
+      variable:'',
+      valor:0
+    }
     if(this.todoslosparametros[i]['valoratomar']){
       console.log(this.todoslosparametros[i])
       variable.valor= this.todoslosparametros[i]['valoratomar']
