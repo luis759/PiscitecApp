@@ -1,16 +1,22 @@
 .logo {
     width: 120px;
     height: 120px;
-    margin: 20px auto 20px;
+    margin: 15px auto;
     border-radius: 10%;
     background-size: 100%;
   }
 .styletexto{
     color:var(--ion-color-principal);
+    font-size: 35px;
+    font-weight: bolder;
+}
+.ripple-parent{
+    width: 55%;
+    margin:20px auto;
 }
 .styleinputlogin{
     border: 1px solid var(--ion-color-principal);
-    border-radius: 42px 42px;
+    border-radius: 10px 10px;
 }
 .my-checkbox {
     display: flex;
@@ -18,6 +24,7 @@
     align-items: center;
 }
 .styleinputlogininve{
+    margin-top: 15px;
     border: 1px solid var(--ion-color-principal);
-    border-radius: 42px 42px;
+    border-radius: 10px 10px;
 }

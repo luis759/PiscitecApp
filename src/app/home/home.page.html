@@ -3,20 +3,34 @@
     <ion-buttons  slot="start" >
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>
+    <ion-title class="ion-text-center">
       PISCITEC
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-list>
+<ion-content [fullscreen]="true" class="ion-padding ">
+  <ion-list style="border: 1px solid var(--ion-color-principal);border-radius: 7px;" >
     <ion-radio-group allow-empty-selection="true"  (ionChange)="radioGroupChange($event)" [value]="valorinicial">
       <ion-list-header>
-        <ion-label>Reportes a Elejir</ion-label>
+        <ion-label color="principal" style="font-weight:bolder ;">Control Técnico de Cultivo
+        </ion-label>
       </ion-list-header>
   
       <ion-item *ngFor="let reportes of reportes">
+        <ion-label class="ion-text-wrap">{{reportes.name}}</ion-label>
+        <ion-radio slot="start" [value]="reportes.id"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+  </ion-list>
+  <ion-list style="border: 1px solid var(--ion-color-principal);border-radius: 7px;"  class="ion-margin-top">
+    <ion-radio-group allow-empty-selection="true"  (ionChange)="radioGroupChange($event)" [value]="valorinicial">
+      <ion-list-header>
+        <ion-label color="principal" style="font-weight:bolder ;">Control de Inventarios
+        </ion-label>
+      </ion-list-header>
+  
+      <ion-item *ngFor="let reportes of inventarios">
         <ion-label class="ion-text-wrap">{{reportes.name}}</ion-label>
         <ion-radio slot="start" [value]="reportes.id"></ion-radio>
       </ion-item>
@@ -27,11 +41,13 @@
   <ion-toolbar color="transparent" > 
     <ion-grid >
       <ion-row >
-         <ion-col size="12">
+        <ion-col size="2"></ion-col>
+         <ion-col size="8">
           <ion-button expand="full" tappable color="principal" (click)="irAlGenerarReporte()">
             Seleccionar
           </ion-button>
         </ion-col>
+        <ion-col size="2"></ion-col>
       </ion-row>
     </ion-grid>
   </ion-toolbar>

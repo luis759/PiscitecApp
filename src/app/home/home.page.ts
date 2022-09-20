@@ -10,13 +10,20 @@ import { MasterService } from '../services/master.service';
 export class HomePage {
   reportes=[{
     id:1,
-    name:"Captura de Muestreos y Tallas"
+    name:"Biometrias"
   },{
     id:2,
     name:"Vacunas"
   },{
+    id:4,
+    name:"Mortalidad"
+  },{
     id:3,
-    name:"Reporte Fisico Quimicos"
+    name:"Fisicos - Quimicos"
+  }]
+  inventarios=[{
+    id:1,
+    name:"Consumo de Materias"
   }]
   valorinicial=0
   constructor(private navcontorll:NavController,private master:MasterService) {}

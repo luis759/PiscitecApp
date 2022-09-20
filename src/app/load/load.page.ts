@@ -10,7 +10,7 @@ import { MasterService } from '../services/master.service';
 export class LoadPage implements OnInit {
 
   constructor(private navcontroll:NavController,private master:MasterService) { 
-    this.CheckInternet()
+   this.CheckInternet()
   }
 
   ngOnInit() {

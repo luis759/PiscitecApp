@@ -115,7 +115,7 @@ export class FisicoquimicosPage implements OnInit {
     })
   }
   limpiarData(){
-    this.DataForm=={
+    this.DataForm={
       observaciones:'',
       fecha:new Date().toString(),
       startdate:new Date().toString(),
