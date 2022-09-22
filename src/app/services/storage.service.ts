@@ -20,6 +20,8 @@ export class StorageService {
     "Empresas":"Empresas",
     "Permisos":"Permisos",
     "Responsables":"Responsables",
+    "Materias":"Materias",
+    "Causas":"Causas",
     "Especies":"Especies",
     "Granjas":"Granjas",
     "DetallePrueb":"DetallePrueb",

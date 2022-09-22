@@ -44,8 +44,11 @@ export class LoadPage implements OnInit {
                 let Datapermisos=permisos
                 this.master.fisicoquimicos.getAllFisicosQuimicosParametros().then((fisicoquimicos)=>{
                   let datafisicoquimicos=fisicoquimicos
-                  
-                if(Datausuarios['correcto'])
+                  this.master.consumos.getAllMaterias().then((materia)=>{
+                    let dataMaterias=materia
+                    this.master.mortalidadt.getAllCausas().then((allcausas)=>{
+                      let dataCausas=allcausas
+                      if(Datausuarios['correcto'])
                 {
                   if(Dataempresas['correcto'])
                   {
@@ -57,40 +60,54 @@ export class LoadPage implements OnInit {
                         {
                           if(Datapermisos['correcto'])
                           {
-                                if(datafisicoquimicos['correcto'])
+                            if(datafisicoquimicos['correcto'])
                               {
-                                this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],Dataempresas['data']['empresas'],Dataresponsables['data']['responsables'],Dataespecies['data']['especies'],Datagranjas['data']['granjas'],Datapermisos['data']['permisos'],datafisicoquimicos['data']['parametros'])
+                                if(dataMaterias['correcto'])
+                                {
+                                  if(dataCausas['correcto'])
+                                  {
+                                    this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],Dataempresas['data']['empresas'],Dataresponsables['data']['responsables'],Dataespecies['data']['especies'],Datagranjas['data']['granjas'],Datapermisos['data']['permisos'],datafisicoquimicos['data']['parametros'],dataMaterias['data']['materias'],dataCausas['data']['causas'])
+                                  }else{
+                                    this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],Dataempresas['data']['empresas'],Dataresponsables['data']['responsables'],Dataespecies['data']['especies'],Datagranjas['data']['granjas'],Datapermisos['data']['permisos'],datafisicoquimicos['data']['parametros'],dataMaterias['data']['materias'],null)
+                                  }
+                                }else{
+                                  this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],Dataempresas['data']['empresas'],Dataresponsables['data']['responsables'],Dataespecies['data']['especies'],Datagranjas['data']['granjas'],Datapermisos['data']['permisos'],datafisicoquimicos['data']['parametros'],null,null)
+                                }
                               }
                               else
                               {
-                                this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],Dataempresas['data']['empresas'],Dataresponsables['data']['responsables'],Dataespecies['data']['especies'],Datagranjas['data']['granjas'],Datapermisos['data']['permisos'],null)                          
+                                this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],Dataempresas['data']['empresas'],Dataresponsables['data']['responsables'],Dataespecies['data']['especies'],Datagranjas['data']['granjas'],Datapermisos['data']['permisos'],null,null,null)                          
                               }
                            }
                           else
                           {
-                            this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],Dataempresas['data']['empresas'],Dataresponsables['data']['responsables'],Dataespecies['data']['especies'],Datagranjas['data']['granjas'],null,null)
+                            this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],Dataempresas['data']['empresas'],Dataresponsables['data']['responsables'],Dataespecies['data']['especies'],Datagranjas['data']['granjas'],null,null,null,null)
                           }
                         }
                         else
                         {
-                          this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],Dataempresas['data']['empresas'],Dataresponsables['data']['responsables'],Dataespecies['data']['especies'],null,null,null)
+                          this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],Dataempresas['data']['empresas'],Dataresponsables['data']['responsables'],Dataespecies['data']['especies'],null,null,null,null,null)
                         }
                       }
                       else
                       {
-                        this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],Dataempresas['data']['empresas'],Dataresponsables['data']['responsables'],null,null,null,null)
+                        this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],Dataempresas['data']['empresas'],Dataresponsables['data']['responsables'],null,null,null,null,null,null)
                       }
                     }else{
-                      this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],Dataempresas['data']['empresas'],null,null,null,null,null)
+                      this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],Dataempresas['data']['empresas'],null,null,null,null,null,null,null)
                     }
                   }
                   else
                   {
-                    this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],null,null,null,null,null,null)
+                    this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],null,null,null,null,null,null,null,null)
                   }
                 }else{
-                  this.guardarinfoenBasedeDatos(null,null,null,null,null,null,null)
+                  this.guardarinfoenBasedeDatos(null,null,null,null,null,null,null,null,null)
                 }
+
+
+                    })
+                  })
                 })
               })
             })
@@ -99,7 +116,7 @@ export class LoadPage implements OnInit {
       })
     })
   }
-  guardarinfoenBasedeDatos(usuario,empresas,responsable,especies,granja,permisos,fisicosquimicosparametros){
+  guardarinfoenBasedeDatos(usuario,empresas,responsable,especies,granja,permisos,fisicosquimicosparametros,materias,causas){
       if(usuario){
         this.master.storage.DeleteKey(this.master.storage.arrayname.Usuarios).then(()=>{
           this.master.storage.addItem(this.master.storage.arrayname.Usuarios,usuario).then(()=>{
@@ -121,7 +138,23 @@ export class LoadPage implements OnInit {
                                           if(fisicosquimicosparametros){
                                             this.master.storage.DeleteKey(this.master.storage.arrayname.fisicosquimicosparametros).then(()=>{
                                               this.master.storage.addItem(this.master.storage.arrayname.fisicosquimicosparametros,fisicosquimicosparametros).then(()=>{
-                                                this.finalizaciondeBusqueda()
+                                                if(materias){
+                                                  this.master.storage.DeleteKey(this.master.storage.arrayname.Materias).then(()=>{
+                                                    this.master.storage.addItem(this.master.storage.arrayname.Materias,materias).then(()=>{
+                                                      if(causas){
+                                                        this.master.storage.DeleteKey(this.master.storage.arrayname.Causas).then(()=>{
+                                                          this.master.storage.addItem(this.master.storage.arrayname.Causas,causas).then(()=>{
+                                                            this.finalizaciondeBusqueda()
+                                                          })
+                                                        })
+                                                      }else{
+                                                        this.finalizaciondeBusqueda()
+                                                      }
+                                                    })
+                                                  })
+                                                }else{
+                                                  this.finalizaciondeBusqueda()
+                                                }
                                               })
                                             })
                                           }else{

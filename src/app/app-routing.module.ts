@@ -19,6 +19,7 @@ const routes: Routes = [
     loadChildren: () => import('./load/load.module').then( m => m.LoadPageModule)
   }
 
+
 ];
 
 @NgModule({

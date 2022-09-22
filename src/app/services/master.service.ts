@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController, NavController, Platform, ToastController } from '@ionic/angular';
+import { ConsumosService } from '../api/consumos.service';
 import { EmpresasService } from '../api/empresas.service';
 import { EspeciesService } from '../api/especies.service';
 import { FisicoquimicosService } from '../api/fisicoquimicos.service';
 import { GranjasService } from '../api/granjas.service';
+import { MortalidadService } from '../api/mortalidad.service';
 import { PermisosService } from '../api/permisos.service';
 import { ReportesService } from '../api/reportes.service';
 import { ResponsablesService } from '../api/responsables.service';
@@ -20,7 +22,8 @@ export class MasterService {
   constructor(private platform:Platform,public storage:StorageService,public reportes:ReportesService,
     public usuario:UsuarioService,public Empresas:EmpresasService,public granja:GranjasService,public Responsable:ResponsablesService,
     public permisos:PermisosService,public especies:EspeciesService,public vacunas:VacunaService,public fisicoquimicos:FisicoquimicosService,
-    public alertController: AlertController,private routr:Router,private navController:NavController,private toast:ToastController) { }
+    public alertController: AlertController,private routr:Router,private navController:NavController,private toast:ToastController,
+    public consumos:ConsumosService,public mortalidadt:MortalidadService) { }
     
     async Load(LoadingControllers:LoadingController):Promise<void> {
       let load = await LoadingControllers.create({

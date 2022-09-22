@@ -1,0 +1,22 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="principal">
+    <ion-buttons  slot="start" >
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      <div class="ion-text-wrap">
+        Reporte Fisico Quimicos
+       </div>
+
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-fab vertical="bottom" horizontal="end"  slot="fixed" *ngIf="todoslosparametros.length>0">
+    <ion-fab-button color="principal" (click)="ValidarRegistro()" >
+      <ion-icon name="arrow-forward-circle">
+      </ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
