@@ -1,0 +1,76 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="principal">
+    <ion-buttons  slot="start" >
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      <div class="ion-text-wrap">
+        Registro de Mortalidad
+       </div>
+
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list>
+    <ion-item >
+      <ion-label  color="dark">Espacios Productivos *</ion-label>
+      <ionic-selectable 
+        [(ngModel)]="DataForm.espacios"
+        [items]="espaciosprod"
+        itemValueField="IDEMP"
+        itemTextField="EMPRESA"
+        [canSearch]="true"
+        (onChange)="changeespacios($event)"
+        closeButtonText="Cerrar">
+      </ionic-selectable>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label position="stacked" style="font-size: larger;">Cantidad AM: *</ion-label>
+      <ion-input [(ngModel)]="DataForm.cantidadam"  placeholder="Cantidad AM" type="number"></ion-input>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label position="stacked" style="font-size: larger;">Kilos AM: *</ion-label>
+      <ion-input [(ngModel)]="DataForm.kilosam"  placeholder="Kilos AM" type="number"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked" style="font-size: larger;">Cantidad PM: *</ion-label>
+      <ion-input [(ngModel)]="DataForm.cantidadpm"  placeholder="Cantidad PM" type="number"></ion-input>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label position="stacked" style="font-size: larger;">Kilos PM: *</ion-label>
+      <ion-input [(ngModel)]="DataForm.kilospm"  placeholder="Kilos AM" type="number"></ion-input>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label position="stacked" style="font-size: larger;">Observaciones: *</ion-label>
+      <ion-input [(ngModel)]="DataForm.observaciones"  placeholder="observaciones" type="text"></ion-input>
+    </ion-item>
+    <ion-item >
+      <ion-label  color="dark">Causas *</ion-label>
+      <ionic-selectable 
+        [(ngModel)]="DataForm.causas"
+        [items]="causass"
+        itemValueField="IDGRA"
+        itemTextField="NOMBRE"
+        [canSearch]="true"
+        (onChange)="changecausas($event)"
+        closeButtonText="Cerrar">
+      </ionic-selectable>
+    </ion-item>
+    </ion-list>    
+    <ion-row>
+      <ion-col size="6">
+        <ion-button expand="block" (click)="finalizar()" color="warning" style="border-radius:10px !important;">Finalizar</ion-button>
+
+      </ion-col>
+      <ion-col size="6">
+        <ion-button expand="block" color="principal" style="border-radius:10px !important;">Agregar Otro</ion-button>
+
+      </ion-col>
+    </ion-row>
+</ion-content>

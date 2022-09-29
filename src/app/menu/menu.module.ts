@@ -11,15 +11,23 @@ import { ReportdetallePage } from '../modals/reportdetalle/reportdetalle.page';
 import { ReportdetallePageModule } from '../modals/reportdetalle/reportdetalle.module';
 import { ReportsaldoPage } from '../modals/reportsaldo/reportsaldo.page';
 import { ReportsaldoPageModule } from '../modals/reportsaldo/reportsaldo.module';
+import { MateriasconsumoregPage } from '../modals/materiasconsumoreg/materiasconsumoreg.page';
+import { MateriasconsumoregPageModule } from '../modals/materiasconsumoreg/materiasconsumoreg.module';
+import { MortalidadregPage } from '../modals/mortalidadreg/mortalidadreg.page';
+import { MortalidadregPageModule } from '../modals/mortalidadreg/mortalidadreg.module';
 
 @NgModule({
   entryComponents:[
     ReportdetallePage,
-    ReportsaldoPage
+    ReportsaldoPage,
+    MateriasconsumoregPage,
+    MortalidadregPage
     ],
   imports: [
     ReportdetallePageModule,
     ReportsaldoPageModule,
+    MateriasconsumoregPageModule,
+    MortalidadregPageModule,
     CommonModule,
     FormsModule,
     IonicModule,

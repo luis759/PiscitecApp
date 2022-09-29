@@ -40,16 +40,8 @@ const routes: Routes = [
         loadChildren: () => import('../materiasconsumo/materiasconsumo.module').then( m => m.MateriasconsumoPageModule)
       },
       {
-        path: 'materiasconsumoreg',
-        loadChildren: () => import('../materiasconsumoreg/materiasconsumoreg.module').then( m => m.MateriasconsumoregPageModule)
-      },
-      {
         path: 'mortalidad',
         loadChildren: () => import('../mortalidad/mortalidad.module').then( m => m.MortalidadPageModule)
-      },
-      {
-        path: 'mortalidadreg',
-        loadChildren: () => import('../mortalidadreg/mortalidadreg.module').then( m => m.MortalidadregPageModule)
       }
     ]
   }

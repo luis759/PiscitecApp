@@ -5,7 +5,7 @@
     </ion-buttons>
     <ion-title>
       <div class="ion-text-wrap">
-        Reporte Fisico Quimicos
+        Consumo de Materias
        </div>
 
     </ion-title>
@@ -13,10 +13,74 @@
 </ion-header>
 
 <ion-content>
-  <ion-fab vertical="bottom" horizontal="end"  slot="fixed" *ngIf="todoslosparametros.length>0">
-    <ion-fab-button color="principal" (click)="ValidarRegistro()" >
-      <ion-icon name="arrow-forward-circle">
-      </ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+    <ion-list>
+    <ion-item >
+      <ion-label  color="dark">Empresa *</ion-label>
+      <ionic-selectable 
+        [(ngModel)]="DataForm.empresa"
+        [items]="empresas"
+        itemValueField="IDEMP"
+        itemTextField="EMPRESA"
+        [canSearch]="true"
+        (onChange)="changeEmpresas($event)"
+        closeButtonText="Cerrar">
+      </ionic-selectable>
+    </ion-item>
+    <ion-item >
+      <ion-label  color="dark">Granja *</ion-label>
+      <ionic-selectable 
+        [(ngModel)]="DataForm.granja"
+        [items]="granjas"
+        itemValueField="IDGRA"
+        itemTextField="NOMBRE"
+        [canSearch]="true"
+        (onChange)="changeGranjas($event)"
+        closeButtonText="Cerrar">
+      </ionic-selectable>
+    </ion-item>
+    <ion-item >
+      <ion-label  color="dark">Responsable *</ion-label>
+      <ionic-selectable 
+        [(ngModel)]="DataForm.responsable"
+        [items]="responsables"
+        itemValueField="ID"
+        itemTextField="NOMBRES"
+        [canSearch]="true"
+        (onChange)="changeResponsable($event)"
+        closeButtonText="Cerrar">
+      </ionic-selectable>
+    </ion-item>
+    <ion-item>
+      <ion-label  position="" class="ion-text-wrap">Fecha *</ion-label>
+      <ion-datetime monthShortNames='Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Sep, Oct, Nov, Dic' min="1980" max="2030" cancelText="CANCELAR"  doneText="ACEPTAR" placeholder="Selecciona la Fecha" [(ngModel)]="DataForm.fecha" ></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked" style="font-size: larger;">Observaciones:</ion-label>
+      <ion-input [(ngModel)]="DataForm.observaciones"  placeholder="observaciones" type="text"></ion-input>
+    </ion-item>
+    </ion-list>
+    <ion-list style="margin:0px 15%;" class="ion-text-center">
+        <ion-item class="ion-text-left" *ngFor=" let item of listConsumos"> 
+          <ion-label >
+            <p style="color:black;font-size: medium;font-weight: bolder;border:1px solid black;margin:0px;padding:5px;">Resumen de Consumos</p>
+            <p style="color:black;border:1px solid black;margin:0px;padding:5px;">Lote: <ion-badge color="primary">{{item.Lotes}}</ion-badge></p>
+            <p style="color:black;border:1px solid black;margin:0px;padding:5px;">Cantidad: <ion-badge color="primary">{{item.Cantidad}}</ion-badge></p>
+          </ion-label>
+        </ion-item>
+     
+      <ion-button color="principal" (click)="irAConsumos()" style="border-radius:10px !important;">Agregar Consumo</ion-button>
+    </ion-list>
+    <ion-row>
+      <ion-col size="2">
+
+      </ion-col>
+      <ion-col size="8">
+        <ion-button expand="block" color="principal" style="border-radius:10px !important;">Enviar Datos</ion-button>
+        
+      </ion-col>
+      <ion-col size="2">
+        
+      </ion-col>
+    </ion-row>
 </ion-content>
+

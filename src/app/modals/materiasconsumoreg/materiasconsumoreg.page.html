@@ -1,0 +1,67 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="principal">
+    <ion-buttons  slot="start" >
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      <div class="ion-text-wrap">
+        Registro de Consumo de Materias
+       </div>
+
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list>
+    <ion-item >
+      <ion-label  color="dark">Espacios Productivos *</ion-label>
+      <ionic-selectable 
+        [(ngModel)]="DataForm.espacios"
+        [items]="espaciosprod"
+        itemValueField="IDEMP"
+        itemTextField="EMPRESA"
+        [canSearch]="true"
+        (onChange)="changeespacios($event)"
+        closeButtonText="Cerrar">
+      </ionic-selectable>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label position="stacked" style="font-size: larger;">Cantidad: *</ion-label>
+      <ion-input [(ngModel)]="DataForm.cantidad"  placeholder="Cantidad" type="number"></ion-input>
+    </ion-item>
+    <ion-item >
+      <ion-label  color="dark">Materia Prima *</ion-label>
+      <ionic-selectable 
+        [(ngModel)]="DataForm.materia"
+        [items]="materias"
+        itemValueField="IDGRA"
+        itemTextField="NOMBRE"
+        [canSearch]="true"
+        (onChange)="changematerias($event)"
+        closeButtonText="Cerrar">
+      </ionic-selectable>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label position="stacked" style="font-size: larger;">Lote Etiqueta: *</ion-label>
+      <ion-input [(ngModel)]="DataForm.Lotes"  placeholder="Lote Etiqueta" type="text"></ion-input>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label position="stacked" style="font-size: larger;">Observaciones: *</ion-label>
+      <ion-input [(ngModel)]="DataForm.observaciones"  placeholder="observaciones" type="text"></ion-input>
+    </ion-item>
+    </ion-list>    
+    <ion-row>
+      <ion-col size="6">
+        <ion-button expand="block" (click)="finalizar()" color="warning" style="border-radius:10px !important;">Finalizar</ion-button>
+
+      </ion-col>
+      <ion-col size="6">
+        <ion-button expand="block" color="principal" style="border-radius:10px !important;">Agregar Otro</ion-button>
+
+      </ion-col>
+    </ion-row>
+</ion-content>

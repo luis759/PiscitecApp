@@ -3,15 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { MortalidadregPage } from './mortalidadreg.page';
 
-const routes: Routes = [
-  {
-    path: '',
-    component: MortalidadregPage
-  }
-];
-
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [RouterModule],
   exports: [RouterModule],
 })
 export class MortalidadregPageRoutingModule {}

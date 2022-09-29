@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
+import { IonicSelectableModule } from 'ionic-selectable';
+
 import { MortalidadregPageRoutingModule } from './mortalidadreg-routing.module';
 
 import { MortalidadregPage } from './mortalidadreg.page';
@@ -13,6 +15,7 @@ import { MortalidadregPage } from './mortalidadreg.page';
     CommonModule,
     FormsModule,
     IonicModule,
+    IonicSelectableModule,
     MortalidadregPageRoutingModule
   ],
   declarations: [MortalidadregPage]

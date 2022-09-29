@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
+import { IonicSelectableModule } from 'ionic-selectable';
 import { MateriasconsumoregPageRoutingModule } from './materiasconsumoreg-routing.module';
 
 import { MateriasconsumoregPage } from './materiasconsumoreg.page';
@@ -12,6 +13,7 @@ import { MateriasconsumoregPage } from './materiasconsumoreg.page';
   imports: [
     CommonModule,
     FormsModule,
+    IonicSelectableModule,
     IonicModule,
     MateriasconsumoregPageRoutingModule
   ],
