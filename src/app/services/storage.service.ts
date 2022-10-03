@@ -29,6 +29,7 @@ export class StorageService {
     "VacunaReporte":"VacunaReporte",
     "FisiscosQuimicosRep":"FisiscosQuimicosRep",
     "UsuarioActivo":"UsuarioActivo",
+    "EspaciosByCod":"EspaciosByCod",
     "fisicosquimicosparametros":"fisicosquimicosparametros"
   } 
   constructor(private storage:Storage) {

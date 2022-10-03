@@ -19,8 +19,8 @@
       <ionic-selectable 
         [(ngModel)]="DataForm.espacios"
         [items]="espaciosprod"
-        itemValueField="IDEMP"
-        itemTextField="EMPRESA"
+        itemValueField="NOMBRE"
+        itemTextField="NOMBRE"
         [canSearch]="true"
         (onChange)="changeespacios($event)"
         closeButtonText="Cerrar">
@@ -60,7 +60,7 @@
 
       </ion-col>
       <ion-col size="6">
-        <ion-button expand="block" color="principal" style="border-radius:10px !important;">Agregar Otro</ion-button>
+        <ion-button expand="block"  (click)="agregarotro()" color="principal" style="border-radius:10px !important;">Agregar Otro</ion-button>
 
       </ion-col>
     </ion-row>

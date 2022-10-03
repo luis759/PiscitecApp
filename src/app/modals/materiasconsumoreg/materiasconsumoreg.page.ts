@@ -9,8 +9,7 @@ import { MasterService } from 'src/app/services/master.service';
   styleUrls: ['./materiasconsumoreg.page.scss'],
 })
 export class MateriasconsumoregPage implements OnInit {
-  @Input() public materiasprimas: any
-  @Input() public espaciosproductivos: any
+  @Input() public idgranja: any
   DataForm={
     observaciones:'',
     Lotes:'',
@@ -18,6 +17,8 @@ export class MateriasconsumoregPage implements OnInit {
     espacios:null,
     materia:null
   }
+  idgranjas=0
+  idempresa=0
   espaciosprod=[]
   materias=[]
   listConsumos=[
@@ -29,12 +30,24 @@ export class MateriasconsumoregPage implements OnInit {
   consumosValores=[]
   constructor(private master:MasterService,private loadingController:LoadingController,private modalController:ModalController,
     navParams: NavParams) {
-     if(navParams.get('materiasprimas')){
-        this.materias=navParams.get('materiasprimas')
+      if(navParams.get('idempresa')){
+        this.idempresa=navParams.get('idempresa')
       }
-      if(navParams.get('espaciosproductivos')){
-        this.espaciosprod=navParams.get('espaciosproductivos')
+      if(navParams.get('idgranja')){
+        this.idgranjas=navParams.get('idgranja')
       }
+      this.master.storage.getItems(this.master.storage.arrayname.EspaciosByCod).then((DataEspacios)=>{
+        let espacioss=[]
+        if(DataEspacios){
+          for(let i=0;i<DataEspacios[0].length;i++){
+            if(DataEspacios[0][i]['IDEMP']== this.idempresa && DataEspacios[0][i]['IDGRA']==this.idgranjas){
+              let val=espacioss.push(DataEspacios[0][i])
+            }
+          }
+          this.espaciosprod=espacioss
+        }
+      })
+      
    }
 
   finalizar(){

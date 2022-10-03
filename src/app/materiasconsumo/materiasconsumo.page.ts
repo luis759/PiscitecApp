@@ -33,6 +33,16 @@ export class MateriasconsumoPage implements OnInit {
   
   ngOnInit() {
     this.menu.activarmenuDesactivar(false);
+    this.master.storage.getItems(this.master.storage.arrayname.Empresas).then((Empresass)=>{
+       if(Empresass){
+        this.empresas=Empresass[0]
+       }else{
+        this.empresas=[]
+       }
+    })
+  }
+  ValidarRegistro(){
+
   }
   ngOnDestroy() {
     this.menu.activarmenuDesactivar(true);
@@ -72,18 +82,22 @@ export class MateriasconsumoPage implements OnInit {
     })
   }
   async irAConsumos(){
-    const modal=await this.modalController.create({
-      component:MateriasconsumoregPage,
-      componentProps:{
-        materiasprimas:this.listmaterias,
-        espaciosproductivos:this.espaciosproductivos
-      }
-    });
-    modal.onDidDismiss().then((detalles)=>{
-      if(detalles.data){
-        this.listConsumos=this.listConsumos.concat(detalles.data)
-      }
-    })
-    return await modal.present()
+    if(this.DataForm.granja){
+      const modal=await this.modalController.create({
+        component:MateriasconsumoregPage,
+        componentProps:{
+          idgranja:this.DataForm.granja
+        }
+      });
+      modal.onDidDismiss().then((detalles)=>{
+        if(detalles.data){
+          this.listConsumos=this.listConsumos.concat(detalles.data)
+        }
+      })
+      return await modal.present()
+    }else{
+      this.master.toastMensaje("Debes Seleccionar una Granja",4000)
+    }
+   
   }
 }

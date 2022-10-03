@@ -34,22 +34,15 @@ export class FisicoquimicosPage implements OnInit {
 
   ngOnInit() {
     this.menu.activarmenuDesactivar(false);
-    this.master.fisicoquimicos.getAllFisicosQuimicosParametros().then((ParametrosFisicosQuimicos)=>{
-      if(!ParametrosFisicosQuimicos['correcto']){
-        if(ParametrosFisicosQuimicos['data']['status']==-1){
-          this.todoslosparametros=[]
-          this.parametrosempty()
-        }else{
-          this.todoslosparametros=[]
-          this.parametrosempty()
-        }
+    this.incializar()
+  }
+  incializar(){
+    this.master.storage.getItems(this.master.storage.arrayname.fisicosquimicosparametros).then((Parametros)=>{
+      if(Parametros[0].length>0){
+        this.todoslosparametros=Parametros[0]
       }else{
-        if(ParametrosFisicosQuimicos['data']['parametros'].length>0){
-          this.todoslosparametros=ParametrosFisicosQuimicos['data']['parametros']
-        }else{
-          this.parametrosempty()
-          this.todoslosparametros=[]
-        }
+        this.master.toastMensaje("No hay informacion",2000)
+        this.todoslosparametros=[]
       }
     })
     this.master.storage.getItems(this.master.storage.arrayname.Empresas).then((Empresass)=>{
@@ -59,16 +52,6 @@ export class FisicoquimicosPage implements OnInit {
         this.empresas=[]
        }
     })
-  }
-  parametrosempty(){
-    this.master.storage.getItems(this.master.storage.arrayname.fisicosquimicosparametros).then((fisicosquimicosparametros)=>{
-      if(fisicosquimicosparametros){
-       this.todoslosparametros=fisicosquimicosparametros[0]
-      }else{
-       this.master.toastMensaje("No hay informacion",2000)
-       this.todoslosparametros=[]
-      }
-   })
   }
   changeResponsable(evento){
 
@@ -125,6 +108,12 @@ export class FisicoquimicosPage implements OnInit {
       espacio:null,
       responsable:null
     }
+    this.empresas=[]
+    this.granjas=[]
+    this.espacios=[]
+    this.responsables=[]
+    this.todoslosparametros=[]
+    this.incializar()
   }
   ValidarRegistro()
   {
@@ -163,10 +152,10 @@ validarInfoDataEnvio(){
   do {
     if(this.todoslosparametros[cantidad]['valoratomar']>this.todoslosparametros[cantidad]['VALMAX']){
       datajson.paso=false;
-      datajson.mensaje="Debe ser menor o igual a "+this.todoslosparametros[cantidad]['VALMAX']+" "+this.todoslosparametros[cantidad]['UNIDAD']
+      datajson.mensaje=this.todoslosparametros[cantidad]['PARAMETRO']+", debe ser menor o igual a "+this.todoslosparametros[cantidad]['VALMAX']+" "+this.todoslosparametros[cantidad]['UNIDAD']
     }else if (this.todoslosparametros[cantidad]['valoratomar']<this.todoslosparametros[cantidad]['VALMIN'] ){
       datajson.paso=false;
-      datajson.mensaje="Debe ser mayor o igual a "+this.todoslosparametros[cantidad]['VALMIN']+" "+this.todoslosparametros[cantidad]['UNIDAD']
+      datajson.mensaje=this.todoslosparametros[cantidad]['PARAMETRO']+", debe ser mayor o igual a "+this.todoslosparametros[cantidad]['VALMIN']+" "+this.todoslosparametros[cantidad]['UNIDAD']
     }
     cantidad++;
   }while ((cantidad<this.todoslosparametros.length) && datajson.paso); 
@@ -201,7 +190,6 @@ seguir(){
       valor.OBSERVA=this.DataForm.observaciones
       valor.RESPONSABLE=this.DataForm.responsable['COD']
       valor.detallejson=JSON.stringify(this.retornodeArrayFisicoQuimicos())
-      console.log(valor)
       valor.USUARIO=id
         this.master.fisicoquimicos.postNewFisicoQuimicos(valor).then((NewFisicosQuimicos)=>{
           let ReporteGen=this.master.storage.vacunareporte
@@ -237,20 +225,14 @@ seguir(){
 }
 retornodeArrayFisicoQuimicos():any[]{
   let arreglo=[]
-  
   for (let i = 0; i < this.todoslosparametros.length; i++) {
-    let variable={
-      variable:'',
-      valor:0
-    }
     if(this.todoslosparametros[i]['valoratomar']){
-      console.log(this.todoslosparametros[i])
-      variable.valor= this.todoslosparametros[i]['valoratomar']
-      variable.variable=this.todoslosparametros[i]['PARAMETRO']
-      arreglo.push(variable)
+      arreglo.push({
+        variable:this.todoslosparametros[i]['PARAMETRO'],
+        valor:this.todoslosparametros[i]['valoratomar']
+      })
     }
   }
-         
   return arreglo
 }
 GuardarRegistroDeReportes(Report,Enviado,Erroes){
@@ -278,25 +260,15 @@ GuardarRegistroDeReportes(Report,Enviado,Erroes){
     if(this.DataForm.empresa){
       if(this.DataForm.granja){
         this.master.Load(this.loadingController).then(()=>{
-          this.master.granja.getAllEspaciosWithCOD(this.DataForm.empresa['IDEMP'],this.DataForm.granja['IDGRA']).then((Data)=>{
-            if(!Data['correcto']){
-              if(Data['data']['status']==-1){
-                this.espacios=[]
-                this.portComponent.close();
-                this.master.toastMensaje("No tienes internets",2000)
-              }else{
-                this.espacios=[]
-                this.portComponent.close();
-                this.master.toastMensaje("No se pudo extraer informacion",2000)
+          this.master.storage.getItems(this.master.storage.arrayname.EspaciosByCod).then((DataEspacios)=>{
+            let espacioss=[]
+            if(DataEspacios){
+              for(let i=0;i<DataEspacios[0].length;i++){
+                if(DataEspacios[0][i]['IDEMP']==this.DataForm.empresa['IDEMP'] && DataEspacios[0][i]['IDGRA']==this.DataForm.granja['IDGRA']){
+                  let val=espacioss.push(DataEspacios[0][i])
+                }
               }
-            }else{
-              if(Data['data']['espacios'].length>0){
-                this.espacios=Data['data']['espacios']
-              }else{
-                this.master.toastMensaje("No hay informacion",2000)
-                this.espacios=[]
-                this.portComponent.close();
-              }
+              this.espacios=espacioss
             }
             this.loadingController.dismiss()
           })  
