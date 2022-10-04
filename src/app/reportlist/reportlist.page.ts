@@ -104,6 +104,46 @@ export class ReportlistPage implements OnInit {
       }
      this.agregarNombreEmpresasGranjasRespon(array)
     })
+  }else if(this.tipodereporte==5){
+    this.master.storage.getItems(this.master.storage.arrayname.repConsumos).then((Data)=>{
+      console.log(Data)
+      let Extraccion=[]
+      if(Data){
+        Extraccion=Data[0]
+      }
+      for(var i=0;i<Extraccion.length;i++){
+        if(this.tipo=="Send"){
+          if(Extraccion[i]['enviado']){
+            let agregar=array.push({Reporte:Extraccion[i],numero:i})
+          }
+        }else{
+          if(!Extraccion[i]['enviado']){
+            let agregar=array.push({Reporte:Extraccion[i],numero:i})
+          }
+        } 
+      }
+     this.agregarNombreEmpresasGranjasRespon(array)
+    })
+  }else if(this.tipodereporte==4){
+    this.master.storage.getItems(this.master.storage.arrayname.repMortalidd).then((Data)=>{
+      console.log(Data)
+      let Extraccion=[]
+      if(Data){
+        Extraccion=Data[0]
+      }
+      for(var i=0;i<Extraccion.length;i++){
+        if(this.tipo=="Send"){
+          if(Extraccion[i]['enviado']){
+            let agregar=array.push({Reporte:Extraccion[i],numero:i})
+          }
+        }else{
+          if(!Extraccion[i]['enviado']){
+            let agregar=array.push({Reporte:Extraccion[i],numero:i})
+          }
+        } 
+      }
+     this.agregarNombreEmpresasGranjasRespon(array)
+    })
   }
   
 
@@ -146,6 +186,10 @@ export class ReportlistPage implements OnInit {
       this.enviarReportesTipo2(i,valor)
     }else if(this.tipodereporte==3){
       this.enviarReportesTipo3(i,valor)
+    }else if(this.tipodereporte==4){
+      this.enviarReportesTipo4(i,valor)
+    }else if(this.tipodereporte==5){
+      this.enviarReportesTipo5(i,valor)
     }
   }
   enviarReportesTipo1(i,valor){
@@ -220,6 +264,54 @@ export class ReportlistPage implements OnInit {
       }
     })
   }
+  enviarReportesTipo4(i,valor){
+    valor=this.reportes[i]['Reporte']['ReporteInicial']
+    this.master.mortalidadt.postnewregistromortalidad(valor).then((NewMortalidad)=>{
+      if(!NewMortalidad['correcto'] && NewMortalidad['data']['status']==-1){
+        this.reportes[i]['Reporte']['enviado']=false
+      }else{
+        if(NewMortalidad['correcto']){
+          this.reportes[i]['Reporte']['dataEnviado']=NewMortalidad['data']
+          this.reportes[i]['Reporte']['enviado']=true
+        }else if(NewMortalidad['correcto'] && NewMortalidad['mensaje']=="errorapi"){ 
+          this.reportes[i]['Reporte']['dataEnviado']=NewMortalidad['data']
+          this.reportes[i]['Reporte']['enviado']=true
+        }else{
+          this.reportes[i]['Reporte']['enviado']=false
+        }
+      }
+      this.enviado.cantidad=this.enviado.cantidad+1
+      if(this.enviado.cantidad<this.enviado.limite){
+        this.EnviarRegistros(this.enviado.cantidad)
+      }else{
+        this.GuardarRegistrosDeReportes()
+      }
+    })
+  }
+  enviarReportesTipo5(i,valor){
+    valor=this.reportes[i]['Reporte']['ReporteInicial']
+    this.master.consumos.postnewregistroconsumos(valor).then((NewConsumos)=>{
+      if(!NewConsumos['correcto'] && NewConsumos['data']['status']==-1){
+        this.reportes[i]['Reporte']['enviado']=false
+      }else{
+        if(NewConsumos['correcto']){
+          this.reportes[i]['Reporte']['dataEnviado']=NewConsumos['data']
+          this.reportes[i]['Reporte']['enviado']=true
+        }else if(NewConsumos['correcto'] && NewConsumos['mensaje']=="errorapi"){ 
+          this.reportes[i]['Reporte']['dataEnviado']=NewConsumos['data']
+          this.reportes[i]['Reporte']['enviado']=true
+        }else{
+          this.reportes[i]['Reporte']['enviado']=false
+        }
+      }
+      this.enviado.cantidad=this.enviado.cantidad+1
+      if(this.enviado.cantidad<this.enviado.limite){
+        this.EnviarRegistros(this.enviado.cantidad)
+      }else{
+        this.GuardarRegistrosDeReportes()
+      }
+    })
+  }
   GuardarRegistrosDeReportes(){
     this.loadingController.dismiss()
     if(this.tipodereporte==1){
@@ -228,7 +320,11 @@ export class ReportlistPage implements OnInit {
     this.guardartipo2()
     }else if(this.tipodereporte==3){
       this.guardartipo3()
-      }
+      }else if(this.tipodereporte==4){
+        this.guardartipo4()
+        }else if(this.tipodereporte==5){
+          this.guardartipo5()
+          }
   }
   guardartipo1(){
     this.master.storage.getItems(this.master.storage.arrayname.ReporteGenerados).then((DataReportes)=>{
@@ -279,6 +375,46 @@ export class ReportlistPage implements OnInit {
         }
         this.master.storage.DeleteKey(this.master.storage.arrayname.FisiscosQuimicosRep).then(()=>{
           this.master.storage.addItem(this.master.storage.arrayname.FisiscosQuimicosRep,ReportesGlobales).then(()=>{
+            this.loadingController.dismiss().finally(()=>{
+              this.segmentChanged({detail:{value:this.tipo}})
+              this.master.MensajeAlert("Enviados los reportes","Mensajes")
+            })
+          })
+        })
+      }else{
+        this.loadingController.dismiss()
+      }
+    })
+  }
+  guardartipo4(){
+    this.master.storage.getItems(this.master.storage.arrayname.repMortalidd).then((DataReportes)=>{
+      if(DataReportes){
+        let ReportesGlobales=DataReportes[0]
+        for(var i=0;i<this.reportes.length;i++){
+            ReportesGlobales[this.reportes[i]['numero']]=this.reportes[i]['Reporte']
+        }
+        this.master.storage.DeleteKey(this.master.storage.arrayname.repMortalidd).then(()=>{
+          this.master.storage.addItem(this.master.storage.arrayname.repMortalidd,ReportesGlobales).then(()=>{
+            this.loadingController.dismiss().finally(()=>{
+              this.segmentChanged({detail:{value:this.tipo}})
+              this.master.MensajeAlert("Enviados los reportes","Mensajes")
+            })
+          })
+        })
+      }else{
+        this.loadingController.dismiss()
+      }
+    })
+  }
+  guardartipo5(){
+    this.master.storage.getItems(this.master.storage.arrayname.repConsumos).then((DataReportes)=>{
+      if(DataReportes){
+        let ReportesGlobales=DataReportes[0]
+        for(var i=0;i<this.reportes.length;i++){
+            ReportesGlobales[this.reportes[i]['numero']]=this.reportes[i]['Reporte']
+        }
+        this.master.storage.DeleteKey(this.master.storage.arrayname.repConsumos).then(()=>{
+          this.master.storage.addItem(this.master.storage.arrayname.repConsumos,ReportesGlobales).then(()=>{
             this.loadingController.dismiss().finally(()=>{
               this.segmentChanged({detail:{value:this.tipo}})
               this.master.MensajeAlert("Enviados los reportes","Mensajes")

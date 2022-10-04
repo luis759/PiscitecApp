@@ -1,3 +1,4 @@
+import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { LoadingController, ModalController } from '@ionic/angular';
 import { MenuPage } from '../menu/menu.page';
@@ -20,12 +21,7 @@ export class MateriasconsumoPage implements OnInit {
   empresas=[]
   granjas=[]
   responsables=[]
-  listConsumos=[
-  {
-    Lotes:10,
-    Cantidad:10
-  }
-  ]
+  listConsumos=[]
   listmaterias=[]
   espaciosproductivos=[]
   constructor(private master:MasterService,private loadingController:LoadingController,private modalController:ModalController,private menu:MenuPage) { }
@@ -42,8 +38,103 @@ export class MateriasconsumoPage implements OnInit {
     })
   }
   ValidarRegistro(){
+    if(this.DataForm.empresa){
+      if(this.DataForm.granja){
+        if(this.DataForm.responsable){
+            if(this.listConsumos.length>0){
+              this.seguir()
+            }else{
+              this.master.toastMensaje("Es necesario al menos un consumos",3000)
 
+            }
+        }else{
+          this.master.toastMensaje("Es necesario un Responsable",3000)
+        }
+      }else{
+        this.master.toastMensaje("Es necesario una granja",3000)
+      }
+    }else{
+      this.master.toastMensaje("Es necesario una empresa",3000)
+    }
   }
+  limpiarData(){
+    this.DataForm={
+      observaciones:'',
+      fecha:new Date().toString(),
+      empresa:null,
+      granja:null,
+      responsable:null
+    }
+    this.granjas=[]
+    this.listConsumos=[]
+    this.responsables=[]
+  }
+seguir(){
+  this.master.Load(this.loadingController).then(()=>{
+    this.master.storage.getItems(this.master.storage.arrayname.UsuarioActivo).then((Usuario)=>{
+      let id=Usuario[0]['Cedula']
+      let valor=this.master.consumos.consumos
+      valor.FECHA=formatDate(new  Date(this.DataForm.fecha) , 'yyyy-MM-dd', 'en')
+      valor.IDEMP=this.DataForm.empresa['IDEMP']
+      valor.IDGRA=this.DataForm.granja['IDGRA']
+      valor.OBSERVA=this.DataForm.observaciones
+      valor.RESPONSABLE=this.DataForm.responsable['COD']
+      valor.detallejson=JSON.stringify(this.listConsumos)
+      valor.USUARIO=id
+        this.master.consumos.postnewregistroconsumos(valor).then((NewConsumos)=>{
+          console.log(NewConsumos)
+          let ReporteGen=this.master.storage.vacunareporte
+          ReporteGen.ReporteInicial=valor
+          ReporteGen.enviado=false
+          if(!NewConsumos['correcto'] && NewConsumos['data']['status']==-1){
+            this.GuardarRegistroDeReportes(ReporteGen,false,false)
+            this.loadingController.dismiss()
+            this.limpiarData()
+          }else{
+            if(NewConsumos['correcto']){
+              ReporteGen.dataEnviado=NewConsumos['data']
+              ReporteGen.enviado=true
+              this.GuardarRegistroDeReportes(ReporteGen,true,false)
+              this.loadingController.dismiss()
+              this.limpiarData()
+            }else if(NewConsumos['correcto'] && NewConsumos['mensaje']=="errorapi"){ 
+              ReporteGen.enviado=true
+              ReporteGen.dataEnviado=NewConsumos['data']
+              this.GuardarRegistroDeReportes(ReporteGen,true,true)
+              this.loadingController.dismiss()
+              this.limpiarData()
+            }else{
+              this.GuardarRegistroDeReportes(ReporteGen,false,true)
+              this.loadingController.dismiss()
+              this.limpiarData()
+            }
+          }
+        })
+      })
+  })
+
+}
+GuardarRegistroDeReportes(Report,Enviado,Erroes){
+  this.master.storage.getItems(this.master.storage.arrayname.repConsumos).then((Info)=>{
+    let Registros=[]
+    if(Info){
+     Registros=Info[0]
+    }
+    this.master.storage.DeleteKey(this.master.storage.arrayname.repConsumos).then(()=>{
+      let array=Registros
+      let valor=array.push(Report)
+      this.master.storage.addItem(this.master.storage.arrayname.repConsumos,array).then(()=>{
+        if(Enviado){
+          this.limpiarData()
+          this.master.MensajeAlert("Registro Guardado y Enviado","Reporte Consumos")
+        }else{
+          this.limpiarData()
+          this.master.MensajeAlert("Registro Guardado","Reporte Consumos")
+        }
+      })
+    })
+  })
+}
   ngOnDestroy() {
     this.menu.activarmenuDesactivar(true);
   }
@@ -83,18 +174,32 @@ export class MateriasconsumoPage implements OnInit {
   }
   async irAConsumos(){
     if(this.DataForm.granja){
-      const modal=await this.modalController.create({
-        component:MateriasconsumoregPage,
-        componentProps:{
-          idgranja:this.DataForm.granja
-        }
-      });
-      modal.onDidDismiss().then((detalles)=>{
-        if(detalles.data){
-          this.listConsumos=this.listConsumos.concat(detalles.data)
-        }
+      if(this.DataForm.empresa){
+        console.log(this.DataForm.granja)
+      this.master.storage.DeleteKey("valorRetrnomateriaconsumos").then(()=>{
+        this.master.storage.addItem("valorRetrnomateriaconsumos", this.listConsumos).then(async ()=>{
+            const modal=await this.modalController.create({
+              component:MateriasconsumoregPage,
+              componentProps:{
+                idgranja:this.DataForm.granja['IDGRA'],
+                idempresa:this.DataForm.empresa['IDEMP']
+              }
+            });
+            modal.onDidDismiss().then((detalles)=>{
+              this.master.storage.getItems("valorRetrnomateriaconsumos").then((datos)=>{
+                if(datos){
+                  if(datos.length>0){
+                    this.listConsumos=datos[0]
+                  }
+                }
+              })
+            })
+            return await modal.present()
+        })
       })
-      return await modal.present()
+        }else{
+          this.master.toastMensaje("Debes Seleccionar una Empresa",4000)
+        }
     }else{
       this.master.toastMensaje("Debes Seleccionar una Granja",4000)
     }

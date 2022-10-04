@@ -59,11 +59,11 @@
     </ion-item>
     </ion-list>
     <ion-list style="margin:0px 15%;" class="ion-text-center">
-        <ion-item class="ion-text-left" *ngFor=" let item of listConsumos"> 
+        <ion-item class="ion-text-left" *ngFor=" let item of listmortalidad"> 
           <ion-label >
             <p style="color:black;font-size: medium;font-weight: bolder;border:1px solid black;margin:0px;padding:5px;">Resumen de Mortalidad</p>
-            <p style="color:black;border:1px solid black;margin:0px;padding:5px;">Lote: <ion-badge color="primary">{{item.Lotes}}</ion-badge></p>
-            <p style="color:black;border:1px solid black;margin:0px;padding:5px;">Cantidad: <ion-badge color="primary">{{item.Cantidad}}</ion-badge></p>
+            <p style="color:black;border:1px solid black;margin:0px;padding:5px;">Lote: <ion-badge color="primary">{{item.LOTE}}</ion-badge></p>
+            <p style="color:black;border:1px solid black;margin:0px;padding:5px;">Cantidad: <ion-badge color="primary">AM:{{item.CANTAM}}-PM:{{item.CANTPM}}</ion-badge></p>
           </ion-label>
         </ion-item>
      
@@ -74,7 +74,7 @@
 
       </ion-col>
       <ion-col size="8">
-        <ion-button expand="block" color="principal" style="border-radius:10px !important;">Enviar Datos</ion-button>
+        <ion-button (click)="ValidarRegistro()"  expand="block" color="principal" style="border-radius:10px !important;">Enviar Datos</ion-button>
         
       </ion-col>
       <ion-col size="2">

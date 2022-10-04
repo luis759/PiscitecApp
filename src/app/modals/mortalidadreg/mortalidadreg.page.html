@@ -19,14 +19,17 @@
       <ionic-selectable 
         [(ngModel)]="DataForm.espacios"
         [items]="espaciosprod"
-        itemValueField="IDEMP"
-        itemTextField="EMPRESA"
+        itemValueField="NOMBRE"
+        itemTextField="NOMBRE"
         [canSearch]="true"
         (onChange)="changeespacios($event)"
         closeButtonText="Cerrar">
       </ionic-selectable>
     </ion-item>
-    
+    <ion-item>
+      <ion-label position="stacked" style="font-size: larger;">Lotes: *</ion-label>
+      <ion-input [(ngModel)]="DataForm.Lote"  placeholder="Lote" type="number"></ion-input>
+    </ion-item>
     <ion-item>
       <ion-label position="stacked" style="font-size: larger;">Cantidad AM: *</ion-label>
       <ion-input [(ngModel)]="DataForm.cantidadam"  placeholder="Cantidad AM" type="number"></ion-input>
@@ -55,8 +58,8 @@
       <ionic-selectable 
         [(ngModel)]="DataForm.causas"
         [items]="causass"
-        itemValueField="IDGRA"
-        itemTextField="NOMBRE"
+        itemValueField="CODIGO"
+        itemTextField="CAUSA"
         [canSearch]="true"
         (onChange)="changecausas($event)"
         closeButtonText="Cerrar">

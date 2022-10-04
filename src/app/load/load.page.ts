@@ -48,7 +48,7 @@ export class LoadPage implements OnInit {
                     let dataMaterias=materia
                     this.master.mortalidadt.getAllCausas().then((allcausas)=>{
                       let dataCausas=allcausas
-                      this.master.mortalidadt.getAllCausas().then((espacios)=>{
+                      this.master.granja.getAllEspaciosWithCOD().then((espacios)=>{
                         let dataespacios=espacios
                       if(Datausuarios['correcto'])
                       {
@@ -155,6 +155,7 @@ export class LoadPage implements OnInit {
                                                             if(espacios){
                                                               this.master.storage.DeleteKey(this.master.storage.arrayname.EspaciosByCod).then(()=>{
                                                                 this.master.storage.addItem(this.master.storage.arrayname.EspaciosByCod,espacios).then(()=>{
+                                                                  console.log(espacios)
                                                                   this.finalizaciondeBusqueda()
                                                                 })
                                                               })

@@ -30,6 +30,8 @@ export class StorageService {
     "FisiscosQuimicosRep":"FisiscosQuimicosRep",
     "UsuarioActivo":"UsuarioActivo",
     "EspaciosByCod":"EspaciosByCod",
+    "repConsumos":"repConsumos",
+    "repMortalidd":"repMortalidd",
     "fisicosquimicosparametros":"fisicosquimicosparametros"
   } 
   constructor(private storage:Storage) {

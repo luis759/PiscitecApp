@@ -19,7 +19,7 @@ export class MortalidadService {
   constructor(private httpnative:HTTP) { }
   
   //API PARA REGISTRAR UN MORTALIDADES
-postnewregistroconsumos(mortalidad:any):Promise<any>{
+postnewregistromortalidad(mortalidad:any):Promise<any>{
   return new Promise((resolve)=>{
     this.httpnative.setRequestTimeout(60)
     let nativecall=this.httpnative.post(environment.urlApi+'mortalidad',mortalidad,{'Accept': 'application/json','Content-Type': 'application/json'})
