@@ -24,6 +24,8 @@ export class MateriasconsumoPage implements OnInit {
   listConsumos=[]
   listmaterias=[]
   espaciosproductivos=[]
+  lotestotal=0
+  cantidadtotal=0
   constructor(private master:MasterService,private loadingController:LoadingController,private modalController:ModalController,private menu:MenuPage) { }
 
   
@@ -45,7 +47,6 @@ export class MateriasconsumoPage implements OnInit {
               this.seguir()
             }else{
               this.master.toastMensaje("Es necesario al menos un consumos",3000)
-
             }
         }else{
           this.master.toastMensaje("Es necesario un Responsable",3000)
@@ -175,28 +176,7 @@ GuardarRegistroDeReportes(Report,Enviado,Erroes){
   async irAConsumos(){
     if(this.DataForm.granja){
       if(this.DataForm.empresa){
-        console.log(this.DataForm.granja)
-      this.master.storage.DeleteKey("valorRetrnomateriaconsumos").then(()=>{
-        this.master.storage.addItem("valorRetrnomateriaconsumos", this.listConsumos).then(async ()=>{
-            const modal=await this.modalController.create({
-              component:MateriasconsumoregPage,
-              componentProps:{
-                idgranja:this.DataForm.granja['IDGRA'],
-                idempresa:this.DataForm.empresa['IDEMP']
-              }
-            });
-            modal.onDidDismiss().then((detalles)=>{
-              this.master.storage.getItems("valorRetrnomateriaconsumos").then((datos)=>{
-                if(datos){
-                  if(datos.length>0){
-                    this.listConsumos=datos[0]
-                  }
-                }
-              })
-            })
-            return await modal.present()
-        })
-      })
+        this.iralmodal(-1)
         }else{
           this.master.toastMensaje("Debes Seleccionar una Empresa",4000)
         }
@@ -204,5 +184,49 @@ GuardarRegistroDeReportes(Report,Enviado,Erroes){
       this.master.toastMensaje("Debes Seleccionar una Granja",4000)
     }
    
+  }
+  async iralmodal(numero){
+    this.master.storage.DeleteKey("valorRetrnomateriaconsumos").then(()=>{
+      this.master.storage.addItem("valorRetrnomateriaconsumos", this.listConsumos).then(async ()=>{
+        console.log(numero)
+        const modal=await this.modalController.create({
+          component:MateriasconsumoregPage,
+          componentProps:{
+            idgranja:this.DataForm.granja['IDGRA'],
+            idempresa:this.DataForm.empresa['IDEMP'],
+            indexnumero:numero
+          }
+        });
+        modal.onDidDismiss().then((detalles)=>{
+          this.master.storage.getItems("valorRetrnomateriaconsumos").then((datos)=>{
+            if(datos){
+              if(datos.length>0){
+                this.listConsumos=datos[0]
+                this.colocarTotales()
+              }
+            }
+          })
+        })
+        return await modal.present()
+      })
+    })
+    
+  }
+  edit(numero){
+    this.iralmodal(numero)
+
+  }
+  borrar(numero){
+    
+    console.log(this.listConsumos.splice(numero,1))
+    this.colocarTotales()
+  }
+  colocarTotales()  {
+    this.lotestotal=0
+    this.cantidadtotal=0
+    this.listConsumos.forEach((valorList)=>{
+      this.lotestotal=this.lotestotal+valorList.LOTE
+      this.cantidadtotal=this.cantidadtotal+valorList.CANTIDAD
+    })
   }
 }

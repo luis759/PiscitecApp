@@ -89,7 +89,7 @@ export class GranjasService {
    //API PARA LLAMAR TODOS LOS ESPACIOS CON SU CODIGO
   getAllEspaciosWithCOD():Promise<any>{
     return new Promise((resolve)=>{
-      let nativecall=this.httpnative.get(environment.urlApi+'espacioscod',{},{'Content-Type': 'application/json'})
+      let nativecall=this.httpnative.get(environment.urlApi+'espacioscodlote',{},{'Content-Type': 'application/json'})
       nativecall.then((Data)=>{
           if(Data.status==200 || Data.status==201){
             if(this.isJson(Data.data)){

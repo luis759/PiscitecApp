@@ -11,6 +11,7 @@ import { MasterService } from 'src/app/services/master.service';
 export class MateriasconsumoregPage implements OnInit {
   @Input() public idgranja: any
   @Input() public idempresa: any
+  @Input() public indexnumero: any
   DataForm={
     observaciones:'',
     Lotes:'',
@@ -20,6 +21,7 @@ export class MateriasconsumoregPage implements OnInit {
   }
   idgranjas=0
   idempresas=0
+  idindex=-1
   espaciosprod=[]
   materias=[]
   listConsumos=[]
@@ -32,8 +34,10 @@ export class MateriasconsumoregPage implements OnInit {
         this.idgranjas=navParams.get('idgranja')
         
       }
+      if(navParams.get('indexnumero')>=0){
+        this.idindex=navParams.get('indexnumero')
+      }
        this.master.storage.getItems(this.master.storage.arrayname.EspaciosByCod).then((DataEspacios)=>{
-        console.log(DataEspacios)
       let espacioss=[]
       if(DataEspacios){
         for(let i=0;i<DataEspacios[0].length;i++){
@@ -86,8 +90,8 @@ export class MateriasconsumoregPage implements OnInit {
         if(this.DataForm.materia){
           if(this.DataForm.espacios){
             
-    this.modalController.dismiss()
-    this.agregarValor()
+            this.modalController.dismiss()
+            this.agregarValor()
           }else{
             this.master.toastMensaje("es necesario un Espacio",3000)
           }
@@ -105,15 +109,28 @@ export class MateriasconsumoregPage implements OnInit {
     }
   }
   agregarValor(){
-    this.listConsumos.push({
-      CODESPA:this.DataForm.espacios['COD'],
-      LOTE:this.DataForm.Lotes,
-      CANTIDAD:this.DataForm.cantidad,
-      LOTEMP:this.DataForm.Lotes,
-      CODIGO:this.DataForm.materia['COD'],
-      OBSERVA:this.DataForm.observaciones
-    })
-    console.log(this.listConsumos)
+    if(this.idindex>=0){
+      this.listConsumos[this.idindex]={
+        CODESPA:this.DataForm.espacios['COD'],
+        LOTE:this.DataForm.Lotes,
+        CANTIDAD:this.DataForm.cantidad,
+        LOTEMP:this.DataForm.Lotes,
+        CODIGO:this.DataForm.materia['ID'],
+        OBSERVA:this.DataForm.observaciones,
+        INFODATA:this.DataForm
+      }
+      this.idindex=-1;
+    }else{
+      this.listConsumos.push({
+        CODESPA:this.DataForm.espacios['COD'],
+        LOTE:this.DataForm.Lotes,
+        CANTIDAD:this.DataForm.cantidad,
+        LOTEMP:this.DataForm.Lotes,
+        CODIGO:this.DataForm.materia['ID'],
+        OBSERVA:this.DataForm.observaciones,
+        INFODATA:this.DataForm
+      })
+    }
     this.master.storage.DeleteKey("valorRetrnomateriaconsumos").then(()=>{
       this.master.storage.addItem("valorRetrnomateriaconsumos",this.listConsumos).then(()=>{
         this.DataForm.Lotes="";
@@ -129,6 +146,17 @@ export class MateriasconsumoregPage implements OnInit {
         if(datos){
           if(datos.length>0){
             this.listConsumos=datos[0]
+            console.log(datos[0])
+            console.log(this.idindex)
+            if(this.idindex>=0){
+              console.log(datos[0])
+              console.log(this.idindex)
+              this.DataForm.Lotes=datos[0][this.idindex].INFODATA.Lotes
+              this.DataForm.cantidad=datos[0][this.idindex].INFODATA.cantidad
+              this.DataForm.espacios=datos[0][this.idindex].INFODATA.espacios
+              this.DataForm.materia=datos[0][this.idindex].INFODATA.materia
+              this.DataForm.observaciones=datos[0][this.idindex].INFODATA.observaciones
+            }
           }
         }
       })
@@ -150,7 +178,7 @@ export class MateriasconsumoregPage implements OnInit {
   }
   changeespacios(evento){
     let espacios=evento.value['IDEMP']
-
+    this.DataForm.Lotes=evento.value['LOTE']?evento.value['LOTE']:0
   }
   changematerias(evento){
     let materias=evento.value['IDGRA']
