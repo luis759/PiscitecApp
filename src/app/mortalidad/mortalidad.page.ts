@@ -21,6 +21,9 @@ export class MortalidadPage implements OnInit {
   granjas=[]
   responsables=[]
   listmortalidad=[]
+  lotestotal=0
+  cantidadtotal=0
+  kilostotal=0
   constructor(private master:MasterService,private loadingController:LoadingController,private modalController:ModalController,private menu:MenuPage) { }
 
   ValidarRegistro(){
@@ -51,6 +54,9 @@ export class MortalidadPage implements OnInit {
       granja:null,
       responsable:null
     }
+    this.lotestotal=0
+    this.cantidadtotal=0
+    this.kilostotal=0
     this.granjas=[]
     this.listmortalidad=[]
     this.responsables=[]
@@ -169,38 +175,59 @@ GuardarRegistroDeReportes(Report,Enviado,Erroes){
       }
     })
   }
-
+  async iralmodal(numero){
+    this.master.storage.DeleteKey("valorretornomortalidad").then(()=>{
+      this.master.storage.addItem("valorretornomortalidad", this.listmortalidad).then(async ()=>{
+          const modal=await this.modalController.create({
+            component:MortalidadregPage,
+            componentProps:{
+              idgranja:this.DataForm.granja['IDGRA'],
+              idempresa:this.DataForm.empresa['IDEMP'],
+              indexnumero:numero
+            }
+          });
+          modal.onDidDismiss().then((detalles)=>{
+            this.master.storage.getItems("valorretornomortalidad").then((datos)=>{
+              if(datos){
+                if(datos.length>0){
+                  this.listmortalidad=datos[0]
+                  this.colocarTotales()
+                }
+              }
+            })
+          })
+          return await modal.present()
+      })
+    })
+  }
   async irAConsumos(){
     if(this.DataForm.granja){
       if(this.DataForm.empresa){
-      this.master.storage.DeleteKey("valorretornomortalidad").then(()=>{
-        this.master.storage.addItem("valorretornomortalidad", this.listmortalidad).then(async ()=>{
-            const modal=await this.modalController.create({
-              component:MortalidadregPage,
-              componentProps:{
-                idgranja:this.DataForm.granja['IDGRA'],
-                idempresa:this.DataForm.empresa['IDEMP']
-              }
-            });
-            modal.onDidDismiss().then((detalles)=>{
-              this.master.storage.getItems("valorretornomortalidad").then((datos)=>{
-                if(datos){
-                  if(datos.length>0){
-                    this.listmortalidad=datos[0]
-                  }
-                }
-              })
-            })
-            return await modal.present()
-        })
-      })
+          this.iralmodal(-1)
         }else{
           this.master.toastMensaje("Debes Seleccionar una Empresa",4000)
         }
     }else{
       this.master.toastMensaje("Debes Seleccionar una Granja",4000)
     }
-   
   }
+  edit(numero){
+    this.iralmodal(numero)
 
+  }
+  borrar(numero){
+    
+    console.log(this.listmortalidad.splice(numero,1))
+    this.colocarTotales()
+  }
+  colocarTotales()  {
+    this.lotestotal=0
+    this.cantidadtotal=0
+    this.kilostotal=0
+    this.listmortalidad.forEach((valorList)=>{
+      this.lotestotal=this.lotestotal+(valorList.LOTE*1)
+      this.cantidadtotal=this.cantidadtotal+((valorList.CANTAM*1)+(valorList.CANTPM*1))
+      this.kilostotal=this.kilostotal+((valorList.KILOSAM*1)+(valorList.KILOSPM*1))
+    })
+  }
 }

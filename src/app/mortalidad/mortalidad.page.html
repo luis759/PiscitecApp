@@ -59,15 +59,35 @@
     </ion-item>
     </ion-list>
     <ion-list style="margin:0px 15%;" class="ion-text-center">
-        <ion-item class="ion-text-left" *ngFor=" let item of listmortalidad"> 
+        <ion-item class="ion-text-left"> 
           <ion-label >
             <p style="color:black;font-size: medium;font-weight: bolder;border:1px solid black;margin:0px;padding:5px;">Resumen de Mortalidad</p>
-            <p style="color:black;border:1px solid black;margin:0px;padding:5px;">Lote: <ion-badge color="primary">{{item.LOTE}}</ion-badge></p>
-            <p style="color:black;border:1px solid black;margin:0px;padding:5px;">Cantidad: <ion-badge color="primary">AM:{{item.CANTAM}}-PM:{{item.CANTPM}}</ion-badge></p>
+            <p style="color:black;border:1px solid black;margin:0px;padding:5px;">Lote: <ion-badge color="primary">{{lotestotal}}</ion-badge></p>
+            <p style="color:black;border:1px solid black;margin:0px;padding:5px;">Cantidad: <ion-badge color="primary">{{cantidadtotal}}</ion-badge></p>
+            <p style="color:black;border:1px solid black;margin:0px;padding:5px;">Kilos: <ion-badge color="primary">{{kilostotal}}</ion-badge></p>
           </ion-label>
         </ion-item>
      
       <ion-button color="principal" (click)="irAConsumos()" style="border-radius:10px !important;">Agregar REgistro</ion-button>
+    </ion-list>
+    
+    <ion-list>
+      <ion-item *ngFor="let item of listmortalidad,let i = index">
+        <ion-item class="ion-text-left"> 
+          <ion-label >
+            <p style="color:black;font-size: medium;font-weight: bolder;border:1px solid black;margin:0px;padding:5px;">Causas: {{item.INFODATA.causas.CAUSA}}</p>
+            <p style="color:black;border:1px solid black;margin:0px;padding:5px;">Lote: <ion-badge color="primary">{{item.LOTE}}</ion-badge></p>
+            <p style="color:black;border:1px solid black;margin:0px;padding:5px;">Cantidad: <ion-badge color="primary">{{item.CANTAM+item.CANTPM}}</ion-badge></p>
+            <p style="color:black;border:1px solid black;margin:0px;padding:5px;">Kilos: <ion-badge color="primary">{{item.KILOSPM+item.KILOSAM}}</ion-badge></p>
+          </ion-label>
+            <ion-button color="primary" (click)="edit(i)" slot="end">  <ion-icon name="create-outline">
+            </ion-icon>       
+             </ion-button>
+            <ion-button color="danger" (click)="borrar(i)" slot="end">  <ion-icon name="close">
+            </ion-icon>       
+             </ion-button>
+        </ion-item>
+      </ion-item>     
     </ion-list>
     <ion-row>
       <ion-col size="2">

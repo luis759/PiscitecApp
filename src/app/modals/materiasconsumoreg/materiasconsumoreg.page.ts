@@ -146,11 +146,7 @@ export class MateriasconsumoregPage implements OnInit {
         if(datos){
           if(datos.length>0){
             this.listConsumos=datos[0]
-            console.log(datos[0])
-            console.log(this.idindex)
             if(this.idindex>=0){
-              console.log(datos[0])
-              console.log(this.idindex)
               this.DataForm.Lotes=datos[0][this.idindex].INFODATA.Lotes
               this.DataForm.cantidad=datos[0][this.idindex].INFODATA.cantidad
               this.DataForm.espacios=datos[0][this.idindex].INFODATA.espacios

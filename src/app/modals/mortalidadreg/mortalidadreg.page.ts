@@ -11,6 +11,7 @@ import { MasterService } from 'src/app/services/master.service';
 export class MortalidadregPage implements OnInit {
   @Input() public idgranja: any
   @Input() public idempresa: any
+  @Input() public indexnumero: any
   DataForm={
     observaciones:'',
     kilosam:'',
@@ -23,6 +24,7 @@ export class MortalidadregPage implements OnInit {
   }
   idgranjas=0
   idempresas=0
+  idindex=-1
   espaciosprod=[]
   causass=[]
   mortalidades=[]
@@ -34,6 +36,9 @@ export class MortalidadregPage implements OnInit {
       if(navParams.get('idgranja')){
         this.idgranjas=navParams.get('idgranja')
         
+      }
+      if(navParams.get('indexnumero')>=0){
+        this.idindex=navParams.get('indexnumero')
       }
       this.master.storage.getItems(this.master.storage.arrayname.EspaciosByCod).then((DataEspacios)=>{
       let espacioss=[]
@@ -50,6 +55,7 @@ export class MortalidadregPage implements OnInit {
       let espacioss=[]
       if(dataCausas){
         this.causass=dataCausas[0]
+         
       }
     })
     this.agregarValorAlista()
@@ -59,6 +65,9 @@ export class MortalidadregPage implements OnInit {
       if(datos){
         if(datos.length>0){
           this.mortalidades=datos[0]
+          if(this.idindex>=0){
+            this.DataForm=datos[0][this.idindex].INFODATA
+        }
         }
       }
     })
@@ -67,15 +76,10 @@ export class MortalidadregPage implements OnInit {
   }
   
   agregarotro(){
-    if(Number(this.DataForm.cantidadam)>0){
-      if(Number(this.DataForm.cantidadpm)>0){
-        if(Number(this.DataForm.cantidadam)>0){
-          if(Number(this.DataForm.cantidadpm)>0){
         if(this.DataForm.causas){
           if(this.DataForm.espacios){
             if(Number(this.DataForm.Lote)>0){
               this.agregarValor()
-
             }else{
               this.master.toastMensaje("Lotes debe ser Mayor a 0",3000)
             }
@@ -86,29 +90,9 @@ export class MortalidadregPage implements OnInit {
           this.master.toastMensaje("es necesario una Causa",3000)
           
         }
-      }else{
-        this.master.toastMensaje("Kilos PM debe ser Mayor a 0",3000)
-
-      }
-    }else{
-      this.master.toastMensaje("Kilos AM debe ser Mayor a 0",3000)
-
-    }
-      }else{
-        this.master.toastMensaje("Cantidad PM debe ser Mayor a 0",3000)
-
-      }
-    }else{
-      this.master.toastMensaje("Cantidad AM debe ser Mayor a 0",3000)
-
-    }
    }
   finalizar(){
     
-    if(Number(this.DataForm.cantidadam)>0){
-      if(Number(this.DataForm.cantidadpm)>0){
-        if(Number(this.DataForm.cantidadam)>0){
-          if(Number(this.DataForm.cantidadpm)>0){
         if(this.DataForm.causas){
           if(this.DataForm.espacios){
             if(Number(this.DataForm.Lote)>0){
@@ -124,34 +108,35 @@ export class MortalidadregPage implements OnInit {
           this.master.toastMensaje("es necesario una Causa",3000)
           
         }
-      }else{
-        this.master.toastMensaje("Kilos PM debe ser Mayor a 0",3000)
-
-      }
-    }else{
-      this.master.toastMensaje("Kilos AM debe ser Mayor a 0",3000)
-
-    }
-      }else{
-        this.master.toastMensaje("Cantidad PM debe ser Mayor a 0",3000)
-
-      }
-    }else{
-      this.master.toastMensaje("Cantidad AM debe ser Mayor a 0",3000)
-
-    }
   }
   agregarValor(){
-    this.mortalidades.push({
-      CODESPA:this.DataForm.espacios['COD'],
-      CAUSA:this.DataForm.causas['CODIGO'],
-      CANTAM:this.DataForm.cantidadam,
-      CANTPM:this.DataForm.cantidadpm,
-      KILOSAM:this.DataForm.kilosam,
-      KILOSPM:this.DataForm.kilospm,
-      LOTE:this.DataForm.Lote,
-      OBSERVA:this.DataForm.observaciones
-    })
+    if(this.idindex>=0){
+      this.mortalidades[this.idindex]={
+        CODESPA:this.DataForm.espacios['COD'],
+        CAUSA:this.DataForm.causas['CODIGO'],
+        CANTAM:this.DataForm.cantidadam,
+        CANTPM:this.DataForm.cantidadpm,
+        KILOSAM:this.DataForm.kilosam,
+        KILOSPM:this.DataForm.kilospm,
+        LOTE:this.DataForm.Lote,
+        OBSERVA:this.DataForm.observaciones,
+        INFODATA:this.DataForm
+      }
+      this.idindex=-1;
+    }else{
+      this.mortalidades.push({
+        CODESPA:this.DataForm.espacios['COD'],
+        CAUSA:this.DataForm.causas['CODIGO'],
+        CANTAM:this.DataForm.cantidadam,
+        CANTPM:this.DataForm.cantidadpm,
+        KILOSAM:this.DataForm.kilosam,
+        KILOSPM:this.DataForm.kilospm,
+        LOTE:this.DataForm.Lote,
+        OBSERVA:this.DataForm.observaciones,
+        INFODATA:this.DataForm
+      })
+    }
+    
     this.master.storage.DeleteKey("valorretornomortalidad").then(()=>{
       this.master.storage.addItem("valorretornomortalidad",this.mortalidades).then(()=>{
         this.DataForm.cantidadam="";
@@ -159,6 +144,7 @@ export class MortalidadregPage implements OnInit {
         this.DataForm.kilosam="";
         this.DataForm.kilospm="";
         this.DataForm.espacios=null;
+        this.DataForm.Lote="";
         this.DataForm.causas=null;
         this.DataForm.observaciones="";
       })
@@ -166,7 +152,7 @@ export class MortalidadregPage implements OnInit {
   }
   changeespacios(evento){
     let espacios=evento.value['IDEMP']
-
+    this.DataForm.Lote=evento.value['LOTE']?evento.value['LOTE']:0
   }
   changecausas(evento){
     let causas=evento.value['IDGRA']
