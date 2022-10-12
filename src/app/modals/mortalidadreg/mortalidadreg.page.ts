@@ -93,23 +93,11 @@ export class MortalidadregPage implements OnInit {
    }
   finalizar(){
     
-        if(this.DataForm.causas){
-          if(this.DataForm.espacios){
-            if(Number(this.DataForm.Lote)>0){
               this.modalController.dismiss()
-              this.agregarValor()
-            }else{
-              this.master.toastMensaje("Lotes debe ser Mayor a 0",3000)
-            }
-          }else{
-            this.master.toastMensaje("es necesario un Espacio",3000)
-          }
-        }else{
-          this.master.toastMensaje("es necesario una Causa",3000)
-          
-        }
   }
   agregarValor(){
+    let dato=[]
+    dato.push(this.DataForm)
     if(this.idindex>=0){
       this.mortalidades[this.idindex]={
         CODESPA:this.DataForm.espacios['COD'],
@@ -120,7 +108,16 @@ export class MortalidadregPage implements OnInit {
         KILOSPM:this.DataForm.kilospm,
         LOTE:this.DataForm.Lote,
         OBSERVA:this.DataForm.observaciones,
-        INFODATA:this.DataForm
+        INFODATA:{
+          observaciones:this.DataForm.observaciones,
+          kilosam:this.DataForm.kilosam,
+          cantidadpm:this.DataForm.cantidadpm,
+          kilospm:this.DataForm.kilospm,
+          Lote:this.DataForm.Lote,
+          cantidadam:this.DataForm.cantidadam,
+          espacios:this.DataForm.espacios,
+          causas:this.DataForm.espacios.causas
+        }
       }
       this.idindex=-1;
     }else{
@@ -133,10 +130,19 @@ export class MortalidadregPage implements OnInit {
         KILOSPM:this.DataForm.kilospm,
         LOTE:this.DataForm.Lote,
         OBSERVA:this.DataForm.observaciones,
-        INFODATA:this.DataForm
+        INFODATA:{
+          observaciones:this.DataForm.observaciones,
+          kilosam:this.DataForm.kilosam,
+          cantidadpm:this.DataForm.cantidadpm,
+          kilospm:this.DataForm.kilospm,
+          Lote:this.DataForm.Lote,
+          cantidadam:this.DataForm.cantidadam,
+          espacios:this.DataForm.espacios,
+          causas:this.DataForm.causas
+        }
       })
     }
-    
+    console.log( this.mortalidades)
     this.master.storage.DeleteKey("valorretornomortalidad").then(()=>{
       this.master.storage.addItem("valorretornomortalidad",this.mortalidades).then(()=>{
         this.DataForm.cantidadam="";

@@ -47,11 +47,11 @@
     
     <ion-item>
       <ion-label position="stacked" style="font-size: larger;">Lote Etiqueta: *</ion-label>
-      <ion-input [(ngModel)]="DataForm.Lotes"  placeholder="Lote Etiqueta" type="number"></ion-input>
+      <ion-input [(ngModel)]="DataForm.LotesEMP"  placeholder="Lote Etiqueta" type="text"></ion-input>
     </ion-item>
     
     <ion-item>
-      <ion-label position="stacked" style="font-size: larger;">Observaciones: *</ion-label>
+      <ion-label position="stacked" style="font-size: larger;">Observaciones:</ion-label>
       <ion-input [(ngModel)]="DataForm.observaciones"  placeholder="observaciones" type="text"></ion-input>
     </ion-item>
     </ion-list>    
@@ -61,7 +61,7 @@
 
       </ion-col>
       <ion-col size="6">
-        <ion-button expand="block"  (click)="agregarotro()" color="principal" style="border-radius:10px !important;">Agregar Otro</ion-button>
+        <ion-button expand="block"  (click)="agregarotro()" color="principal" style="border-radius:10px !important;">Agregar</ion-button>
 
       </ion-col>
     </ion-row>

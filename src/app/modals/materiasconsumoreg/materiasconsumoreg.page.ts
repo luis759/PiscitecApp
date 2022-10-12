@@ -15,6 +15,7 @@ export class MateriasconsumoregPage implements OnInit {
   DataForm={
     observaciones:'',
     Lotes:'',
+    LotesEMP:'',
     cantidad:'',
     espacios:null,
     materia:null
@@ -84,29 +85,7 @@ export class MateriasconsumoregPage implements OnInit {
     }
    }
   finalizar(){
-    
-    if(Number(this.DataForm.cantidad)>0){
-      if(Number(this.DataForm.Lotes)>0){
-        if(this.DataForm.materia){
-          if(this.DataForm.espacios){
-            
-            this.modalController.dismiss()
-            this.agregarValor()
-          }else{
-            this.master.toastMensaje("es necesario un Espacio",3000)
-          }
-        }else{
-          this.master.toastMensaje("es necesario una Materia",3000)
-          
-        }
-      }else{
-        this.master.toastMensaje("Lotes debe ser Mayor a 0",3000)
-
-      }
-    }else{
-      this.master.toastMensaje("la cantidad debe ser Mayor a 0",3000)
-
-    }
+    this.modalController.dismiss()
   }
   agregarValor(){
     if(this.idindex>=0){
@@ -114,10 +93,17 @@ export class MateriasconsumoregPage implements OnInit {
         CODESPA:this.DataForm.espacios['COD'],
         LOTE:this.DataForm.Lotes,
         CANTIDAD:this.DataForm.cantidad,
-        LOTEMP:this.DataForm.Lotes,
+        LOTEMP:this.DataForm.LotesEMP,
         CODIGO:this.DataForm.materia['ID'],
         OBSERVA:this.DataForm.observaciones,
-        INFODATA:this.DataForm
+        INFODATA:{
+          observaciones:this.DataForm.observaciones,
+          Lotes:this.DataForm.Lotes,
+          LotesEMP:this.DataForm.LotesEMP,
+          cantidad:this.DataForm.cantidad,
+          espacios:this.DataForm.espacios,
+          materia:this.DataForm.materia
+        }
       }
       this.idindex=-1;
     }else{
@@ -125,15 +111,23 @@ export class MateriasconsumoregPage implements OnInit {
         CODESPA:this.DataForm.espacios['COD'],
         LOTE:this.DataForm.Lotes,
         CANTIDAD:this.DataForm.cantidad,
-        LOTEMP:this.DataForm.Lotes,
+        LOTEMP:this.DataForm.LotesEMP,
         CODIGO:this.DataForm.materia['ID'],
         OBSERVA:this.DataForm.observaciones,
-        INFODATA:this.DataForm
+        INFODATA:{
+          observaciones:this.DataForm.observaciones,
+          Lotes:this.DataForm.Lotes,
+          LotesEMP:this.DataForm.LotesEMP,
+          cantidad:this.DataForm.cantidad,
+          espacios:this.DataForm.espacios,
+          materia:this.DataForm.materia
+        }
       })
     }
     this.master.storage.DeleteKey("valorRetrnomateriaconsumos").then(()=>{
       this.master.storage.addItem("valorRetrnomateriaconsumos",this.listConsumos).then(()=>{
         this.DataForm.Lotes="";
+          this.DataForm.LotesEMP="";
         this.DataForm.cantidad="";
         this.DataForm.espacios=null;
         this.DataForm.materia=null;

@@ -10,7 +10,7 @@ import { MasterService } from '../services/master.service';
 export class HomePage {
   reportes=[{
     id:1,
-    name:"Biometrias"
+    name:"Biometrías"
   },{
     id:2,
     name:"Vacunas"
@@ -19,11 +19,11 @@ export class HomePage {
     name:"Mortalidad"
   },{
     id:3,
-    name:"Fisicos - Quimicos"
+    name:"Físico-Químicos"
   }]
   inventarios=[{
     id:5,
-    name:"Consumo de Materias"
+    name:"Consumo de Materias Primas"
   }]
   valorinicial=0
   constructor(private navcontorll:NavController,private master:MasterService) {
@@ -107,7 +107,7 @@ export class HomePage {
         this.master.storage.getItems(this.master.storage.arrayname.Permisos).then((datos)=>{
           this.master.storage.getItems(this.master.storage.arrayname.UsuarioActivo).then((UsusarioActiv)=>{
           if(datos.length>0){
-            let valorPaso=false
+            let valorPaso=true
             datos[0].forEach((valor)=>{
               if(String(valor.UsuarioAcc)==String(UsusarioActiv[0]['Cedula'])){
                 if(valor.IdMod==4 && valor.IdHoja==1){
@@ -129,7 +129,7 @@ export class HomePage {
         this.master.storage.getItems(this.master.storage.arrayname.Permisos).then((datos)=>{
           this.master.storage.getItems(this.master.storage.arrayname.UsuarioActivo).then((UsusarioActiv)=>{
           if(datos.length>0){
-            let valorPaso=false
+            let valorPaso=true
             datos[0].forEach((valor)=>{
               if(String(valor.UsuarioAcc)==String(UsusarioActiv[0]['Cedula'])){
                 if(valor.IdMod==4 && valor.IdHoja==1){

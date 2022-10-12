@@ -69,6 +69,7 @@ export class MateriasconsumoPage implements OnInit {
     this.granjas=[]
     this.listConsumos=[]
     this.responsables=[]
+    this.colocarTotales()
   }
 seguir(){
   this.master.Load(this.loadingController).then(()=>{
@@ -83,7 +84,6 @@ seguir(){
       valor.detallejson=JSON.stringify(this.listConsumos)
       valor.USUARIO=id
         this.master.consumos.postnewregistroconsumos(valor).then((NewConsumos)=>{
-          console.log(NewConsumos)
           let ReporteGen=this.master.storage.vacunareporte
           ReporteGen.ReporteInicial=valor
           ReporteGen.enviado=false
@@ -127,7 +127,7 @@ GuardarRegistroDeReportes(Report,Enviado,Erroes){
       this.master.storage.addItem(this.master.storage.arrayname.repConsumos,array).then(()=>{
         if(Enviado){
           this.limpiarData()
-          this.master.MensajeAlert("Registro Guardado y Enviado","Reporte Consumos")
+          this.master.MensajeAlert("Registro Guardado y Enviado , Numero de Reporte "+Report.dataEnviado.Principal.NORC,"Reporte Consumos")
         }else{
           this.limpiarData()
           this.master.MensajeAlert("Registro Guardado","Reporte Consumos")
@@ -188,7 +188,6 @@ GuardarRegistroDeReportes(Report,Enviado,Erroes){
   async iralmodal(numero){
     this.master.storage.DeleteKey("valorRetrnomateriaconsumos").then(()=>{
       this.master.storage.addItem("valorRetrnomateriaconsumos", this.listConsumos).then(async ()=>{
-        console.log(numero)
         const modal=await this.modalController.create({
           component:MateriasconsumoregPage,
           componentProps:{
@@ -222,10 +221,9 @@ GuardarRegistroDeReportes(Report,Enviado,Erroes){
     this.colocarTotales()
   }
   colocarTotales()  {
-    this.lotestotal=0
+    this.lotestotal=this.listConsumos.length
     this.cantidadtotal=0
     this.listConsumos.forEach((valorList)=>{
-      this.lotestotal=this.lotestotal+valorList.LOTE
       this.cantidadtotal=this.cantidadtotal+valorList.CANTIDAD
     })
   }

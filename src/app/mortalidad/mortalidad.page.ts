@@ -60,6 +60,7 @@ export class MortalidadPage implements OnInit {
     this.granjas=[]
     this.listmortalidad=[]
     this.responsables=[]
+    this.colocarTotales()
   }
 seguir(){
   this.master.Load(this.loadingController).then(()=>{
@@ -74,7 +75,6 @@ seguir(){
       valor.detallejson=JSON.stringify(this.listmortalidad)
       valor.USUARIO=id
         this.master.mortalidadt.postnewregistromortalidad(valor).then((NewMortalidad)=>{
-          console.log(NewMortalidad)
           let ReporteGen=this.master.storage.vacunareporte
           ReporteGen.ReporteInicial=valor
           ReporteGen.enviado=false
@@ -118,7 +118,7 @@ GuardarRegistroDeReportes(Report,Enviado,Erroes){
       this.master.storage.addItem(this.master.storage.arrayname.repMortalidd,array).then(()=>{
         if(Enviado){
           this.limpiarData()
-          this.master.MensajeAlert("Registro Guardado y Enviado","Reporte Consumos")
+          this.master.MensajeAlert("Registro Guardado y Enviado, Numero de Reporte "+Report.dataEnviado.Principal.NORC,"Reporte Consumos")
         }else{
           this.limpiarData()
           this.master.MensajeAlert("Registro Guardado","Reporte Consumos")
@@ -221,7 +221,7 @@ GuardarRegistroDeReportes(Report,Enviado,Erroes){
     this.colocarTotales()
   }
   colocarTotales()  {
-    this.lotestotal=0
+    this.lotestotal=this.listmortalidad.length
     this.cantidadtotal=0
     this.kilostotal=0
     this.listmortalidad.forEach((valorList)=>{
