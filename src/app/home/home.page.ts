@@ -107,7 +107,7 @@ export class HomePage {
         this.master.storage.getItems(this.master.storage.arrayname.Permisos).then((datos)=>{
           this.master.storage.getItems(this.master.storage.arrayname.UsuarioActivo).then((UsusarioActiv)=>{
           if(datos.length>0){
-            let valorPaso=true
+            let valorPaso=false
             datos[0].forEach((valor)=>{
               if(String(valor.UsuarioAcc)==String(UsusarioActiv[0]['Cedula'])){
                 if(valor.IdMod==4 && valor.IdHoja==1){
@@ -129,7 +129,7 @@ export class HomePage {
         this.master.storage.getItems(this.master.storage.arrayname.Permisos).then((datos)=>{
           this.master.storage.getItems(this.master.storage.arrayname.UsuarioActivo).then((UsusarioActiv)=>{
           if(datos.length>0){
-            let valorPaso=true
+            let valorPaso=false
             datos[0].forEach((valor)=>{
               if(String(valor.UsuarioAcc)==String(UsusarioActiv[0]['Cedula'])){
                 if(valor.IdMod==4 && valor.IdHoja==1){

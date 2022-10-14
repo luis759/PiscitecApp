@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  urlApi:'https://acuaguajaro.azurewebsites.net/'
+  urlApi:'https://piscitec.azurewebsites.net/'
 };
