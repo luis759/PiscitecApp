@@ -1,0 +1,23 @@
+Servidor SQL: tcp:APLH.database.windows.net,1433
+Catalogo: APLH
+Usuario: excapps
+
+
+URL: https://agropiscicolahermosa.azurewebsites.net/
+
+GIT local
+Compilación
+Proveedor de compilación
+Servicio de compilación de App Service
+Pila del entorno en tiempo de ejecución
+PHP
+Versión
+8.0
+
+App Service admite varias tecnologías para acceder al contenido de la aplicación, publicarlo y modificarlo. Las credenciales de FTPS se pueden restringir a la aplicación o al usuario.
+Punto de conexión de FTPS: ftps://waws-prod-dm1-337.ftp.azurewebsites.windows.net/site/wwwroot
+Ámbito de la aplicación
+Las credenciales de ámbito de la aplicación se generan automáticamente y solo proporcionan acceso a este espacio de implementación o a esta aplicación específica. Dichas credenciales se pueden usar con FTPS, GIT local y WebDeploy. No se pueden configurar manualmente, pero se pueden restablecer en cualquier momento. Más información
+Nombre de usuario: agropiscicolahermosa\$agropiscicolahermosa
+Contraseña: ci7SPqax11N9EolFaAbyqtWqwjST5ZmcFHnicdgdybmbRm5bpNl0YGFz1QSt
+Ámbito de usuario
