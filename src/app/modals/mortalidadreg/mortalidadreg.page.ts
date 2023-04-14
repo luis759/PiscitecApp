@@ -169,7 +169,7 @@ export class MortalidadregPage implements OnInit {
   changeespacios(evento){
     let espacios=evento.value['IDEMP']
     this.master.storage.getItems(this.master.storage.arrayname.espacioLotesDiferentes).then((datos)=>{
-      let datoss=datos[0].filter(dato=>Number(dato.IDEMP)===Number(this.idempresas) && Number(dato.IDGRA)===Number(this.idgranjas) && dato.LOTE>0 && dato.COD===evento.value['COD'])
+      let datoss=datos[0].filter(dato=>Number(dato.IDEMP)===Number(this.idempresas) && Number(dato.IDGRA)===Number(this.idgranjas) && dato.COD===evento.value['COD'])
       this.Lote=[]
       if(datoss.length>1){
         this.Lote=datoss
