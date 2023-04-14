@@ -50,69 +50,78 @@ export class LoadPage implements OnInit {
                       let dataCausas=allcausas
                       this.master.granja.getAllEspaciosWithCOD().then((espacios)=>{
                         let dataespacios=espacios
-                      if(Datausuarios['correcto'])
-                      {
-                        if(Dataempresas['correcto'])
-                        {
-                          if(Dataresponsables['correcto'])
+                        this.master.granja.getAllEspaciosLotesDiferentes().then((especieslotesdiferente)=>{
+                          let datoespecieslotesdiferente=especieslotesdiferente
+
+                          if(Datausuarios['correcto'])
                           {
-                            if(Dataespecies['correcto'])
+                            if(Dataempresas['correcto'])
                             {
-                              if(Datagranjas['correcto'])
+                              if(Dataresponsables['correcto'])
                               {
-                                if(Datapermisos['correcto'])
+                                if(Dataespecies['correcto'])
                                 {
-                                  if(datafisicoquimicos['correcto'])
+                                  if(Datagranjas['correcto'])
+                                  {
+                                    if(Datapermisos['correcto'])
                                     {
-                                      if(dataMaterias['correcto'])
-                                      {
-                                        if(dataCausas['correcto'])
+                                      if(datafisicoquimicos['correcto'])
                                         {
-                                            if(dataespacios['correcto'])
+                                          if(dataMaterias['correcto'])
+                                          {
+                                            if(dataCausas['correcto'])
                                             {
-                                        this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],Dataempresas['data']['empresas'],Dataresponsables['data']['responsables'],Dataespecies['data']['especies'],Datagranjas['data']['granjas'],Datapermisos['data']['permisos'],datafisicoquimicos['data']['parametros'],dataMaterias['data']['materias'],dataCausas['data']['causas'],dataespacios['data']['espacios'])
-                                      }else{
-                                        this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],Dataempresas['data']['empresas'],Dataresponsables['data']['responsables'],Dataespecies['data']['especies'],Datagranjas['data']['granjas'],Datapermisos['data']['permisos'],datafisicoquimicos['data']['parametros'],dataMaterias['data']['materias'],dataCausas['data']['causas'],null)
-                                      }
-                                        }else{
-                                          this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],Dataempresas['data']['empresas'],Dataresponsables['data']['responsables'],Dataespecies['data']['especies'],Datagranjas['data']['granjas'],Datapermisos['data']['permisos'],datafisicoquimicos['data']['parametros'],dataMaterias['data']['materias'],null,null)
+                                                if(dataespacios['correcto'])
+                                                {
+                                                  if(datoespecieslotesdiferente['correcto'])
+                                                {
+                                                  this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],Dataempresas['data']['empresas'],Dataresponsables['data']['responsables'],Dataespecies['data']['especies'],Datagranjas['data']['granjas'],Datapermisos['data']['permisos'],datafisicoquimicos['data']['parametros'],dataMaterias['data']['materias'],dataCausas['data']['causas'],dataespacios['data']['espacios'],datoespecieslotesdiferente['data']['espacios'])
+                                          
+                                                }else{
+                                                  this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],Dataempresas['data']['empresas'],Dataresponsables['data']['responsables'],Dataespecies['data']['especies'],Datagranjas['data']['granjas'],Datapermisos['data']['permisos'],datafisicoquimicos['data']['parametros'],dataMaterias['data']['materias'],dataCausas['data']['causas'],dataespacios['data']['espacios'],null)             
+                                                }
+                                          }else{
+                                            this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],Dataempresas['data']['empresas'],Dataresponsables['data']['responsables'],Dataespecies['data']['especies'],Datagranjas['data']['granjas'],Datapermisos['data']['permisos'],datafisicoquimicos['data']['parametros'],dataMaterias['data']['materias'],dataCausas['data']['causas'],null,null)
+                                          }
+                                            }else{
+                                              this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],Dataempresas['data']['empresas'],Dataresponsables['data']['responsables'],Dataespecies['data']['especies'],Datagranjas['data']['granjas'],Datapermisos['data']['permisos'],datafisicoquimicos['data']['parametros'],dataMaterias['data']['materias'],null,null,null)
+                                            }
+                                          }else{
+                                            this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],Dataempresas['data']['empresas'],Dataresponsables['data']['responsables'],Dataespecies['data']['especies'],Datagranjas['data']['granjas'],Datapermisos['data']['permisos'],datafisicoquimicos['data']['parametros'],null,null,null,null)
+                                          }
                                         }
-                                      }else{
-                                        this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],Dataempresas['data']['empresas'],Dataresponsables['data']['responsables'],Dataespecies['data']['especies'],Datagranjas['data']['granjas'],Datapermisos['data']['permisos'],datafisicoquimicos['data']['parametros'],null,null,null)
-                                      }
+                                        else
+                                        {
+                                          this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],Dataempresas['data']['empresas'],Dataresponsables['data']['responsables'],Dataespecies['data']['especies'],Datagranjas['data']['granjas'],Datapermisos['data']['permisos'],null,null,null,null,null)                          
+                                        }
                                     }
                                     else
                                     {
-                                      this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],Dataempresas['data']['empresas'],Dataresponsables['data']['responsables'],Dataespecies['data']['especies'],Datagranjas['data']['granjas'],Datapermisos['data']['permisos'],null,null,null,null)                          
+                                      this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],Dataempresas['data']['empresas'],Dataresponsables['data']['responsables'],Dataespecies['data']['especies'],Datagranjas['data']['granjas'],null,null,null,null,null,null)
                                     }
+                                  }
+                                  else
+                                  {
+                                    this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],Dataempresas['data']['empresas'],Dataresponsables['data']['responsables'],Dataespecies['data']['especies'],null,null,null,null,null,null,null)
+                                  }
                                 }
                                 else
                                 {
-                                  this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],Dataempresas['data']['empresas'],Dataresponsables['data']['responsables'],Dataespecies['data']['especies'],Datagranjas['data']['granjas'],null,null,null,null,null)
+                                  this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],Dataempresas['data']['empresas'],Dataresponsables['data']['responsables'],null,null,null,null,null,null,null,null)
                                 }
-                              }
-                              else
-                              {
-                                this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],Dataempresas['data']['empresas'],Dataresponsables['data']['responsables'],Dataespecies['data']['especies'],null,null,null,null,null,null)
+                              }else{
+                                this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],Dataempresas['data']['empresas'],null,null,null,null,null,null,null,null,null)
                               }
                             }
                             else
                             {
-                              this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],Dataempresas['data']['empresas'],Dataresponsables['data']['responsables'],null,null,null,null,null,null,null)
+                              this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],null,null,null,null,null,null,null,null,null,null)
                             }
                           }else{
-                            this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],Dataempresas['data']['empresas'],null,null,null,null,null,null,null,null)
+                            this.guardarinfoenBasedeDatos(null,null,null,null,null,null,null,null,null,null,null)
                           }
-                        }
-                        else
-                        {
-                          this.guardarinfoenBasedeDatos(Datausuarios['data']['usuarios'],null,null,null,null,null,null,null,null,null)
-                        }
-                      }else{
-                        this.guardarinfoenBasedeDatos(null,null,null,null,null,null,null,null,null,null)
-                      }
 
-                    
+                        })
                      })
                     })
                   })
@@ -124,7 +133,7 @@ export class LoadPage implements OnInit {
       })
     })
   }
-  guardarinfoenBasedeDatos(usuario,empresas,responsable,especies,granja,permisos,fisicosquimicosparametros,materias,causas,espacios){
+  guardarinfoenBasedeDatos(usuario,empresas,responsable,especies,granja,permisos,fisicosquimicosparametros,materias,causas,espacios,lotesespaciodiferentes){
       if(usuario){
         this.master.storage.DeleteKey(this.master.storage.arrayname.Usuarios).then(()=>{
           this.master.storage.addItem(this.master.storage.arrayname.Usuarios,usuario).then(()=>{
@@ -155,8 +164,16 @@ export class LoadPage implements OnInit {
                                                             if(espacios){
                                                               this.master.storage.DeleteKey(this.master.storage.arrayname.EspaciosByCod).then(()=>{
                                                                 this.master.storage.addItem(this.master.storage.arrayname.EspaciosByCod,espacios).then(()=>{
-                                                                  console.log(espacios)
-                                                                  this.finalizaciondeBusqueda()
+                                                                  if(lotesespaciodiferentes){
+                                                                    this.master.storage.DeleteKey(this.master.storage.arrayname.espacioLotesDiferentes).then(()=>{
+                                                                      this.master.storage.addItem(this.master.storage.arrayname.espacioLotesDiferentes,lotesespaciodiferentes).then(()=>{
+                                                                        console.log(lotesespaciodiferentes)
+                                                                        this.finalizaciondeBusqueda()
+                                                                      })
+                                                                    })
+                                                                  }else{
+                                                                    this.finalizaciondeBusqueda()
+                                                                  }
                                                                 })
                                                               })
                                                             }else{

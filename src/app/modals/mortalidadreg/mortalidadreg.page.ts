@@ -19,6 +19,7 @@ export class MortalidadregPage implements OnInit {
     kilospm:'',
     Lote:"",
     cantidadam:'',
+    LoteSelec:null,
     espacios:null,
     causas:null
   }
@@ -28,6 +29,7 @@ export class MortalidadregPage implements OnInit {
   espaciosprod=[]
   causass=[]
   mortalidades=[]
+  Lote=[]
   constructor(private master:MasterService,private loadingController:LoadingController,private modalController:ModalController,
     navParams: NavParams) {
       if(navParams.get('idempresa')){
@@ -79,7 +81,15 @@ export class MortalidadregPage implements OnInit {
         if(this.DataForm.causas){
           if(this.DataForm.espacios){
             if(Number(this.DataForm.Lote)>0){
+              if(this.Lote.length>0){
+              if(this.DataForm.LoteSelec){
+                this.agregarValor()
+              }else{
+                this.master.toastMensaje("es necesario un Lote",3000)
+              }
+            }else{
               this.agregarValor()
+            }
             }else{
               this.master.toastMensaje("Lotes debe ser Mayor a 0",3000)
             }
@@ -158,7 +168,19 @@ export class MortalidadregPage implements OnInit {
   }
   changeespacios(evento){
     let espacios=evento.value['IDEMP']
+    this.master.storage.getItems(this.master.storage.arrayname.espacioLotesDiferentes).then((datos)=>{
+      let datoss=datos[0].filter(dato=>Number(dato.IDEMP)===Number(this.idempresas) && Number(dato.IDGRA)===Number(this.idgranjas) && dato.LOTE>0 && dato.COD===evento.value['COD'])
+      this.Lote=[]
+      if(datoss.length>1){
+        this.Lote=datoss
+      }else{
+        this.DataForm.Lote=evento.value['LOTE']?evento.value['LOTE']:0
+      }
+    })
+  }
+  changelotes(evento){
     this.DataForm.Lote=evento.value['LOTE']?evento.value['LOTE']:0
+    console.log(evento)
   }
   changecausas(evento){
     let causas=evento.value['IDGRA']

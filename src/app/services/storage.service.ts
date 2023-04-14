@@ -32,7 +32,8 @@ export class StorageService {
     "EspaciosByCod":"EspaciosByCod",
     "repConsumos":"repConsumos",
     "repMortalidd":"repMortalidd",
-    "fisicosquimicosparametros":"fisicosquimicosparametros"
+    "fisicosquimicosparametros":"fisicosquimicosparametros",
+    "espacioLotesDiferentes":"espacioLotesDiferentes"
   } 
   constructor(private storage:Storage) {
     this.storage.create()

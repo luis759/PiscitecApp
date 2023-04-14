@@ -18,7 +18,8 @@ export class MateriasconsumoregPage implements OnInit {
     LotesEMP:'',
     cantidad:'',
     espacios:null,
-    materia:null
+    materia:null,
+    LoteSelec:null
   }
   idgranjas=0
   idempresas=0
@@ -26,6 +27,7 @@ export class MateriasconsumoregPage implements OnInit {
   espaciosprod=[]
   materias=[]
   listConsumos=[]
+  Lote=[]
   constructor(private master:MasterService,private loadingController:LoadingController,private modalController:ModalController,
     navParams: NavParams) {
       if(navParams.get('idempresa')){
@@ -67,7 +69,15 @@ export class MateriasconsumoregPage implements OnInit {
       if(Number(this.DataForm.Lotes)>0){
         if(this.DataForm.materia){
           if(this.DataForm.espacios){
-    this.agregarValor()
+            if(this.Lote.length>0){
+              if(this.DataForm.LoteSelec){
+                this.agregarValor()
+              }else{
+                this.master.toastMensaje("es necesario un Lote",3000)
+              }
+            }else{
+              this.agregarValor()
+            }
           }else{
             this.master.toastMensaje("es necesario un Espacio",3000)
           }
@@ -168,7 +178,19 @@ export class MateriasconsumoregPage implements OnInit {
   }
   changeespacios(evento){
     let espacios=evento.value['IDEMP']
+    this.master.storage.getItems(this.master.storage.arrayname.espacioLotesDiferentes).then((datos)=>{
+      let datoss=datos[0].filter(dato=>Number(dato.IDEMP)===Number(this.idempresas) && Number(dato.IDGRA)===Number(this.idgranjas) && dato.LOTE>0 && dato.COD===evento.value['COD'])
+      this.Lote=[]
+      if(datoss.length>1){
+        this.Lote=datoss
+      }else{
+        this.DataForm.Lotes=evento.value['LOTE']?evento.value['LOTE']:0
+      }
+    })
+  }
+  changelotes(evento){
     this.DataForm.Lotes=evento.value['LOTE']?evento.value['LOTE']:0
+    console.log(evento)
   }
   changematerias(evento){
     let materias=evento.value['IDGRA']

@@ -86,6 +86,45 @@ export class GranjasService {
     
   }  
    //API PARA LLAMAR TODOS LOS ESPACIOS
+   // API PARA LLAMAR LOS LOTES DIFERENTES
+   getAllEspaciosLotesDiferentes():Promise<any>{
+    return new Promise((resolve)=>{
+      let nativecall=this.httpnative.get(environment.urlApi+'espaciocodigobyempresa',{},{'Content-Type': 'application/json'})
+      nativecall.then((Data)=>{
+          if(Data.status==200 || Data.status==201){
+            if(this.isJson(Data.data)){
+              let DataRetorno=JSON.parse(Data.data)
+              resolve({
+                correcto:true,
+                data:DataRetorno,
+                mensaje:''
+              })
+            }else{
+              resolve({
+                correcto:false,
+                data:Data,
+                mensaje:'errorjson'
+              })
+            }
+          }else{
+            resolve({
+              correcto:false,
+              data:Data,
+              mensaje:'succes-failed'
+            })
+          }
+      },(errorData)=>{
+        resolve({
+          correcto:false,
+          data:errorData,
+          mensaje:'failed-failed'
+        })
+      })
+    })
+    
+  }  
+   
+   // API PARA LLAMAR LOS LOTES DIFERENTES
    //API PARA LLAMAR TODOS LOS ESPACIOS CON SU CODIGO
   getAllEspaciosWithCOD():Promise<any>{
     return new Promise((resolve)=>{
