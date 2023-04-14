@@ -174,7 +174,7 @@ export class MortalidadregPage implements OnInit {
       if(datoss.length>1){
         this.Lote=datoss
       }else{
-        this.DataForm.Lote=evento.value['LOTE']?evento.value['LOTE']:0
+        this.DataForm.Lote=datoss[0]['LOTE']?datoss[0]['LOTE']:0
       }
     })
   }

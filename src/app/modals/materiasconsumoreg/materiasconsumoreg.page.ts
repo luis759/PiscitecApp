@@ -184,7 +184,7 @@ export class MateriasconsumoregPage implements OnInit {
       if(datoss.length>1){
         this.Lote=datoss
       }else{
-        this.DataForm.Lotes=evento.value['LOTE']?evento.value['LOTE']:0
+        this.DataForm.Lotes=datoss[0]['LOTE']?datoss[0]['LOTE']:0
       }
     })
   }
