@@ -225,7 +225,6 @@ GuardarRegistroDeReportes(Report,Enviado,Erroes){
     this.cantidadtotal=0
     this.kilostotal=0
     this.listmortalidad.forEach((valorList)=>{
-      this.lotestotal=this.lotestotal+(valorList.LOTE*1)
       this.cantidadtotal=this.cantidadtotal+((valorList.CANTAM*1)+(valorList.CANTPM*1))
       this.kilostotal=this.kilostotal+((valorList.KILOSAM*1)+(valorList.KILOSPM*1))
     })
