@@ -19,7 +19,7 @@
       <ionic-selectable 
         [(ngModel)]="DataForm.espacios"
         [items]="espaciosprod"
-        itemValueField="NOMBRE"
+        itemValueField="COD"
         itemTextField="NOMBRE"
         [canSearch]="true"
         (onOpen)="onOpen($event)"
@@ -32,7 +32,7 @@
       <ionic-selectable 
         [(ngModel)]="DataForm.LoteSelec"
         [items]="Lote"
-        itemValueField="NOMBRE"
+        itemValueField="COD"
         itemTextField="NOMBRE"
         [canSearch]="true"
         (onOpen)="onOpen($event)"
