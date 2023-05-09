@@ -26,7 +26,7 @@
         closeButtonText="Cerrar">
       </ionic-selectable>
     </ion-item>
-    <ion-item *ngIf="Lote?.length>0">
+    <ion-item>
       <ion-label  color="dark" >Selecciona Lote *</ion-label>
       <ionic-selectable 
         [(ngModel)]="DataForm.LoteSelec"
@@ -38,7 +38,7 @@
         closeButtonText="Cerrar">
       </ionic-selectable>
     </ion-item>
-    <ion-item *ngIf="Lote?.length==0">
+    <ion-item>
       <ion-label position="stacked" style="font-size: larger;">Lote: *</ion-label>
       <ion-input [(ngModel)]="DataForm.Lote"  placeholder="Lote" type="number"></ion-input>
     </ion-item>
