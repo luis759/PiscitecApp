@@ -56,7 +56,7 @@ export class MateriasconsumoregPage implements OnInit {
         if(datamateria){
           this.materias=datamateria[0].map((valor)=>{
             return({
-              ID:valor.ID,
+              ID:valor.COD,
               NOMBRE:valor.NOMBRE+"-"+valor.TIPOCOSTO
             })
           })

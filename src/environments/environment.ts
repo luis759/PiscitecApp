@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  urlApi:'http://192.168.0.17:8080/'
+  urlApi:'https://acuaguajaro.azurewebsites.net/'
 };
 
 /*
