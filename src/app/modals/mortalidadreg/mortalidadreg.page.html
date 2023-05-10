@@ -26,19 +26,19 @@
         closeButtonText="Cerrar">
       </ionic-selectable>
     </ion-item>
-    <ion-item>
+    <ion-item >
       <ion-label  color="dark" >Selecciona Lote *</ion-label>
       <ionic-selectable 
         [(ngModel)]="DataForm.LoteSelec"
         [items]="Lote"
-        itemValueField="COD"
+        itemValueField="NOMBRE"
         itemTextField="NOMBRE"
         [canSearch]="true"
         (onChange)="changelotes($event)"
         closeButtonText="Cerrar">
       </ionic-selectable>
     </ion-item>
-    <ion-item>
+    <ion-item >
       <ion-label position="stacked" style="font-size: larger;">Lote: *</ion-label>
       <ion-input [(ngModel)]="DataForm.Lote"  placeholder="Lote" type="number"></ion-input>
     </ion-item>

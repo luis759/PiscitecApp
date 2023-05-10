@@ -32,10 +32,9 @@
       <ionic-selectable 
         [(ngModel)]="DataForm.LoteSelec"
         [items]="Lote"
-        itemValueField="COD"
+        itemValueField="NOMBRE"
         itemTextField="NOMBRE"
         [canSearch]="true"
-        (onOpen)="onOpen($event)"
         (onChange)="changelotes($event)"
         closeButtonText="Cerrar">
       </ionic-selectable>

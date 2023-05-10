@@ -112,7 +112,8 @@ export class MateriasconsumoregPage implements OnInit {
           LotesEMP:this.DataForm.LotesEMP,
           cantidad:this.DataForm.cantidad,
           espacios:this.DataForm.espacios,
-          materia:this.DataForm.materia
+          materia:this.DataForm.materia,
+          LoteSelec:this.DataForm.LoteSelec
         }
       }
       this.idindex=-1;
@@ -130,7 +131,8 @@ export class MateriasconsumoregPage implements OnInit {
           LotesEMP:this.DataForm.LotesEMP,
           cantidad:this.DataForm.cantidad,
           espacios:this.DataForm.espacios,
-          materia:this.DataForm.materia
+          materia:this.DataForm.materia,
+          LoteSelec:this.DataForm.LoteSelec
         }
       })
     }
@@ -141,6 +143,7 @@ export class MateriasconsumoregPage implements OnInit {
         this.DataForm.cantidad="";
         this.DataForm.espacios=null;
         this.DataForm.materia=null;
+        this.DataForm.LoteSelec=null;
         this.DataForm.observaciones="";
       })
     })
@@ -156,6 +159,10 @@ export class MateriasconsumoregPage implements OnInit {
               this.DataForm.espacios=datos[0][this.idindex].INFODATA.espacios
               this.DataForm.materia=datos[0][this.idindex].INFODATA.materia
               this.DataForm.observaciones=datos[0][this.idindex].INFODATA.observaciones
+              this.DataForm.LoteSelec=datos[0][this.idindex].INFODATA.LoteSelec
+              this.DataForm.LotesEMP=datos[0][this.idindex].INFODATA.LotesEMP
+              
+              this.showAllSelect()
             }
           }
         }
@@ -177,20 +184,49 @@ export class MateriasconsumoregPage implements OnInit {
   })
   }
   changeespacios(evento){
-    let espacios=evento.value['IDEMP']
+    let espacios=evento.value['COD']
     this.master.storage.getItems(this.master.storage.arrayname.espacioLotesDiferentes).then((datos)=>{
-      let datoss=datos[0].filter(dato=>Number(dato.IDEMP)===Number(this.idempresas) && Number(dato.IDGRA)===Number(this.idgranjas) && dato.COD===evento.value['COD'])
+      let datoss=datos[0].filter(dato=>Number(dato.IDEMP)===Number(this.idempresas) && Number(dato.IDGRA)===Number(this.idgranjas) && dato.COD===espacios)
+      this.Lote=[]
+      if(datoss.length>1){
+        this.DataForm.LoteSelec=null
+        this.Lote=datoss
+      }else{
+        if(!datoss[0]['LOTE']){
+          this.master.toastMensaje("Este espacio productivo no tiene Lotes Sembrados",3000)
+          this.Lote=datoss
+          this.DataForm.LoteSelec=null
+          this.DataForm.Lotes="0"
+        }else{
+          this.Lote=datoss
+          this.DataForm.LoteSelec=datoss[0]
+          this.DataForm.Lotes=datoss[0]['LOTE']?datoss[0]['LOTE']:0
+          
+        }
+      }
+    })
+  }
+  showAllSelect(){
+    let espacios=this.DataForm.espacios['COD']
+    this.master.storage.getItems(this.master.storage.arrayname.espacioLotesDiferentes).then((datos)=>{
+      let datoss=datos[0].filter(dato=>Number(dato.IDEMP)===Number(this.idempresas) && Number(dato.IDGRA)===Number(this.idgranjas) && dato.COD===espacios)
       this.Lote=[]
       if(datoss.length>1){
         this.Lote=datoss
       }else{
-        this.Lote=datoss
-        this.DataForm.LoteSelec=datoss[0]
-        this.DataForm.Lotes=datoss[0]['LOTE']?datoss[0]['LOTE']:0
+        if(!datoss[0]['LOTE']){
+          this.master.toastMensaje("Este espacio productivo no tiene Lotes Sembrados",3000)
+          this.Lote=datoss
+        }else{
+          this.Lote=datoss
+        }
       }
     })
   }
   changelotes(evento){
+    if(!evento.value['LOTE']){
+      this.master.toastMensaje("Este espacio productivo no tiene Lotes Sembrados",3000)
+    }
     this.DataForm.Lotes=evento.value['LOTE']?evento.value['LOTE']:0
     console.log(evento)
   }

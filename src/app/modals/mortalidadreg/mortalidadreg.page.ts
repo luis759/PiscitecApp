@@ -69,7 +69,8 @@ export class MortalidadregPage implements OnInit {
           this.mortalidades=datos[0]
           if(this.idindex>=0){
             this.DataForm=datos[0][this.idindex].INFODATA
-        }
+            this.showAllSelect()
+          }
         }
       }
     })
@@ -106,8 +107,6 @@ export class MortalidadregPage implements OnInit {
               this.modalController.dismiss()
   }
   agregarValor(){
-    let dato=[]
-    dato.push(this.DataForm)
     if(this.idindex>=0){
       this.mortalidades[this.idindex]={
         CODESPA:this.DataForm.espacios['COD'],
@@ -124,6 +123,7 @@ export class MortalidadregPage implements OnInit {
           cantidadpm:this.DataForm.cantidadpm,
           kilospm:this.DataForm.kilospm,
           Lote:this.DataForm.Lote,
+          LoteSelec:this.DataForm.LoteSelec,
           cantidadam:this.DataForm.cantidadam,
           espacios:this.DataForm.espacios,
           causas:this.DataForm.espacios.causas
@@ -146,13 +146,13 @@ export class MortalidadregPage implements OnInit {
           cantidadpm:this.DataForm.cantidadpm,
           kilospm:this.DataForm.kilospm,
           Lote:this.DataForm.Lote,
+          LoteSelec:this.DataForm.LoteSelec,
           cantidadam:this.DataForm.cantidadam,
           espacios:this.DataForm.espacios,
           causas:this.DataForm.causas
         }
       })
     }
-    console.log( this.mortalidades)
     this.master.storage.DeleteKey("valorretornomortalidad").then(()=>{
       this.master.storage.addItem("valorretornomortalidad",this.mortalidades).then(()=>{
         this.DataForm.cantidadam="";
@@ -161,26 +161,56 @@ export class MortalidadregPage implements OnInit {
         this.DataForm.kilospm="";
         this.DataForm.espacios=null;
         this.DataForm.Lote="";
+        this.DataForm.LoteSelec=null;
         this.DataForm.causas=null;
         this.DataForm.observaciones="";
       })
     })
   }
   changeespacios(evento){
-    let espacios=evento.value['IDEMP']
+    let espacios=evento.value['COD']
     this.master.storage.getItems(this.master.storage.arrayname.espacioLotesDiferentes).then((datos)=>{
-      let datoss=datos[0].filter(dato=>Number(dato.IDEMP)===Number(this.idempresas) && Number(dato.IDGRA)===Number(this.idgranjas) && dato.COD===evento.value['COD'])
+      let datoss=datos[0].filter(dato=>Number(dato.IDEMP)===Number(this.idempresas) && Number(dato.IDGRA)===Number(this.idgranjas) && dato.COD===espacios)
+      this.Lote=[]
+      if(datoss.length>1){
+        this.DataForm.LoteSelec=null
+        this.Lote=datoss
+      }else{
+        if(!datoss[0]['LOTE']){
+          this.master.toastMensaje("Este espacio productivo no tiene Lotes Sembrados",3000)
+          this.Lote=datoss
+          this.DataForm.LoteSelec=null
+          this.DataForm.Lote="0"
+        }else{
+          this.Lote=datoss
+          this.DataForm.LoteSelec=datoss[0]
+          this.DataForm.Lote=datoss[0]['LOTE']?datoss[0]['LOTE']:0
+          
+        }
+      }
+    })
+  }
+  showAllSelect(){
+    let espacios=this.DataForm.espacios['COD']
+    this.master.storage.getItems(this.master.storage.arrayname.espacioLotesDiferentes).then((datos)=>{
+      let datoss=datos[0].filter(dato=>Number(dato.IDEMP)===Number(this.idempresas) && Number(dato.IDGRA)===Number(this.idgranjas) && dato.COD===espacios)
       this.Lote=[]
       if(datoss.length>1){
         this.Lote=datoss
       }else{
-        this.Lote=datoss
-        this.DataForm.LoteSelec=datoss[0]
-        this.DataForm.Lote=datoss[0]['LOTE']?datoss[0]['LOTE']:0
+        if(!datoss[0]['LOTE']){
+          this.master.toastMensaje("Este espacio productivo no tiene Lotes Sembrados",3000)
+          this.Lote=datoss
+        }else{
+          this.Lote=datoss
+        }
       }
     })
   }
   changelotes(evento){
+    if(!evento.value['LOTE']){
+      this.master.toastMensaje("Este espacio productivo no tiene Lotes Sembrados",3000)
+    }
     this.DataForm.Lote=evento.value['LOTE']?evento.value['LOTE']:0
     console.log(evento)
   }
