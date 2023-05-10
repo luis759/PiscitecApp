@@ -126,7 +126,7 @@ export class MortalidadregPage implements OnInit {
           LoteSelec:this.DataForm.LoteSelec,
           cantidadam:this.DataForm.cantidadam,
           espacios:this.DataForm.espacios,
-          causas:this.DataForm.espacios.causas
+          causas:this.DataForm.causas
         }
       }
       this.idindex=-1;
