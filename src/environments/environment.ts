@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  urlApi:'https://acuaguajaro.azurewebsites.net/'
+  urlApi:'https://agropiscicolahermosa.azurewebsites.net/',
+  lenguajemaster:"es"
 };
 
 /*

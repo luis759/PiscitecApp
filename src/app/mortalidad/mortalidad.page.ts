@@ -21,6 +21,7 @@ export class MortalidadPage implements OnInit {
   granjas=[]
   responsables=[]
   listmortalidad=[]
+  granjaprincipal={} as any
   lotestotal=0
   cantidadtotal=0
   kilostotal=0
@@ -31,7 +32,11 @@ export class MortalidadPage implements OnInit {
       if(this.DataForm.granja){
         if(this.DataForm.responsable){
             if(this.listmortalidad.length>0){
-              this.seguir()
+              if(this.checkGranja()){
+                this.seguir()
+              }else{
+                this.master.toastMensaje("Es necesario la granja que tenias no puedes enviar",3000)
+              }
             }else{
               this.master.toastMensaje("Es necesario al menos una mortalidad",3000)
 
@@ -54,6 +59,7 @@ export class MortalidadPage implements OnInit {
       granja:null,
       responsable:null
     }
+    this.granjaprincipal={}
     this.lotestotal=0
     this.cantidadtotal=0
     this.kilostotal=0
@@ -175,7 +181,17 @@ GuardarRegistroDeReportes(Report,Enviado,Erroes){
       }
     })
   }
-  async iralmodal(numero){
+  checkGranja(){
+    let valor = false
+    if(this.granjaprincipal.IDGRA){
+      if(this.granjaprincipal.IDGRA===this.DataForm.granja['IDGRA']){
+        valor=true
+      }
+    }
+    return valor
+  }
+
+  async seguiralModal(numero){
     this.master.storage.DeleteKey("valorretornomortalidad").then(()=>{
       this.master.storage.addItem("valorretornomortalidad", this.listmortalidad).then(async ()=>{
           const modal=await this.modalController.create({
@@ -190,6 +206,7 @@ GuardarRegistroDeReportes(Report,Enviado,Erroes){
             this.master.storage.getItems("valorretornomortalidad").then((datos)=>{
               if(datos){
                 if(datos.length>0){
+                  this.granjaprincipal=JSON.parse(JSON.stringify(this.DataForm.granja))
                   this.listmortalidad=datos[0]
                   this.colocarTotales()
                 }
@@ -199,6 +216,17 @@ GuardarRegistroDeReportes(Report,Enviado,Erroes){
           return await modal.present()
       })
     })
+  }
+  async iralmodal(numero){
+    if(this.listmortalidad.length===0){
+      this.seguiralModal(numero)
+    }else{
+      if(this.checkGranja()){
+        this.seguiralModal(numero)
+      }else{
+        this.master.toastMensaje("Es necesario la granja que tenias no puedes avanzar",3000)
+      }
+    }
   }
   async irAConsumos(){
     if(this.DataForm.granja){

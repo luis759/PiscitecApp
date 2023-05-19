@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuController, NavController, Platform } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 import { MasterService } from '../services/master.service';
 
 @Component({
@@ -39,8 +40,15 @@ export class MenuPage implements OnInit {
       function:'logout'
     }    
 ]
-  constructor(private platform:Platform,private menus:MenuController,private master:MasterService,private nav:NavController) {
-      
+message=[]
+  constructor(private translate:TranslateService,private platform:Platform,private menus:MenuController,private master:MasterService,private nav:NavController) {
+    this.translate.get("menu").subscribe(dataTranslate=>{
+      this.message=dataTranslate
+      this.pages[0].title=this.message['option1']
+      this.pages[1].title=this.message['option2']
+      this.pages[2].title=this.message['option3']
+      this.pages[3].title=this.message['option4']
+     })
    }
 
   ngOnInit() {

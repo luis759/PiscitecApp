@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 import { MasterService } from '../services/master.service';
 
 @Component({
@@ -26,8 +27,16 @@ export class HomePage {
     name:"Consumo de Materias Primas"
   }]
   valorinicial=0
-  constructor(private navcontorll:NavController,private master:MasterService) {
-
+  message=[]
+  constructor(private navcontorll:NavController,private translate:TranslateService,private master:MasterService,) {
+    this.translate.get("home").subscribe(dataTranslate=>{
+      this.message=dataTranslate
+      this.inventarios[0].name=this.message['optionoth1']
+      this.reportes[0].name=this.message['option1']
+      this.reportes[1].name=this.message['option2']
+      this.reportes[2].name=this.message['option3']
+      this.reportes[3].name=this.message['option4']
+     })
 
   }
   radioGroupChange(evento){
@@ -54,7 +63,7 @@ export class HomePage {
             if(valorPaso){
               this.navcontorll.navigateForward("menu/reportinicial")
             }else{
-              this.master.toastMensaje("No tienes Permiso para ingresar",2000)
+              this.master.toastMensaje(this.message['mensajenopermiso'],2000)
             }
           }
         })
@@ -76,7 +85,7 @@ export class HomePage {
             if(valorPaso){
               this.navcontorll.navigateForward("menu/reportvacun")
             }else{
-              this.master.toastMensaje("No tienes Permiso para ingresar",2000)
+              this.master.toastMensaje(this.message['mensajenopermiso'],2000)
             }
           }
         })
@@ -98,7 +107,7 @@ export class HomePage {
             if(valorPaso){
               this.navcontorll.navigateForward("menu/fisicoquimicos")
             }else{
-              this.master.toastMensaje("No tienes Permiso para ingresar",2000)
+              this.master.toastMensaje(this.message['mensajenopermiso'],2000)
             }
           }
         })
@@ -120,7 +129,7 @@ export class HomePage {
             if(valorPaso){
               this.navcontorll.navigateForward("menu/mortalidad")
             }else{
-              this.master.toastMensaje("No tienes Permiso para ingresar",2000)
+              this.master.toastMensaje(this.message['mensajenopermiso'],2000)
             }
           }
         })
@@ -142,7 +151,7 @@ export class HomePage {
             if(valorPaso){
               this.navcontorll.navigateForward("menu/materiasconsumo")
             }else{
-              this.master.toastMensaje("No tienes Permiso para ingresar",2000)
+              this.master.toastMensaje(this.message['mensajenopermiso'],2000)
             }
           }
         })

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 import { MasterService } from '../services/master.service';
 
 @Component({
@@ -27,18 +28,21 @@ export class LoginPage implements OnInit {
     },
     recordar:false
   }
-  constructor(private master:MasterService,private navcontroller:NavController) {
-
+  message=[]
+  constructor(private master:MasterService,private navcontroller:NavController,private translate:TranslateService) {
+    this.translate.get("login").subscribe(dataTranslate=>{
+      this.message=dataTranslate
+     })
    }
     validardatosIngreso(){
      if(this.DataForm.clave.value){
        if(this.DataForm.nombreusuario.value){
           this.buscarEnbasededatos()
        }else{
-        this.master.MensajeAlert("La cedula no debe estar vacio","Error Login")
+        this.master.MensajeAlert(this.message['mensajevalidaringreso1'],"Error Login")
        }
      }else{
-      this.master.MensajeAlert("La palabra no debe estar vacio","Error Login")
+      this.master.MensajeAlert(this.message['mensajevalidaringreso2'],"Error Login")
      }
     }
     buscarEnbasededatos(){
@@ -58,10 +62,10 @@ export class LoginPage implements OnInit {
              })
            })
          }else{
-           this.master.MensajeAlert("la cedula o la palabra no se encontro en los registros","Error Login")
+           this.master.MensajeAlert(this.message['buscarbasededatos1'],"Error Login")
          }
         }else{
-         this.master.MensajeAlert("No se pudo conectar al Servidor, cierre la aplicacion y vuelva a ingresar","Error Login")
+         this.master.MensajeAlert(this.message['buscarbasededatos2'],"Error Login")
         }
       })
     }

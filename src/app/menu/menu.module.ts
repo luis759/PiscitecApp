@@ -15,6 +15,7 @@ import { MateriasconsumoregPage } from '../modals/materiasconsumoreg/materiascon
 import { MateriasconsumoregPageModule } from '../modals/materiasconsumoreg/materiasconsumoreg.module';
 import { MortalidadregPage } from '../modals/mortalidadreg/mortalidadreg.page';
 import { MortalidadregPageModule } from '../modals/mortalidadreg/mortalidadreg.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   entryComponents:[
@@ -31,7 +32,8 @@ import { MortalidadregPageModule } from '../modals/mortalidadreg/mortalidadreg.m
     CommonModule,
     FormsModule,
     IonicModule,
-    MenuPageRoutingModule
+    MenuPageRoutingModule,
+    TranslateModule.forChild()
   ],
   declarations: [MenuPage]
 })

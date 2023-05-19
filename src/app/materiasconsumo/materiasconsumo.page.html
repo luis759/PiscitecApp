@@ -5,7 +5,8 @@
     </ion-buttons>
     <ion-title>
       <div class="ion-text-wrap">
-        Consumo de Materias Primas
+    
+        {{ 'materiaconsumos.titulo' | translate }}
        </div>
 
     </ion-title>
@@ -15,7 +16,8 @@
 <ion-content>
     <ion-list>
     <ion-item >
-      <ion-label  color="dark">Empresa *</ion-label>
+      <ion-label  color="dark">
+        {{ 'materiaconsumos.empresa' | translate }} *</ion-label>
       <ionic-selectable 
         [(ngModel)]="DataForm.empresa"
         [items]="empresas"
@@ -27,7 +29,7 @@
       </ionic-selectable>
     </ion-item>
     <ion-item >
-      <ion-label  color="dark">Granja *</ion-label>
+      <ion-label  color="dark">{{ 'materiaconsumos.granja' | translate }} *</ion-label>
       <ionic-selectable 
         [(ngModel)]="DataForm.granja"
         [items]="granjas"
@@ -39,7 +41,7 @@
       </ionic-selectable>
     </ion-item>
     <ion-item >
-      <ion-label  color="dark">Responsable *</ion-label>
+      <ion-label  color="dark">{{ 'materiaconsumos.responsable' | translate }} *</ion-label>
       <ionic-selectable 
         [(ngModel)]="DataForm.responsable"
         [items]="responsables"
@@ -50,31 +52,31 @@
       </ionic-selectable>
     </ion-item>
     <ion-item>
-      <ion-label  position="" class="ion-text-wrap">Fecha *</ion-label>
-      <ion-datetime monthShortNames='Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Sep, Oct, Nov, Dic' min="1980" max="2030" cancelText="CANCELAR"  doneText="ACEPTAR" placeholder="Selecciona la Fecha" [(ngModel)]="DataForm.fecha" ></ion-datetime>
+      <ion-label  position="" class="ion-text-wrap">{{ 'materiaconsumos.fecha' | translate }} *</ion-label>
+      <ion-datetime monthShortNames='Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Sep, Oct, Nov, Dic' min="1980" max="2030" cancelText="{{ 'global.cancelar' | translate }}"  doneText="{{ 'global.accept' | translate }}" placeholder="{{ 'materiaconsumos.seleccionefecha' | translate }}" [(ngModel)]="DataForm.fecha" ></ion-datetime>
     </ion-item>
     <ion-item>
-      <ion-label position="stacked" style="font-size: larger;">Observaciones:</ion-label>
-      <ion-input [(ngModel)]="DataForm.observaciones"  placeholder="observaciones" type="text"></ion-input>
+      <ion-label position="stacked" style="font-size: larger;">{{ 'materiaconsumos.observaciones' | translate }}:</ion-label>
+      <ion-input [(ngModel)]="DataForm.observaciones"  placeholder="{{ 'materiaconsumos.observaciones' | translate }}" type="text"></ion-input>
     </ion-item>
     </ion-list>
     <ion-list style="margin:0px 15%;" class="ion-text-center">
         <ion-item class="ion-text-left"> 
           <ion-label >
-            <p style="color:black;font-size: medium;font-weight: bolder;border:1px solid black;margin:0px;padding:5px;">Resumen de Consumos</p>
-            <p style="color:black;border:1px solid black;margin:0px;padding:5px;">Lote: <ion-badge color="primary">{{lotestotal}}</ion-badge></p>
-            <p style="color:black;border:1px solid black;margin:0px;padding:5px;">Cantidad: <ion-badge color="primary">{{cantidadtotal}}</ion-badge></p>
+            <p style="color:black;font-size: medium;font-weight: bolder;border:1px solid black;margin:0px;padding:5px;">{{ 'materiaconsumos.resumenconsumo' | translate }}</p>
+            <p style="color:black;border:1px solid black;margin:0px;padding:5px;">{{ 'materiaconsumos.lote' | translate }} : <ion-badge color="primary">{{lotestotal}}</ion-badge></p>
+            <p style="color:black;border:1px solid black;margin:0px;padding:5px;">{{ 'materiaconsumos.cantidad' | translate }} : <ion-badge color="primary">{{cantidadtotal}}</ion-badge></p>
           </ion-label>
         </ion-item>
-      <ion-button color="principal" (click)="irAConsumos()" style="border-radius:10px !important;">Agregar Consumo</ion-button>
+      <ion-button color="principal" (click)="irAConsumos()" style="border-radius:10px !important;">{{ 'materiaconsumos.agregarconsumo' | translate }}</ion-button>
     </ion-list>
     <ion-list>
         <ion-item *ngFor="let item of listConsumos,let i = index">
           <ion-item class="ion-text-left"> 
             <ion-label >
-              <p style="color:black;font-size: medium;font-weight: bolder;border:1px solid black;margin:0px;padding:5px;">Materia: {{item.INFODATA.materia.NOMBRE}}</p>
-              <p style="color:black;border:1px solid black;margin:0px;padding:5px;">Lote: <ion-badge color="primary">{{item.LOTE}}</ion-badge></p>
-              <p style="color:black;border:1px solid black;margin:0px;padding:5px;">Cantidad: <ion-badge color="primary">{{item.CANTIDAD}}</ion-badge></p>
+              <p style="color:black;font-size: medium;font-weight: bolder;border:1px solid black;margin:0px;padding:5px;">{{ 'materiaconsumos.materia' | translate }} : {{item.INFODATA.materia.NOMBRE}}</p>
+              <p style="color:black;border:1px solid black;margin:0px;padding:5px;">{{ 'materiaconsumos.lote' | translate }} : <ion-badge color="primary">{{item.LOTE}}</ion-badge></p>
+              <p style="color:black;border:1px solid black;margin:0px;padding:5px;">{{ 'materiaconsumos.cantidad' | translate }} : <ion-badge color="primary">{{item.CANTIDAD}}</ion-badge></p>
             </ion-label>
               <ion-button color="primary" (click)="edit(i)" slot="end">  <ion-icon name="create-outline">
               </ion-icon>       
@@ -92,7 +94,7 @@
 
     </ion-col>
     <ion-col size="8">
-      <ion-button  (click)="ValidarRegistro()" expand="block" color="principal" style="border-radius:10px !important;">Enviar Datos</ion-button>
+      <ion-button  (click)="ValidarRegistro()" expand="block" color="principal" style="border-radius:10px !important;">{{ 'materiaconsumos.enviardatos' | translate }}</ion-button>
       
     </ion-col>
     <ion-col size="2">

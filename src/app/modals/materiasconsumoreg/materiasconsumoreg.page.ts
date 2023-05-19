@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { LoadingController, ModalController, NavParams } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 import { MenuPage } from 'src/app/menu/menu.page';
 import { MasterService } from 'src/app/services/master.service';
 
@@ -28,8 +29,12 @@ export class MateriasconsumoregPage implements OnInit {
   materias=[]
   listConsumos=[]
   Lote=[]
-  constructor(private master:MasterService,private loadingController:LoadingController,private modalController:ModalController,
+  message=[]
+  constructor(private master:MasterService,private translate:TranslateService,private loadingController:LoadingController,private modalController:ModalController,
     navParams: NavParams) {
+      this.translate.get("modalmateriasconsumo").subscribe(dataTranslate=>{
+        this.message=dataTranslate
+       })
       if(navParams.get('idempresa')){
         this.idempresas=navParams.get('idempresa')
       }
@@ -73,24 +78,24 @@ export class MateriasconsumoregPage implements OnInit {
               if(this.DataForm.LoteSelec){
                 this.agregarValor()
               }else{
-                this.master.toastMensaje("es necesario un Lote",3000)
+                this.master.toastMensaje(this.message['agregarotro1'],3000)
               }
             }else{
               this.agregarValor()
             }
           }else{
-            this.master.toastMensaje("es necesario un Espacio",3000)
+            this.master.toastMensaje(this.message['agregarotro2'],3000)
           }
         }else{
-          this.master.toastMensaje("es necesario una Materia",3000)
+          this.master.toastMensaje(this.message['agregarotro3'],3000)
           
         }
       }else{
-        this.master.toastMensaje("Lotes debe ser Mayor a 0",3000)
+        this.master.toastMensaje(this.message['agregarotro4'],3000)
 
       }
     }else{
-      this.master.toastMensaje("la cantidad debe ser Mayor a 0",3000)
+      this.master.toastMensaje(this.message['agregarotro5'],3000)
 
     }
    }
@@ -193,7 +198,7 @@ export class MateriasconsumoregPage implements OnInit {
         this.Lote=datoss
       }else{
         if(!datoss[0]['LOTE']){
-          this.master.toastMensaje("Este espacio productivo no tiene Lotes Sembrados",3000)
+          this.master.toastMensaje(this.message['espacionnolotes'],3000)
           this.Lote=datoss
           this.DataForm.LoteSelec=null
           this.DataForm.Lotes="0"
@@ -215,7 +220,7 @@ export class MateriasconsumoregPage implements OnInit {
         this.Lote=datoss
       }else{
         if(!datoss[0]['LOTE']){
-          this.master.toastMensaje("Este espacio productivo no tiene Lotes Sembrados",3000)
+          this.master.toastMensaje(this.message['espacionnolotes'],3000)
           this.Lote=datoss
         }else{
           this.Lote=datoss
@@ -225,7 +230,7 @@ export class MateriasconsumoregPage implements OnInit {
   }
   changelotes(evento){
     if(!evento.value['LOTE']){
-      this.master.toastMensaje("Este espacio productivo no tiene Lotes Sembrados",3000)
+      this.master.toastMensaje(this.message['espacionnolotes'],3000)
     }
     this.DataForm.Lotes=evento.value['LOTE']?evento.value['LOTE']:0
     console.log(evento)

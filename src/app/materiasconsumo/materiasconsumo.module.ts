@@ -8,6 +8,7 @@ import { IonicSelectableModule } from 'ionic-selectable';
 import { MateriasconsumoPageRoutingModule } from './materiasconsumo-routing.module';
 
 import { MateriasconsumoPage } from './materiasconsumo.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { MateriasconsumoPage } from './materiasconsumo.page';
     FormsModule,
     IonicModule,
     IonicSelectableModule,
-    MateriasconsumoPageRoutingModule
+    MateriasconsumoPageRoutingModule,
+    TranslateModule.forChild()
   ],
   declarations: [MateriasconsumoPage]
 })

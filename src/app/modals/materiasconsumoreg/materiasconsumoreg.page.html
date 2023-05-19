@@ -5,7 +5,7 @@
     </ion-buttons>
     <ion-title>
       <div class="ion-text-wrap">
-        Registro de Consumo de Materias
+        {{ 'modalmateriasconsumo.titulo' | translate }}
        </div>
 
     </ion-title>
@@ -15,7 +15,8 @@
 <ion-content>
     <ion-list>
     <ion-item >
-      <ion-label  color="dark">Espacios Productivos *</ion-label>
+      <ion-label  color="dark">
+        {{ 'modalmateriasconsumo.espaciosprodu' | translate }} *</ion-label>
       <ionic-selectable 
         [(ngModel)]="DataForm.espacios"
         [items]="espaciosprod"
@@ -28,7 +29,7 @@
       </ionic-selectable>
     </ion-item>
     <ion-item >
-      <ion-label  color="dark" >Selecciona Lote *</ion-label>
+      <ion-label  color="dark" > {{ 'modalmateriasconsumo.seleccionlote' | translate }} *</ion-label>
       <ionic-selectable 
         [(ngModel)]="DataForm.LoteSelec"
         [items]="Lote"
@@ -40,11 +41,11 @@
       </ionic-selectable>
     </ion-item>
     <ion-item>
-      <ion-label position="stacked" style="font-size: larger;">Cantidad: *</ion-label>
-      <ion-input [(ngModel)]="DataForm.cantidad"  placeholder="Cantidad" type="number"></ion-input>
+      <ion-label position="stacked" style="font-size: larger;">{{ 'modalmateriasconsumo.cantidad' | translate }} : *</ion-label>
+      <ion-input [(ngModel)]="DataForm.cantidad"  placeholder="{{ 'modalmateriasconsumo.cantidad' | translate }}" type="number"></ion-input>
     </ion-item>
     <ion-item >
-      <ion-label  color="dark">Materia Prima *</ion-label>
+      <ion-label  color="dark">{{ 'modalmateriasconsumo.materiaprima' | translate }} *</ion-label>
       <ionic-selectable 
         [(ngModel)]="DataForm.materia"
         [items]="materias"
@@ -57,22 +58,22 @@
     </ion-item>
     
     <ion-item>
-      <ion-label position="stacked" style="font-size: larger;">Lote Etiqueta: *</ion-label>
-      <ion-input [(ngModel)]="DataForm.LotesEMP"  placeholder="Lote Etiqueta" type="text"></ion-input>
+      <ion-label position="stacked" style="font-size: larger;">{{ 'modalmateriasconsumo.loteetiqueta' | translate }}: *</ion-label>
+      <ion-input [(ngModel)]="DataForm.LotesEMP"  placeholder="{{ 'modalmateriasconsumo.loteetiqueta' | translate }}" type="text"></ion-input>
     </ion-item>
     
     <ion-item>
-      <ion-label position="stacked" style="font-size: larger;">Observaciones:</ion-label>
-      <ion-input [(ngModel)]="DataForm.observaciones"  placeholder="observaciones" type="text"></ion-input>
+      <ion-label position="stacked" style="font-size: larger;">{{ 'modalmateriasconsumo.observaciones' | translate }}:</ion-label>
+      <ion-input [(ngModel)]="DataForm.observaciones"  placeholder="{{ 'modalmateriasconsumo.observaciones' | translate }}" type="text"></ion-input>
     </ion-item>
     </ion-list>    
     <ion-row>
       <ion-col size="6">
-        <ion-button expand="block" (click)="finalizar()" color="warning" style="border-radius:10px !important;">Finalizar</ion-button>
+        <ion-button expand="block" (click)="finalizar()" color="warning" style="border-radius:10px !important;">{{ 'modalmateriasconsumo.finalizar' | translate }}</ion-button>
 
       </ion-col>
       <ion-col size="6">
-        <ion-button expand="block"  (click)="agregarotro()" color="principal" style="border-radius:10px !important;">Agregar</ion-button>
+        <ion-button expand="block"  (click)="agregarotro()" color="principal" style="border-radius:10px !important;">{{ 'modalmateriasconsumo.agregar' | translate }}</ion-button>
 
       </ion-col>
     </ion-row>

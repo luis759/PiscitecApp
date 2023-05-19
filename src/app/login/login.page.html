@@ -11,23 +11,23 @@
       <ion-col size="10">
         <ion-item-group>
           <h1  class="styletexto ion-text-center">
-            Software de Gestión y Control Piscícola 
+            {{ 'login.titulo' | translate }}
 
           </h1>
         
           <ion-item lines="none" class="styleinputlogin">
             <ion-icon name="person" slot="start"></ion-icon>
-            <ion-input type="text" placeholder="Cedula" [(ngModel)]="DataForm.nombreusuario.value" ></ion-input>
+            <ion-input type="text" placeholder="{{ 'login.cedula' | translate }}" [(ngModel)]="DataForm.nombreusuario.value" ></ion-input>
           </ion-item>
             <div *ngIf="DataForm.nombreusuario.error" [innerHTML]="DataForm.nombreusuario.Mensaje"> </div>
             
           <ion-item class="styleinputlogininve">
             <ion-icon name="lock-closed" slot="start"></ion-icon>
-            <ion-input type="password"  placeholder="Palabra" [(ngModel)]="DataForm.clave.value" ></ion-input>
+            <ion-input type="password"  placeholder="{{ 'login.Palabra' | translate }}" [(ngModel)]="DataForm.clave.value" ></ion-input>
           </ion-item>
           <div *ngIf="DataForm.clave.error" [innerHTML]="DataForm.clave.Mensaje"> </div>
           
-          <ion-button expand="block"  color="principal" class="ripple-parent ion-margin-top" (click)="validardatosIngreso()" >Ingresar
+          <ion-button expand="block"  color="principal" class="ripple-parent ion-margin-top" (click)="validardatosIngreso()" >{{ 'login.button' | translate }}
             <ion-ripple-effect></ion-ripple-effect>
           </ion-button>
         </ion-item-group>

@@ -9,6 +9,7 @@ import { IonicSelectableModule } from 'ionic-selectable';
 import { MortalidadregPageRoutingModule } from './mortalidadreg-routing.module';
 
 import { MortalidadregPage } from './mortalidadreg.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { MortalidadregPage } from './mortalidadreg.page';
     FormsModule,
     IonicModule,
     IonicSelectableModule,
-    MortalidadregPageRoutingModule
+    MortalidadregPageRoutingModule,
+    TranslateModule.forChild()
   ],
   declarations: [MortalidadregPage]
 })

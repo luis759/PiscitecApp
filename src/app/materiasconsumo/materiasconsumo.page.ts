@@ -1,6 +1,7 @@
 import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { LoadingController, ModalController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 import { MenuPage } from '../menu/menu.page';
 import { MateriasconsumoregPage } from '../modals/materiasconsumoreg/materiasconsumoreg.page';
 import { MasterService } from '../services/master.service';
@@ -22,11 +23,17 @@ export class MateriasconsumoPage implements OnInit {
   granjas=[]
   responsables=[]
   listConsumos=[]
-  listmaterias=[]
+  materias=[]
+  granjaprincipal={} as any
   espaciosproductivos=[]
   lotestotal=0
   cantidadtotal=0
-  constructor(private master:MasterService,private loadingController:LoadingController,private modalController:ModalController,private menu:MenuPage) { }
+  message=[]
+  constructor(private master:MasterService,private loadingController:LoadingController,private modalController:ModalController,private menu:MenuPage,private translate:TranslateService) {
+    this.translate.get("materiaconsumos").subscribe(dataTranslate=>{
+      this.message=dataTranslate
+     })
+   }
 
   
   ngOnInit() {
@@ -39,23 +46,36 @@ export class MateriasconsumoPage implements OnInit {
        }
     })
   }
+  checkGranja(){
+    let valor = false
+    if(this.granjaprincipal.IDGRA){
+      if(this.granjaprincipal.IDGRA===this.DataForm.granja['IDGRA']){
+        valor=true
+      }
+    }
+    return valor
+  }
   ValidarRegistro(){
     if(this.DataForm.empresa){
       if(this.DataForm.granja){
         if(this.DataForm.responsable){
             if(this.listConsumos.length>0){
-              this.seguir()
+              if(this.checkGranja()){
+                this.seguir()
+              }else{
+                this.master.toastMensaje(this.message['validar1'],3000)
+              }
             }else{
-              this.master.toastMensaje("Es necesario al menos un consumos",3000)
+              this.master.toastMensaje(this.message['validar2'],3000)
             }
         }else{
-          this.master.toastMensaje("Es necesario un Responsable",3000)
+          this.master.toastMensaje(this.message['validar3'],3000)
         }
       }else{
-        this.master.toastMensaje("Es necesario una granja",3000)
+        this.master.toastMensaje(this.message['validar4'],3000)
       }
     }else{
-      this.master.toastMensaje("Es necesario una empresa",3000)
+      this.master.toastMensaje(this.message['validar5'],3000)
     }
   }
   limpiarData(){
@@ -66,6 +86,7 @@ export class MateriasconsumoPage implements OnInit {
       granja:null,
       responsable:null
     }
+    this.granjaprincipal={}
     this.granjas=[]
     this.listConsumos=[]
     this.responsables=[]
@@ -127,10 +148,10 @@ GuardarRegistroDeReportes(Report,Enviado,Erroes){
       this.master.storage.addItem(this.master.storage.arrayname.repConsumos,array).then(()=>{
         if(Enviado){
           this.limpiarData()
-          this.master.MensajeAlert("Registro Guardado y Enviado , Numero de Reporte "+Report.dataEnviado.Principal.NORC,"Reporte Consumos")
+          this.master.MensajeAlert(this.message['guardarmensaje1']+" "+Report.dataEnviado.Principal.NORC,this.message['guardarmensajetitulo'])
         }else{
           this.limpiarData()
-          this.master.MensajeAlert("Registro Guardado","Reporte Consumos")
+          this.master.MensajeAlert(this.message['guardarmensaje2'],this.message['guardarmensajetitulo'])
         }
       })
     })
@@ -178,14 +199,14 @@ GuardarRegistroDeReportes(Report,Enviado,Erroes){
       if(this.DataForm.empresa){
         this.iralmodal(-1)
         }else{
-          this.master.toastMensaje("Debes Seleccionar una Empresa",4000)
+          this.master.toastMensaje(this.message['irconsumomensaje1'],4000)
         }
     }else{
-      this.master.toastMensaje("Debes Seleccionar una Granja",4000)
+      this.master.toastMensaje(this.message['irconsumomensaje2'],4000)
     }
    
   }
-  async iralmodal(numero){
+  async seguiralModal(numero){
     this.master.storage.DeleteKey("valorRetrnomateriaconsumos").then(()=>{
       this.master.storage.addItem("valorRetrnomateriaconsumos", this.listConsumos).then(async ()=>{
         const modal=await this.modalController.create({
@@ -200,6 +221,7 @@ GuardarRegistroDeReportes(Report,Enviado,Erroes){
           this.master.storage.getItems("valorRetrnomateriaconsumos").then((datos)=>{
             if(datos){
               if(datos.length>0){
+                this.granjaprincipal=JSON.parse(JSON.stringify(this.DataForm.granja))
                 this.listConsumos=datos[0]
                 this.colocarTotales()
               }
@@ -209,11 +231,20 @@ GuardarRegistroDeReportes(Report,Enviado,Erroes){
         return await modal.present()
       })
     })
-    
+  }
+  async iralmodal(numero){
+    if(this.listConsumos.length===0){
+      this.seguiralModal(numero)
+    }else{
+      if(this.checkGranja()){
+        this.seguiralModal(numero)
+      }else{
+        this.master.toastMensaje(this.message['modalmensaje'],3000)
+      }
+    }
   }
   edit(numero){
     this.iralmodal(numero)
-
   }
   borrar(numero){
     
@@ -222,7 +253,7 @@ GuardarRegistroDeReportes(Report,Enviado,Erroes){
   }
   colocarTotales()  {
     this.lotestotal=this.listConsumos.length
-    this.cantidadtotal=0
+     this.cantidadtotal=0
     this.listConsumos.forEach((valorList)=>{
       this.cantidadtotal=this.cantidadtotal+valorList.CANTIDAD
     })

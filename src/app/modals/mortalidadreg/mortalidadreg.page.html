@@ -5,7 +5,7 @@
     </ion-buttons>
     <ion-title>
       <div class="ion-text-wrap">
-        Registro de Mortalidad
+        {{ 'modalmortalidadreg.titulo' | translate }}
        </div>
 
     </ion-title>
@@ -15,7 +15,8 @@
 <ion-content>
     <ion-list>
     <ion-item >
-      <ion-label  color="dark">Espacios Productivos *</ion-label>
+      <ion-label  color="dark">
+        {{ 'modalmortalidadreg.espaciosprodu' | translate }} *</ion-label>
       <ionic-selectable 
         [(ngModel)]="DataForm.espacios"
         [items]="espaciosprod"
@@ -27,7 +28,7 @@
       </ionic-selectable>
     </ion-item>
     <ion-item >
-      <ion-label  color="dark" >Selecciona Lote *</ion-label>
+      <ion-label  color="dark" > {{ 'modalmortalidadreg.seleccionlote' | translate }}  *</ion-label>
       <ionic-selectable 
         [(ngModel)]="DataForm.LoteSelec"
         [items]="Lote"
@@ -39,34 +40,34 @@
       </ionic-selectable>
     </ion-item>
     <ion-item >
-      <ion-label position="stacked" style="font-size: larger;">Lote: *</ion-label>
-      <ion-input [(ngModel)]="DataForm.Lote"  placeholder="Lote" type="number"></ion-input>
+      <ion-label position="stacked" style="font-size: larger;">{{ 'modalmortalidadreg.lote' | translate }}: *</ion-label>
+      <ion-input [(ngModel)]="DataForm.Lote"  placeholder="{{ 'modalmortalidadreg.lote' | translate }}" type="number"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label position="stacked" style="font-size: larger;">Cantidad AM:</ion-label>
-      <ion-input [(ngModel)]="DataForm.cantidadam"  placeholder="Cantidad AM" type="number"></ion-input>
-    </ion-item>
-    
-    <ion-item>
-      <ion-label position="stacked" style="font-size: larger;">Kilos AM: </ion-label>
-      <ion-input [(ngModel)]="DataForm.kilosam"  placeholder="Kilos AM" type="number"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="stacked" style="font-size: larger;">Cantidad PM: </ion-label>
-      <ion-input [(ngModel)]="DataForm.cantidadpm"  placeholder="Cantidad PM" type="number"></ion-input>
+      <ion-label position="stacked" style="font-size: larger;">{{ 'modalmortalidadreg.cantidadam' | translate }}:</ion-label>
+      <ion-input [(ngModel)]="DataForm.cantidadam"  placeholder="{{ 'modalmortalidadreg.cantidadam' | translate }}" type="number"></ion-input>
     </ion-item>
     
     <ion-item>
-      <ion-label position="stacked" style="font-size: larger;">Kilos PM: </ion-label>
-      <ion-input [(ngModel)]="DataForm.kilospm"  placeholder="Kilos AM" type="number"></ion-input>
+      <ion-label position="stacked" style="font-size: larger;">{{ 'modalmortalidadreg.kilosam' | translate }}: </ion-label>
+      <ion-input [(ngModel)]="DataForm.kilosam"  placeholder="{{ 'modalmortalidadreg.kilosam' | translate }}" type="number"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked" style="font-size: larger;">{{ 'modalmortalidadreg.canitdadpm' | translate }}: </ion-label>
+      <ion-input [(ngModel)]="DataForm.cantidadpm"  placeholder="{{ 'modalmortalidadreg.canitdadpm' | translate }}" type="number"></ion-input>
     </ion-item>
     
     <ion-item>
-      <ion-label position="stacked" style="font-size: larger;">Observaciones: </ion-label>
-      <ion-input [(ngModel)]="DataForm.observaciones"  placeholder="observaciones" type="text"></ion-input>
+      <ion-label position="stacked" style="font-size: larger;">{{ 'modalmortalidadreg.kilospm' | translate }}: </ion-label>
+      <ion-input [(ngModel)]="DataForm.kilospm"  placeholder="{{ 'modalmortalidadreg.kilospm' | translate }}" type="number"></ion-input>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label position="stacked" style="font-size: larger;">{{ 'modalmortalidadreg.observaciones' | translate }}: </ion-label>
+      <ion-input [(ngModel)]="DataForm.observaciones"  placeholder="{{ 'modalmortalidadreg.observaciones' | translate }}" type="text"></ion-input>
     </ion-item>
     <ion-item >
-      <ion-label  color="dark">Causas *</ion-label>
+      <ion-label  color="dark">{{ 'modalmortalidadreg.causas' | translate }} *</ion-label>
       <ionic-selectable 
         [(ngModel)]="DataForm.causas"
         [items]="causass"
@@ -80,11 +81,11 @@
     </ion-list>    
     <ion-row>
       <ion-col size="6">
-        <ion-button expand="block" (click)="finalizar()" color="warning" style="border-radius:10px !important;">Finalizar</ion-button>
+        <ion-button expand="block" (click)="finalizar()" color="warning" style="border-radius:10px !important;">{{ 'modalmortalidadreg.finalizar' | translate }}</ion-button>
 
       </ion-col>
       <ion-col size="6">
-        <ion-button expand="block" (click)="agregarotro()" color="principal" style="border-radius:10px !important;">Agregar</ion-button>
+        <ion-button expand="block" (click)="agregarotro()" color="principal" style="border-radius:10px !important;">{{ 'modalmortalidadreg.agregar' | translate }}</ion-button>
 
       </ion-col>
     </ion-row>

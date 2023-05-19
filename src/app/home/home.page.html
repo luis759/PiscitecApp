@@ -13,7 +13,7 @@
   <ion-list style="border: 1px solid var(--ion-color-principal);border-radius: 7px;" >
     <ion-radio-group allow-empty-selection="true"  (ionChange)="radioGroupChange($event)" [value]="valorinicial">
       <ion-list-header>
-        <ion-label color="principal" style="font-weight:bolder ;">Control Técnico de Cultivo
+        <ion-label color="principal" style="font-weight:bolder ;">   {{ 'home.controltecnico' | translate }}
         </ion-label>
       </ion-list-header>
   
@@ -26,7 +26,7 @@
   <ion-list style="border: 1px solid var(--ion-color-principal);border-radius: 7px;"  class="ion-margin-top">
     <ion-radio-group allow-empty-selection="true"  (ionChange)="radioGroupChange($event)" [value]="valorinicial">
       <ion-list-header>
-        <ion-label color="principal" style="font-weight:bolder ;">Control de Inventarios
+        <ion-label color="principal" style="font-weight:bolder ;">{{ 'home.controlinventario' | translate }}
         </ion-label>
       </ion-list-header>
   
@@ -44,7 +44,7 @@
         <ion-col size="2"></ion-col>
          <ion-col size="8">
           <ion-button expand="full" tappable color="principal" (click)="irAlGenerarReporte()">
-            Seleccionar
+            {{ 'home.buttonseleccion' | translate }}
           </ion-button>
         </ion-col>
         <ion-col size="2"></ion-col>
