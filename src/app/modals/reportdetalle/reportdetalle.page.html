@@ -6,7 +6,7 @@
   </ion-buttons>
     <ion-title>
       <div class="ion-text-wrap">
-       Reporte Detalles
+        {{ 'modalreportdetalle.titulo' | translate }}
       </div>
     </ion-title>
 </ion-toolbar>
@@ -20,7 +20,8 @@
 
   <ion-list *ngIf="ingreso">
     <ion-item >
-      <ion-label  color="dark">Especie *</ion-label>
+      <ion-label  color="dark">
+        {{ 'modalreportdetalle.especies' | translate }} *</ion-label>
       <ionic-selectable 
         [(ngModel)]="DataForm.especie"
         [items]="especies"
@@ -32,47 +33,47 @@
       </ionic-selectable>
     </ion-item>
     <ion-item>
-      <ion-label position="stacked" style="font-size: larger;">Peso Total (GR) * </ion-label>
+      <ion-label position="stacked" style="font-size: larger;">{{ 'modalreportdetalle.pesototal' | translate }} * </ion-label>
       <ion-input [(ngModel)]="DataForm.pesotota.value" (ionChange)="PesoPromedio()" min="0" inputmode="decimal" placeholder="" type="number"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label position="stacked" style="font-size: larger;">Cantidad de Animales * </ion-label>
+      <ion-label position="stacked" style="font-size: larger;">{{ 'modalreportdetalle.canitdadanimal' | translate }} * </ion-label>
       <ion-input [(ngModel)]="DataForm.cantidadani.value"  min="0" (ionChange)="PesoPromedio()" inputmode="numeric" placeholder="" type="number"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label position="stacked" style="font-size: larger;">Peso Prom Animal (GR) * </ion-label>
+      <ion-label position="stacked" style="font-size: larger;">{{ 'modalreportdetalle.pesopromanim' | translate }} (GR) * </ion-label>
       <ion-input [(ngModel)]="DataForm.pesoprom.value" min="0" placeholder="" inputmode="decimal" inputmode="numeric"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label position="stacked" style="font-size: larger;">Largo </ion-label>
+      <ion-label position="stacked" style="font-size: larger;">{{ 'modalreportdetalle.largo' | translate }} </ion-label>
       <ion-input [(ngModel)]="DataForm.largo.value"  min="0" placeholder="" inputmode="decimal" inputmode="numeric"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label position="stacked" style="font-size: larger;">Alto </ion-label>
+      <ion-label position="stacked" style="font-size: larger;">{{ 'modalreportdetalle.alto' | translate }} </ion-label>
       <ion-input [(ngModel)]="DataForm.alto.value"  min="0" placeholder=""  inputmode="decimal" inputmode="numeric" ></ion-input>
     </ion-item>
     <ion-item> 
-      <ion-label position="stacked" style="font-size: larger;">Sexo </ion-label>
+      <ion-label position="stacked" style="font-size: larger;">{{ 'modalreportdetalle.sexo' | translate }} </ion-label>
       <ion-select placeholder="Sexo" [(ngModel)]="DataForm.sexo.value">
-        <ion-select-option value="F">Femenino</ion-select-option>
-        <ion-select-option value="M">Masculino</ion-select-option>
+        <ion-select-option value="F">{{ 'modalreportdetalle.sexof' | translate }}</ion-select-option>
+        <ion-select-option value="M">{{ 'modalreportdetalle.sexom' | translate }}</ion-select-option>
       </ion-select>
     </ion-item>
     <ion-grid *ngIf="!update">
       <ion-row >
          <ion-col size="6">
-          <ion-button expand="full" tappable color="danger" (click)="finalizarGuardado()">Finalizar</ion-button>
+          <ion-button expand="full" tappable color="danger" (click)="finalizarGuardado()">{{ 'modalreportdetalle.finalizar' | translate }}</ion-button>
         </ion-col>
-        <ion-col size="6"> <ion-button expand="full" tappable color="principal" (click)="ValidarInfo(false)">Continuar</ion-button>
+        <ion-col size="6"> <ion-button expand="full" tappable color="principal" (click)="ValidarInfo(false)">{{ 'modalreportdetalle.continuar' | translate }}</ion-button>
         </ion-col>
       </ion-row>
     </ion-grid>
     <ion-grid *ngIf="update">
       <ion-row >
          <ion-col size="6">
-          <ion-button expand="full" tappable color="danger" (click)="CancelarEdit()">Cancelar</ion-button>
+          <ion-button expand="full" tappable color="danger" (click)="CancelarEdit()">{{ 'modalreportdetalle.cancelar' | translate }}</ion-button>
         </ion-col>
-        <ion-col size="6"> <ion-button expand="full" tappable color="principal" (click)="ValidarInfo(true)">Grabar</ion-button>
+        <ion-col size="6"> <ion-button expand="full" tappable color="principal" (click)="ValidarInfo(true)">{{ 'modalreportdetalle.grabar' | translate }}</ion-button>
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -80,21 +81,21 @@
 
   <ion-list *ngIf="!ingreso">
     <ion-list-header>
-      <ion-label>Lista de Registros </ion-label>
+      <ion-label>{{ 'modalreportdetalle.listadereg' | translate }} </ion-label>
     </ion-list-header>
     <div *ngIf="detalle.length==0" class="ion-text-center">
-      <ion-label>No Hay Data</ion-label>
+      <ion-label>{{ 'modalreportdetalle.nohaydata' | translate }}</ion-label>
     </div>
     <ion-item  *ngFor="let detalle of detalle,let i = index">
         <ion-label class="ion-text-wrap">
-          <p>Numero:  {{(detalle.id)}}</p>
-          <p>Especie: {{(detalle.especie?detalle.especie.ESPECIE:'NADA')}}</p>
-          <p>Peso Total (GR): {{detalle.pesototal}}</p> 
-          <p>Cantidad Animales: {{detalle.CantidadAnimales}}</p> 
-         <p>Peso Prom. animal (GR):  {{detalle.pesoprom}}</p>  
-         <p>Largo (CM):  {{detalle.largo}}</p>  
-         <p>Alto (CM):  {{detalle.alto}}</p> 
-         <p>Sexo:  {{detalle.sexo}}</p>                   
+          <p>{{ 'modalreportdetalle.numero' | translate }} :  {{(detalle.id)}}</p>
+          <p>{{ 'modalreportdetalle.especies' | translate }} : {{(detalle.especie?detalle.especie.ESPECIE:'NADA')}}</p>
+          <p>{{ 'modalreportdetalle.pesototal' | translate }} : {{detalle.pesototal}}</p> 
+          <p>{{ 'modalreportdetalle.canitdadanimal' | translate }}  : {{detalle.CantidadAnimales}}</p> 
+         <p>{{ 'modalreportdetalle.pesopromanim' | translate }} (GR):  {{detalle.pesoprom}}</p>  
+         <p>{{ 'modalreportdetalle.largo' | translate }} (CM):  {{detalle.largo}}</p>  
+         <p>{{ 'modalreportdetalle.alto' | translate }} (CM):  {{detalle.alto}}</p> 
+         <p>{{ 'modalreportdetalle.sexo' | translate }}:  {{detalle.sexo}}</p>                   
         </ion-label>
         <ion-button color="primary" (click)="edit(i)" slot="end">  <ion-icon name="create-outline">
         </ion-icon>       

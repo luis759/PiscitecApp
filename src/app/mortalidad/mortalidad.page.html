@@ -5,7 +5,7 @@
     </ion-buttons>
     <ion-title>
       <div class="ion-text-wrap">
-        Mortalidades
+        {{ 'mortalidad.titulo' | translate }}
        </div>
 
     </ion-title>
@@ -15,7 +15,8 @@
 <ion-content>
     <ion-list>
     <ion-item >
-      <ion-label  color="dark">Empresa *</ion-label>
+      <ion-label  color="dark">
+        {{ 'mortalidad.empresa' | translate }} *</ion-label>
       <ionic-selectable 
         [(ngModel)]="DataForm.empresa"
         [items]="empresas"
@@ -27,7 +28,7 @@
       </ionic-selectable>
     </ion-item>
     <ion-item >
-      <ion-label  color="dark">Granja *</ion-label>
+      <ion-label  color="dark"> {{ 'mortalidad.granja' | translate }} *</ion-label>
       <ionic-selectable 
         [(ngModel)]="DataForm.granja"
         [items]="granjas"
@@ -39,7 +40,7 @@
       </ionic-selectable>
     </ion-item>
     <ion-item >
-      <ion-label  color="dark">Responsable *</ion-label>
+      <ion-label  color="dark">{{ 'mortalidad.responsable' | translate }} *</ion-label>
       <ionic-selectable 
         [(ngModel)]="DataForm.responsable"
         [items]="responsables"
@@ -50,35 +51,35 @@
       </ionic-selectable>
     </ion-item>
     <ion-item>
-      <ion-label  position="" class="ion-text-wrap">Fecha *</ion-label>
-      <ion-datetime monthShortNames='Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Sep, Oct, Nov, Dic' min="1980" max="2030" cancelText="CANCELAR"  doneText="ACEPTAR" placeholder="Selecciona la Fecha" [(ngModel)]="DataForm.fecha" ></ion-datetime>
+      <ion-label  position="" class="ion-text-wrap">{{ 'mortalidad.fecha' | translate }} *</ion-label>
+      <ion-datetime monthShortNames='Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Sep, Oct, Nov, Dic' min="1980" max="2030" cancelText="{{ 'mortalidad.cancelar' | translate }}"  doneText="{{ 'mortalidad.aceptar' | translate }}" placeholder="{{ 'mortalidad.selectfecha' | translate }}" [(ngModel)]="DataForm.fecha" ></ion-datetime>
     </ion-item>
     <ion-item>
-      <ion-label position="stacked" style="font-size: larger;">Observaciones:</ion-label>
-      <ion-input [(ngModel)]="DataForm.observaciones"  placeholder="observaciones" type="text"></ion-input>
+      <ion-label position="stacked" style="font-size: larger;">{{ 'mortalidad.observaciones' | translate }}:</ion-label>
+      <ion-input [(ngModel)]="DataForm.observaciones"  placeholder="{{ 'mortalidad.observaciones' | translate }}" type="text"></ion-input>
     </ion-item>
     </ion-list>
     <ion-list style="margin:0px 15%;" class="ion-text-center">
         <ion-item class="ion-text-left"> 
           <ion-label >
-            <p style="color:black;font-size: medium;font-weight: bolder;border:1px solid black;margin:0px;padding:5px;">Resumen de Mortalidad</p>
-            <p style="color:black;border:1px solid black;margin:0px;padding:5px;">Lotes: <ion-badge color="primary">{{lotestotal}}</ion-badge></p>
-            <p style="color:black;border:1px solid black;margin:0px;padding:5px;">Cantidad: <ion-badge color="primary">{{cantidadtotal}}</ion-badge></p>
-            <p style="color:black;border:1px solid black;margin:0px;padding:5px;">Kilos: <ion-badge color="primary">{{kilostotal}}</ion-badge></p>
+            <p style="color:black;font-size: medium;font-weight: bolder;border:1px solid black;margin:0px;padding:5px;">{{ 'mortalidad.resumenmorta' | translate }}</p>
+            <p style="color:black;border:1px solid black;margin:0px;padding:5px;">{{ 'mortalidad.lotes' | translate }}: <ion-badge color="primary">{{lotestotal}}</ion-badge></p>
+            <p style="color:black;border:1px solid black;margin:0px;padding:5px;">{{ 'mortalidad.cantidad' | translate }}: <ion-badge color="primary">{{cantidadtotal}}</ion-badge></p>
+            <p style="color:black;border:1px solid black;margin:0px;padding:5px;">{{ 'mortalidad.kilos' | translate }}: <ion-badge color="primary">{{kilostotal}}</ion-badge></p>
           </ion-label>
         </ion-item>
      
-      <ion-button color="principal" (click)="irAConsumos()" style="border-radius:10px !important;">Agregar REgistro</ion-button>
+      <ion-button color="principal" (click)="irAConsumos()" style="border-radius:10px !important;">{{ 'mortalidad.agregareg' | translate }}</ion-button>
     </ion-list>
     
     <ion-list>
       <ion-item *ngFor="let item of listmortalidad,let i = index">
         <ion-item class="ion-text-left"> 
           <ion-label >
-            <p style="color:black;font-size: medium;font-weight: bolder;border:1px solid black;margin:0px;padding:5px;">Causas: {{item.INFODATA.causas.CAUSA}}</p>
-            <p style="color:black;border:1px solid black;margin:0px;padding:5px;">Lote: <ion-badge color="primary">{{item.LOTE}}</ion-badge></p>
-            <p style="color:black;border:1px solid black;margin:0px;padding:5px;">Cantidad: <ion-badge color="primary">{{item.CANTAM+item.CANTPM}}</ion-badge></p>
-            <p style="color:black;border:1px solid black;margin:0px;padding:5px;">Kilos: <ion-badge color="primary">{{item.KILOSPM+item.KILOSAM}}</ion-badge></p>
+            <p style="color:black;font-size: medium;font-weight: bolder;border:1px solid black;margin:0px;padding:5px;">{{ 'mortalidad.causas' | translate }}: {{item.INFODATA.causas.CAUSA}}</p>
+            <p style="color:black;border:1px solid black;margin:0px;padding:5px;">{{ 'mortalidad.lotes' | translate }}: <ion-badge color="primary">{{item.LOTE}}</ion-badge></p>
+            <p style="color:black;border:1px solid black;margin:0px;padding:5px;">{{ 'mortalidad.cantidad' | translate }}: <ion-badge color="primary">{{item.CANTAM+item.CANTPM}}</ion-badge></p>
+            <p style="color:black;border:1px solid black;margin:0px;padding:5px;">{{ 'mortalidad.kilos' | translate }}: <ion-badge color="primary">{{item.KILOSPM+item.KILOSAM}}</ion-badge></p>
           </ion-label>
             <ion-button color="primary" (click)="edit(i)" slot="end">  <ion-icon name="create-outline">
             </ion-icon>       
@@ -94,7 +95,7 @@
 
       </ion-col>
       <ion-col size="8">
-        <ion-button (click)="ValidarRegistro()"  expand="block" color="principal" style="border-radius:10px !important;">Enviar Datos</ion-button>
+        <ion-button (click)="ValidarRegistro()"  expand="block" color="principal" style="border-radius:10px !important;">{{ 'mortalidad.enviardata' | translate }}</ion-button>
         
       </ion-col>
       <ion-col size="2">

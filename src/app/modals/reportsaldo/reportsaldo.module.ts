@@ -8,6 +8,7 @@ import { IonicSelectableModule } from 'ionic-selectable';
 import { ReportsaldoPageRoutingModule } from './reportsaldo-routing.module';
 
 import { ReportsaldoPage } from './reportsaldo.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { ReportsaldoPage } from './reportsaldo.page';
     FormsModule,
     IonicSelectableModule,
     IonicModule,
-    ReportsaldoPageRoutingModule
+    ReportsaldoPageRoutingModule,
+    TranslateModule.forChild()
   ],
   declarations: [ReportsaldoPage]
 })

@@ -1,6 +1,7 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 import { MasterService } from '../services/master.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-reportlist',
@@ -18,7 +19,9 @@ export class ReportlistPage implements OnInit {
     cantidad:0
   };
   tipodereporte=1
-  constructor(private master:MasterService,private loadingController:LoadingController,private  ngZone:NgZone) { }
+  message=[]
+  constructor(private master:MasterService,private translate:TranslateService,
+    private loadingController:LoadingController,private  ngZone:NgZone) { }
   seleccionartiporeporte(evento){
     this.ngZone.run(()=>{
       this.tipodereporte=evento.detail.value
@@ -27,6 +30,9 @@ export class ReportlistPage implements OnInit {
     })
   }
   ngOnInit() {
+    this.translate.get("reportlist").subscribe(dataTranslate=>{
+      this.message=dataTranslate
+     })
     this.master.storage.getItems(this.master.storage.arrayname.Empresas).then((Empresas)=>{
       if(Empresas){
         this.Empresas=Empresas[0]
@@ -337,7 +343,7 @@ export class ReportlistPage implements OnInit {
           this.master.storage.addItem(this.master.storage.arrayname.ReporteGenerados,ReportesGlobales).then(()=>{
             this.loadingController.dismiss().finally(()=>{
               this.segmentChanged({detail:{value:this.tipo}})
-              this.master.MensajeAlert("Enviados los reportes","Mensajes")
+              this.master.MensajeAlert(this.message['enviadoreportes'],this.message['enviadotitle'])
             })
           })
         })
@@ -357,7 +363,7 @@ export class ReportlistPage implements OnInit {
           this.master.storage.addItem(this.master.storage.arrayname.VacunaReporte,ReportesGlobales).then(()=>{
             this.loadingController.dismiss().finally(()=>{
               this.segmentChanged({detail:{value:this.tipo}})
-              this.master.MensajeAlert("Enviados los reportes","Mensajes")
+              this.master.MensajeAlert(this.message['enviadoreportes'],this.message['enviadotitle'])
             })
           })
         })
@@ -377,7 +383,7 @@ export class ReportlistPage implements OnInit {
           this.master.storage.addItem(this.master.storage.arrayname.FisiscosQuimicosRep,ReportesGlobales).then(()=>{
             this.loadingController.dismiss().finally(()=>{
               this.segmentChanged({detail:{value:this.tipo}})
-              this.master.MensajeAlert("Enviados los reportes","Mensajes")
+              this.master.MensajeAlert(this.message['enviadoreportes'],this.message['enviadotitle'])
             })
           })
         })
@@ -397,7 +403,7 @@ export class ReportlistPage implements OnInit {
           this.master.storage.addItem(this.master.storage.arrayname.repMortalidd,ReportesGlobales).then(()=>{
             this.loadingController.dismiss().finally(()=>{
               this.segmentChanged({detail:{value:this.tipo}})
-              this.master.MensajeAlert("Enviados los reportes","Mensajes")
+              this.master.MensajeAlert(this.message['enviadoreportes'],this.message['enviadotitle'])
             })
           })
         })
@@ -417,7 +423,7 @@ export class ReportlistPage implements OnInit {
           this.master.storage.addItem(this.master.storage.arrayname.repConsumos,ReportesGlobales).then(()=>{
             this.loadingController.dismiss().finally(()=>{
               this.segmentChanged({detail:{value:this.tipo}})
-              this.master.MensajeAlert("Enviados los reportes","Mensajes")
+              this.master.MensajeAlert(this.message['enviadoreportes'],this.message['enviadotitle'])
             })
           })
         })

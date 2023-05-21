@@ -8,6 +8,7 @@ import { IonicSelectableModule } from 'ionic-selectable';
 import { ReportdetallePageRoutingModule } from './reportdetalle-routing.module';
 
 import { ReportdetallePage } from './reportdetalle.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { ReportdetallePage } from './reportdetalle.page';
     FormsModule,
     IonicSelectableModule,
     IonicModule,
-    ReportdetallePageRoutingModule
+    ReportdetallePageRoutingModule,
+    TranslateModule.forChild()
   ],
   declarations: [ReportdetallePage]
 })

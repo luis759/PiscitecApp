@@ -4,6 +4,7 @@ import { LoadingController, ModalController } from '@ionic/angular';
 import { MenuPage } from '../menu/menu.page';
 import { MortalidadregPage } from '../modals/mortalidadreg/mortalidadreg.page';
 import { MasterService } from '../services/master.service';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-mortalidad',
   templateUrl: './mortalidad.page.html',
@@ -25,7 +26,9 @@ export class MortalidadPage implements OnInit {
   lotestotal=0
   cantidadtotal=0
   kilostotal=0
-  constructor(private master:MasterService,private loadingController:LoadingController,private modalController:ModalController,private menu:MenuPage) { }
+  message=[]
+  constructor(private translate:TranslateService,private master:MasterService,
+    private loadingController:LoadingController,private modalController:ModalController,private menu:MenuPage) { }
 
   ValidarRegistro(){
     if(this.DataForm.empresa){
@@ -35,20 +38,20 @@ export class MortalidadPage implements OnInit {
               if(this.checkGranja()){
                 this.seguir()
               }else{
-                this.master.toastMensaje("Es necesario la granja que tenias no puedes enviar",3000)
+                this.master.toastMensaje(this.message['validar1'],3000)
               }
             }else{
-              this.master.toastMensaje("Es necesario al menos una mortalidad",3000)
+              this.master.toastMensaje(this.message['validar2'],3000)
 
             }
         }else{
-          this.master.toastMensaje("Es necesario un Responsable",3000)
+          this.master.toastMensaje(this.message['validar3'],3000)
         }
       }else{
-        this.master.toastMensaje("Es necesario una granja",3000)
+        this.master.toastMensaje(this.message['validar4'],3000)
       }
     }else{
-      this.master.toastMensaje("Es necesario una empresa",3000)
+      this.master.toastMensaje(this.message['validar5'],3000)
     }
   }
   limpiarData(){
@@ -124,10 +127,10 @@ GuardarRegistroDeReportes(Report,Enviado,Erroes){
       this.master.storage.addItem(this.master.storage.arrayname.repMortalidd,array).then(()=>{
         if(Enviado){
           this.limpiarData()
-          this.master.MensajeAlert("Registro Guardado y Enviado, Numero de Reporte "+Report.dataEnviado.Principal.NORC,"Reporte Consumos")
+          this.master.MensajeAlert(this.message['guardado1']+" "+Report.dataEnviado.Principal.NORC,this.message['guardadotitle'])
         }else{
           this.limpiarData()
-          this.master.MensajeAlert("Registro Guardado","Reporte Consumos")
+          this.master.MensajeAlert(this.message['guardado2'],this.message['guardadotitle'])
         }
       })
     })
@@ -135,6 +138,9 @@ GuardarRegistroDeReportes(Report,Enviado,Erroes){
 }
 
     ngOnInit() {
+      this.translate.get("mortalidad").subscribe(dataTranslate=>{
+        this.message=dataTranslate
+       })
     this.menu.activarmenuDesactivar(false);
     this.master.storage.getItems(this.master.storage.arrayname.Empresas).then((Empresass)=>{
        if(Empresass){
@@ -224,7 +230,7 @@ GuardarRegistroDeReportes(Report,Enviado,Erroes){
       if(this.checkGranja()){
         this.seguiralModal(numero)
       }else{
-        this.master.toastMensaje("Es necesario la granja que tenias no puedes avanzar",3000)
+        this.master.toastMensaje(this.message['irmodal'],3000)
       }
     }
   }
@@ -233,10 +239,10 @@ GuardarRegistroDeReportes(Report,Enviado,Erroes){
       if(this.DataForm.empresa){
           this.iralmodal(-1)
         }else{
-          this.master.toastMensaje("Debes Seleccionar una Empresa",4000)
+          this.master.toastMensaje(this.message['irconsumos1'],4000)
         }
     }else{
-      this.master.toastMensaje("Debes Seleccionar una Granja",4000)
+      this.master.toastMensaje(this.message['irconsumos2'],4000)
     }
   }
   edit(numero){

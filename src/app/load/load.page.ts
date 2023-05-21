@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { MasterService } from '../services/master.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-load',
@@ -9,8 +10,10 @@ import { MasterService } from '../services/master.service';
 })
 export class LoadPage implements OnInit {
 
-  constructor(private navcontroll:NavController,private master:MasterService) { 
+  constructor(private navcontroll:NavController,private translate:TranslateService,private master:MasterService) { 
    this.CheckInternet()
+   this.translate.get("global").subscribe(dataTranslate=>{
+   })
   }
 
   ngOnInit() {

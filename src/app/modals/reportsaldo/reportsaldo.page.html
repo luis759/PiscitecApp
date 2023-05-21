@@ -6,7 +6,7 @@
   </ion-buttons>
     <ion-title>
       <div class="ion-text-wrap">
-       Reporte Saldos
+        {{ 'modalreportsaldo.titulo' | translate }}
       </div>
     </ion-title>
 </ion-toolbar>
@@ -20,7 +20,8 @@
 
   <ion-list *ngIf="ingreso">
     <ion-item >
-      <ion-label  color="dark">Especie *</ion-label>
+      <ion-label  color="dark">
+        {{ 'modalreportsaldo.especies' | translate }} *</ion-label>
       <ionic-selectable 
         [(ngModel)]="DataForm.especie"
         [items]="especies"
@@ -32,24 +33,24 @@
       </ionic-selectable>
     </ion-item>
     <ion-item>
-      <ion-label position="stacked" style="font-size: larger;">Saldo de Especie * </ion-label>
+      <ion-label position="stacked" style="font-size: larger;">{{ 'modalreportsaldo.saldoespe' | translate }} * </ion-label>
       <ion-input [(ngModel)]="DataForm.saldo.value" min="0" inputmode="decimal" placeholder="" type="number"></ion-input>
     </ion-item>
     <ion-grid *ngIf="!update">
       <ion-row >
          <ion-col size="6">
-          <ion-button expand="full" tappable color="danger" (click)="finalizarGuardado()">Finalizar</ion-button>
+          <ion-button expand="full" tappable color="danger" (click)="finalizarGuardado()">{{ 'modalreportsaldo.finalizar' | translate }}</ion-button>
         </ion-col>
-        <ion-col size="6"> <ion-button expand="full" tappable color="principal" (click)="ValidarInfo(false)">Continuar</ion-button>
+        <ion-col size="6"> <ion-button expand="full" tappable color="principal" (click)="ValidarInfo(false)">{{ 'modalreportsaldo.continuar' | translate }}</ion-button>
         </ion-col>
       </ion-row>
     </ion-grid>
     <ion-grid *ngIf="update">
       <ion-row >
          <ion-col size="6">
-          <ion-button expand="full" tappable color="danger" (click)="CancelarEdit()">Cancelar</ion-button>
+          <ion-button expand="full" tappable color="danger" (click)="CancelarEdit()">{{ 'modalreportsaldo.cancelar' | translate }}</ion-button>
         </ion-col>
-        <ion-col size="6"> <ion-button expand="full" tappable color="principal" (click)="ValidarInfo(true)">Grabar</ion-button>
+        <ion-col size="6"> <ion-button expand="full" tappable color="principal" (click)="ValidarInfo(true)">{{ 'modalreportsaldo.grabar' | translate }}</ion-button>
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -57,16 +58,16 @@
 
   <ion-list *ngIf="!ingreso">
     <ion-list-header>
-      <ion-label>Lista de Registros </ion-label>
+      <ion-label>{{ 'modalreportsaldo.listareg' | translate }}</ion-label>
     </ion-list-header>
     <div *ngIf="Saldoss.length==0" class="ion-text-center">
-      <ion-label>No Hay Data</ion-label>
+      <ion-label>{{ 'modalreportsaldo.nohaydata' | translate }}</ion-label>
     </div>
     <ion-item  *ngFor="let Saldoss of Saldoss,let i = index">
         <ion-label class="ion-text-wrap">
-          <p>Numero:  {{(Saldoss.id)}}</p>
-          <p>Especie: {{(Saldoss.especie?Saldoss.especie.ESPECIE:'NADA')}}</p>
-          <p>Saldo:  {{(Saldoss.saldo)}}</p>           
+          <p>{{ 'modalreportsaldo.numero' | translate }}:  {{(Saldoss.id)}}</p>
+          <p>{{ 'modalreportsaldo.especies' | translate }}: {{(Saldoss.especie?Saldoss.especie.ESPECIE:('modalreportsaldo.nada' | translate) )}}</p>
+          <p>{{ 'modalreportsaldo.saldo' | translate }}:  {{(Saldoss.saldo)}}</p>           
         </ion-label>
         <ion-button color="primary" (click)="edit(i)" slot="end">  <ion-icon name="create-outline">
         </ion-icon>       

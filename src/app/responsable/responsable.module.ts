@@ -8,6 +8,7 @@ import { ResponsablePageRoutingModule } from './responsable-routing.module';
 
 import { IonicSelectableModule } from 'ionic-selectable';
 import { ResponsablePage } from './responsable.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { ResponsablePage } from './responsable.page';
     FormsModule,
     IonicModule,
     IonicSelectableModule,
-    ResponsablePageRoutingModule
+    ResponsablePageRoutingModule,
+    TranslateModule.forChild()
   ],
   declarations: [ResponsablePage]
 })

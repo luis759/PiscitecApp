@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController, NavParams, Platform } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 import { MasterService } from 'src/app/services/master.service';
 
 @Component({
@@ -49,10 +50,13 @@ export class ReportdetallePage implements OnInit {
   numberedit=0;
   idempresas='';
   idGranjas='';
-  constructor(private modal:ModalController,
+  message=[];
+  constructor(private modal:ModalController,private translate:TranslateService,
     navParams: NavParams,private platform:Platform,private master:MasterService,private routr:Router) {
-     
-  if(navParams.get('detalles')){
+      this.translate.get("modalreportdetalle").subscribe(dataTranslate=>{
+        this.message=dataTranslate
+       })
+      if(navParams.get('detalles')){
         this.detalle=navParams.get('detalles')
       }
       if(navParams.get('idEmpresa')){
@@ -84,7 +88,7 @@ export class ReportdetallePage implements OnInit {
     this.numberedit=numero
     this.ingreso=true;
     this.update=true;
-    this.master.toastMensaje("Edita el Registro",1000)
+    this.master.toastMensaje(this.message['editreg'],1000)
   }
   PesoPromedio(){
     if(parseFloat(this.DataForm.pesotota.value)>0 && parseFloat(this.DataForm.cantidadani.value)>0){
@@ -179,7 +183,7 @@ export class ReportdetallePage implements OnInit {
     }
     let valor=this.detalle.push(detal)
     this.DataForm=val
-    this.master.toastMensaje("Guardado correctamente",1000)
+    this.master.toastMensaje(this.message['guardado'],1000)
   }
   ValidarInfo(Edit){
     if(this.DataForm.especie){
@@ -195,25 +199,25 @@ export class ReportdetallePage implements OnInit {
                     this.continuarGuardado()
                   }
                 }else{
-                  this.master.MensajeAlert("Peso Promedio debe ser mayor o igual a 0","Detalle Ingreso")
+                  this.master.MensajeAlert(this.message['validar1'],this.message['validartitul'])
                 }
               }else{
-                this.master.MensajeAlert("Peso Total debe ser mayor o igual a 0","Detalle Ingreso")
+                this.master.MensajeAlert(this.message['validar2'],this.message['validartitul'])
               }
             }else{
-              this.master.MensajeAlert("Cantidad Animal debe ser mayor o igual a 0","Detalle Ingreso")
+              this.master.MensajeAlert(this.message['validar3'],this.message['validartitul'])
             }
           }else{
-        this.master.MensajeAlert("Debes colocar Peso Promedio","Detalle Ingreso")
+            this.master.MensajeAlert(this.message['validar4'],this.message['validartitul'])
           }
         }else{
-        this.master.MensajeAlert("Debes colocar Peso Total","Detalle Ingreso")
+          this.master.MensajeAlert(this.message['validar5'],this.message['validartitul'])
         }
       }else{
-        this.master.MensajeAlert("Debes colocar Cantidad de animales","Detalle Ingreso")
+        this.master.MensajeAlert(this.message['validar6'],this.message['validartitul'])
       }
     }else{
-      this.master.MensajeAlert("Debes colocar una especie","Detalle Ingreso")
+      this.master.MensajeAlert(this.message['validar7'],this.message['validartitul'])
     }
   }
   GrabarEdit(){

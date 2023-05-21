@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController, NavParams, Platform } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 import { MasterService } from 'src/app/services/master.service';
 
 @Component({
@@ -26,9 +27,12 @@ export class ReportsaldoPage implements OnInit {
   ingreso=false;
   update=false;
   numberedit=0;
-  constructor(private modal:ModalController,
+  message=[];
+  constructor(private modal:ModalController,private translate:TranslateService,
     navParams: NavParams,private platform:Platform,private master:MasterService,private routr:Router) {
-     
+      this.translate.get("modalreportsaldo").subscribe(dataTranslate=>{
+        this.message=dataTranslate
+       })
   if(navParams.get('saldos')){
         this.Saldoss=navParams.get('saldos')
       }
@@ -50,7 +54,7 @@ export class ReportsaldoPage implements OnInit {
     this.numberedit=numero
     this.ingreso=true;
     this.update=true;
-    this.master.toastMensaje("Edita el Registro",1000)
+    this.master.toastMensaje(this.message['editreg'],1000)
   }
   CancelarEdit(){
     this.ingreso=false;
@@ -90,7 +94,7 @@ export class ReportsaldoPage implements OnInit {
     }
     let valor=this.Saldoss.push(detal)
     this.DataForm=val
-    this.master.toastMensaje("Guardado correctamente",1000)
+    this.master.toastMensaje(this.message['guardado'],1000)
   }
   checkExistEspecies(id){
     let Retorno=false;
@@ -106,7 +110,7 @@ export class ReportsaldoPage implements OnInit {
       if(this.DataForm.saldo.value){
                 if(parseFloat(this.DataForm.saldo.value)>0){
                   if(this.checkExistEspecies(this.DataForm.especie['IDESP'])){
-                    this.master.MensajeAlert("Ya tienes un saldo de esta especie","Detalle Ingreso")
+                    this.master.MensajeAlert(this.message['validar1'],this.message['validartitulo'])
                   }else{
                     if(Edit){
                       this.GrabarEdit()
@@ -116,13 +120,13 @@ export class ReportsaldoPage implements OnInit {
                   }
                   
                 }else{
-                  this.master.MensajeAlert("Peso Promedio debe ser mayor a 0","Detalle Ingreso")
+                  this.master.MensajeAlert(this.message['validar2'],this.message['validartitulo'])
                 }
       }else{
-        this.master.MensajeAlert("Debes colocar Saldo","Detalle Ingreso")
+        this.master.MensajeAlert(this.message['validar3'],this.message['validartitulo'])
       }
     }else{
-      this.master.MensajeAlert("Debes colocar una especie","Detalle Ingreso")
+      this.master.MensajeAlert(this.message['validar4'],this.message['validartitulo'])
     }
   }
   GrabarEdit(){

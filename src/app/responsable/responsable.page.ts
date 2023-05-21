@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { MasterService } from '../services/master.service';
 import { StorageService } from '../services/storage.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-responsable',
@@ -15,9 +16,14 @@ export class ResponsablePage implements OnInit {
     empresa:null
   }
   empresas=[]
-  constructor(private master:MasterService,private Storage:StorageService,private alert:AlertController,private loading:LoadingController) { }
+  message=[]
+  constructor(private master:MasterService,private translate:TranslateService,
+    private Storage:StorageService,private alert:AlertController,private loading:LoadingController) { }
 
   ngOnInit() {
+    this.translate.get("responsable").subscribe(dataTranslate=>{
+      this.message=dataTranslate
+     })
    this.InicilizarTodo()
   }
   InicilizarTodo(){
@@ -37,19 +43,19 @@ export class ResponsablePage implements OnInit {
                   if(this.DataForm.CEDULA.toString().length>0){
                     this.enviarData();
                   }else{
-                    this.master.toastMensaje("Debes colocar por lo menos una cedula",1000)
+                    this.master.toastMensaje(this.message['validar1'],1000)
                   }
                 }else{
-                  this.master.toastMensaje("Debes colocar por lo menos una cedula",1000)
+                  this.master.toastMensaje(this.message['validar1'],1000)
                 }           
           }else{
-            this.master.toastMensaje("Debes seleccionar una empresa",1000)
+            this.master.toastMensaje(this.message['validar2'],1000)
           }
       }else{
-        this.master.toastMensaje("Debes colocar por lo menos texto en el nombre",1000)
+        this.master.toastMensaje(this.message['validar3'],1000)
       }
     }else{
-      this.master.toastMensaje("Debes colocar por lo menos texto en el nombre",1000)
+      this.master.toastMensaje(this.message['validar3'],1000)
     }
   }
   Limpiar(){
@@ -76,7 +82,7 @@ this.DataForm={
                       this.Storage.addItem(this.Storage.arrayname.Responsables,DataResponsables['data']['responsables']).then(()=>{
                         this.loading.dismiss().then(()=>{
                           this.Limpiar()
-                          this.master.MensajeAlert("Creado correctamente el Nuevo Responsable","Nuevo Responsable")
+                          this.master.MensajeAlert(this.message['enviardata1'],this.message['enviardatatitle'])
                         })
                       })
                     })
@@ -84,18 +90,18 @@ this.DataForm={
                   }else{
                     this.loading.dismiss().then(()=>{
                       this.Limpiar()
-                      this.master.MensajeAlert("El Responsable fue creado cierre y abra la aplicacion","Nuevo Responsable")
+                      this.master.MensajeAlert(this.message['enviardata2'],this.message['enviardatatitle'])
                     })
                   }
                 })
             }else{
                 if(NuevoResponsable['mensaje']=="errorapi"){
                   this.loading.dismiss().then(()=>{
-                    this.master.MensajeAlert(NuevoResponsable['data']['responsables']['message'],"Error al ingresar Responsable")
+                    this.master.MensajeAlert(NuevoResponsable['data']['responsables']['message'],this.message['enviardataerrtitle'])
                   })
                 }else{
                   this.loading.dismiss().then(()=>{
-                    this.master.MensajeAlert("Error al ingresar un nuevo Responsable","Error al ingresar Responsable")
+                    this.master.MensajeAlert(this.message['enviardataerr1'],this.message['enviardataerrtitle'])
                   })
                 }
             }

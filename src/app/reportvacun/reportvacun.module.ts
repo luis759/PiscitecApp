@@ -9,6 +9,7 @@ import { IonicSelectableModule } from 'ionic-selectable';
 import { ReportvacunPageRoutingModule } from './reportvacun-routing.module';
 
 import { ReportvacunPage } from './reportvacun.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { ReportvacunPage } from './reportvacun.page';
     FormsModule,
     IonicModule,
     IonicSelectableModule,
-    ReportvacunPageRoutingModule
+    ReportvacunPageRoutingModule,
+    TranslateModule.forChild()
   ],
   declarations: [ReportvacunPage]
 })

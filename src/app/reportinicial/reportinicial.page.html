@@ -5,7 +5,7 @@
     </ion-buttons>
     <ion-title>
       <div class="ion-text-wrap">
-        Reporte Principal Biometrías
+        {{ 'reporteinicial.titulo' | translate }}
        </div>
 
     </ion-title>
@@ -21,10 +21,11 @@
   </ion-fab>
   <ion-list>
     <ion-list-header>
-      (Data inicial)
+      {{ 'reporteinicial.datainici' | translate }}
     </ion-list-header>
     <ion-item >
-      <ion-label  color="dark">Empresa *</ion-label>
+      <ion-label  color="dark">
+        {{ 'reporteinicial.empresa' | translate }} *</ion-label>
       <ionic-selectable 
         [(ngModel)]="DataForm.empresa"
         [items]="empresas"
@@ -36,7 +37,7 @@
       </ionic-selectable>
     </ion-item>
     <ion-item >
-      <ion-label  color="dark">Granja *</ion-label>
+      <ion-label  color="dark">{{ 'reporteinicial.granja' | translate }} *</ion-label>
       <ionic-selectable 
         [(ngModel)]="DataForm.granja"
         [items]="granjas"
@@ -48,7 +49,7 @@
       </ionic-selectable>
     </ion-item>
     <ion-item >
-      <ion-label  color="dark">Espacios *</ion-label>
+      <ion-label  color="dark">{{ 'reporteinicial.espacios' | translate }} *</ion-label>
       <ionic-selectable 
       #portComponent
       [(ngModel)]="DataForm.espacio"
@@ -62,27 +63,27 @@
       </ionic-selectable>
     </ion-item>
     <ion-item>
-      <ion-label position="stacked" style="font-size: larger;">Lote * </ion-label>
+      <ion-label position="stacked" style="font-size: larger;">{{ 'reporteinicial.lote' | translate }} * </ion-label>
       <ion-input [(ngModel)]="DataForm.Lote.value"  min="0" placeholder="02111" inputmode="numeric" type="number"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label  position="" class="ion-text-wrap">Fecha *</ion-label>
-      <ion-datetime monthShortNames='Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Sep, Oct, Nov, Dic' min="1980" max="2030" cancelText="CANCELAR"  doneText="ACEPTAR" placeholder="Selecciona la Fecha" [(ngModel)]="DataForm.fecha" ></ion-datetime>
+      <ion-label  position="" class="ion-text-wrap">{{ 'reporteinicial.Fecha' | translate }} *</ion-label>
+      <ion-datetime monthShortNames='Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Sep, Oct, Nov, Dic' min="1980" max="2030" cancelText="{{ 'reporteinicial.cancelar' | translate }}"  doneText="{{ 'reporteinicial.aceptar' | translate }}" placeholder="{{ 'reporteinicial.selectfecha' | translate }}" [(ngModel)]="DataForm.fecha" ></ion-datetime>
     </ion-item>
    
     <ion-item>
-      <ion-label position="stacked" style="font-size: larger;">Tipo de Reporte * </ion-label>
+      <ion-label position="stacked" style="font-size: larger;">{{ 'reporteinicial.tiporeporte' | translate }} * </ion-label>
       <ion-select placeholder="Selecciona Un tipo de Reporte" [(ngModel)]="DataForm.TipoReporte.value">
-        <ion-select-option value="Poblacional">Poblacional</ion-select-option>
-        <ion-select-option value="Sexaje">Sexaje</ion-select-option>
-        <ion-select-option value="Virus">Virus</ion-select-option>
-        <ion-select-option value="Bacterias">Bacterias</ion-select-option>
-        <ion-select-option value="Otros">Otros</ion-select-option>
+        <ion-select-option value="Poblacional">{{ 'reporteinicial.option1' | translate }}</ion-select-option>
+        <ion-select-option value="Sexaje">{{ 'reporteinicial.option2' | translate }}</ion-select-option>
+        <ion-select-option value="Virus">{{ 'reporteinicial.option3' | translate }}</ion-select-option>
+        <ion-select-option value="Bacterias">{{ 'reporteinicial.option4' | translate }}</ion-select-option>
+        <ion-select-option value="Otros">{{ 'reporteinicial.option5' | translate }}</ion-select-option>
       </ion-select>
     </ion-item>
     <ion-item >
-      <ion-label  color="dark">Responsable *</ion-label>
+      <ion-label  color="dark">{{ 'reporteinicial.responsable' | translate }} *</ion-label>
       <ionic-selectable 
         [(ngModel)]="DataForm.responsable"
         [items]="responsables"
@@ -94,43 +95,43 @@
       </ionic-selectable>
     </ion-item>
     <ion-item>
-      <ion-label position="stacked" style="font-size: larger;">Observación:</ion-label>
-      <ion-input [(ngModel)]="DataForm.observacion.value"  placeholder="Comenta lo que quieras" type="text"></ion-input>
+      <ion-label position="stacked" style="font-size: larger;">{{ 'reporteinicial.observaciones' | translate }}:</ion-label>
+      <ion-input [(ngModel)]="DataForm.observacion.value"  placeholder="{{ 'reporteinicial.observacionespla' | translate }}" type="text"></ion-input>
     </ion-item>
     <ion-list-header>
-      <ion-label>(Data Saldos) </ion-label>
-      <ion-button fill="outline" (click)="gotoSaldos()">Ver Saldos</ion-button>
+      <ion-label>{{ 'reporteinicial.datasaldo' | translate }} </ion-label>
+      <ion-button fill="outline" (click)="gotoSaldos()">{{ 'reporteinicial.versaldo' | translate }}</ion-button>
     </ion-list-header>
     <div *ngIf="saldoss.length>0" class="ion-text-center">
       <ion-label  class="ion-text-center">
-        <p style="margin:0px 5px 0px 0px">Son </p>
+        <p style="margin:0px 5px 0px 0px">{{ 'reporteinicial.son' | translate }} </p>
         <ion-badge>{{saldoss.length}}</ion-badge>
         
-        <p>Registros de Saldos </p>
+        <p>{{ 'reporteinicial.registrosal' | translate }}</p>
       </ion-label>
     </div>
     <div *ngIf="saldoss.length==0" class="ion-text-center">
-      <ion-label >No Hay Data</ion-label>
+      <ion-label >{{ 'reporteinicial.nohaydata' | translate }}</ion-label>
     </div>
 
  
     <ion-list-header>
-      <ion-label>(Data Detalles) </ion-label>
-      <ion-button *ngIf="DataForm.empresa && DataForm.granja" fill="outline" (click)="gotoDetalle()">Ver Todos</ion-button>
+      <ion-label>{{ 'reporteinicial.datadetall' | translate }} </ion-label>
+      <ion-button *ngIf="DataForm.empresa && DataForm.granja" fill="outline" (click)="gotoDetalle()">{{ 'reporteinicial.vertodo' | translate }}</ion-button>
     </ion-list-header>
     <div *ngIf="detalles.length>0" class="ion-text-center">
       <ion-label  class="ion-text-center">
-        <p style="margin:0px 5px 0px 0px">Cuentas Con </p>
+        <p style="margin:0px 5px 0px 0px">{{ 'reporteinicial.cuentascon' | translate }} </p>
         <ion-badge>{{detalles.length}}</ion-badge>
         
-        <p>Registros </p>
+        <p>{{ 'reporteinicial.registro' | translate }} </p>
       </ion-label>
     </div>
     <div *ngIf="!DataForm.empresa || !DataForm.granja" class="ion-text-center">
-      <ion-label >Debes Seleccionar una Empresa y una granja Para mostrar los detalles</ion-label>
+      <ion-label >{{ 'reporteinicial.seleccionarempre' | translate }}</ion-label>
     </div>
     <div *ngIf="detalles.length==0" class="ion-text-center">
-      <ion-label >No Hay Data</ion-label>
+      <ion-label >{{ 'reporteinicial.nohaydata' | translate }}</ion-label>
     </div>
   </ion-list>
   <ion-list>
@@ -142,10 +143,10 @@
   <ion-item>
     <ion-label>
       <p>
-      Peso Aritmético: {{Pesos.Aritemitico}}
+        {{ 'reporteinicial.pesoaritme' | translate }}: {{Pesos.Aritemitico}}
     </p>
     <p>
-      Peso Promedio: {{Pesos.Promedio}}
+      {{ 'reporteinicial.pesoprome' | translate }}: {{Pesos.Promedio}}
     </p></ion-label>
   </ion-item>  
   </ion-toolbar>

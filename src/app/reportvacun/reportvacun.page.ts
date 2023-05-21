@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoadingController, ModalController, NavController } from '@ionic/angular';
 import { MenuPage } from '../menu/menu.page';
 import { MasterService } from '../services/master.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-reportvacun',
@@ -48,12 +49,17 @@ export class ReportvacunPage implements OnInit {
   granjas=[]
   espacios=[]
   responsables=[]
-  constructor(private master:MasterService,private loadingController:LoadingController,private modalController:ModalController,private navcontroll:NavController,private menu:MenuPage) 
+  message=[]
+  constructor(private master:MasterService,private translate:TranslateService,
+    private loadingController:LoadingController,private modalController:ModalController,private navcontroll:NavController,private menu:MenuPage) 
   { }
   changeResponsable(evento){
     
   }
   ngOnInit() {
+    this.translate.get("reportvacun").subscribe(dataTranslate=>{
+      this.message=dataTranslate
+     })
     this.menu.activarmenuDesactivar(false);
     this.master.storage.getItems(this.master.storage.arrayname.Empresas).then((Empresass)=>{
        if(Empresass){
@@ -155,57 +161,42 @@ export class ReportvacunPage implements OnInit {
                                           if(this.DataForm.proveedor.value){
                                             if(this.DataForm.vacunacionhoras){
                                               if(new Date(formatDate(this.DataForm.startdate , 'yyyy-MM-dd HH:mm:ss', 'en'))>=new Date(formatDate(this.DataForm.enddate , 'yyyy-MM-dd HH:mm:ss', 'en'))){
-                                                this.master.toastMensaje("la hora de inicio no puede ser mayor igual que la de fin",1500)
+                                                this.master.toastMensaje(this.message['validar1'],1500)
                                               }else{
                                                 this.seguir()
                                               }
                                             }else{
                                               this.seguir()
                                             }
-                                          }else{
-                                           this.master.toastMensaje("Coloque al menos un proveedor",1500)
+                                          }else{ this.master.toastMensaje(this.message['validar2'],1500)
                                           }
-                                        }else{
-                                         this.master.toastMensaje("Coloque al menos un lote de vacuna",1500)
+                                        }else{ this.master.toastMensaje(this.message['validar3'],1500)
                                         }
-                                      }else{
-                                       this.master.toastMensaje("Coloque al menos un tipo de vacuna",1500)
+                                      }else{ this.master.toastMensaje(this.message['validar4'],1500)
                                       }
-                                     }else{
-                                      this.master.toastMensaje("Coloque al menos un laboratorio",1500)
+                                     }else{ this.master.toastMensaje(this.message['validar5'],1500)
                                      }
-                                    }else{
-                                      this.master.toastMensaje("Peso debe ser mayor a 0",1500)
+                                    }else{ this.master.toastMensaje(this.message['validar6'],1500)
                                     }
-                                  }else{
-                                    this.master.toastMensaje("Debe colocar al menos un Peso",1500)
+                                  }else{ this.master.toastMensaje(this.message['validar7'],1500)
                                   }
-                                }else{
-                                  this.master.toastMensaje("Personas debe ser mayor a 0",1500)
+                                }else{ this.master.toastMensaje(this.message['validar8'],1500)
                                 }
-                              }else{
-                                this.master.toastMensaje("Debe colocar al menos una Personas",1500)
+                              }else{ this.master.toastMensaje(this.message['validar9'],1500)
                               }
-                            }else{
-                              this.master.toastMensaje("Cantidad debe ser mayor a 0",1500)
+                            }else{ this.master.toastMensaje(this.message['validar10'],1500)
                             }
-                          }else{
-                            this.master.toastMensaje("Debe colocar al menos una cantidad",1500)
+                          }else{ this.master.toastMensaje(this.message['validar11'],1500)
                           }
-                        }else{
-                          this.master.toastMensaje("Lote debe ser mayor a 0",1500)
+                        }else{ this.master.toastMensaje(this.message['validar12'],1500)
                         }
-                  }else{
-                    this.master.toastMensaje("Debe colocar al menos un lote",1500)
+                  }else{ this.master.toastMensaje(this.message['validar13'],1500)
                   }
-          }else{  
-            this.master.toastMensaje("Debe seleccionar un responsable",1500)
+          }else{   this.master.toastMensaje(this.message['validar14'],1500)
           }
-        }else{
-          this.master.toastMensaje("Debe seleccionar una granja",1500)
+        }else{ this.master.toastMensaje(this.message['validar15'],1500)
         }
-      }else{
-        this.master.toastMensaje("Debe seleccionar una empresa",1500)
+      }else{ this.master.toastMensaje(this.message['validar16'],1500)
       }
   }
   seguir(){
@@ -270,10 +261,10 @@ export class ReportvacunPage implements OnInit {
         this.master.storage.addItem(this.master.storage.arrayname.VacunaReporte,array).then(()=>{
           if(Enviado){
             this.limpiarData()
-            this.master.MensajeAlert("Registro Guardado y Enviado","Reporte de vacunacion")
+            this.master.MensajeAlert(this.message['guardar1'],this.message['guardartitulo'])
           }else{
             this.limpiarData()
-            this.master.MensajeAlert("Registro Guardado","Reporte de vacunacion")
+            this.master.MensajeAlert(this.message['guardar2'],this.message['guardartitulo'])
           }
         })
       })

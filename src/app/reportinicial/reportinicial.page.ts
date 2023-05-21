@@ -7,6 +7,7 @@ import { MenuPage } from '../menu/menu.page';
 import { ReportdetallePage } from '../modals/reportdetalle/reportdetalle.page';
 import { ReportsaldoPage } from '../modals/reportsaldo/reportsaldo.page';
 import { MasterService } from '../services/master.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-reportinicial',
@@ -44,8 +45,10 @@ export class ReportinicialPage implements OnInit {
   espacios=[]
   responsables=[]
   detalles=[]
-  
-  constructor(private master:MasterService,private loadingController:LoadingController,private modalController:ModalController,private navcontroll:NavController,private menu:MenuPage) { }
+  message=[]
+  constructor(private master:MasterService,private loadingController:LoadingController,
+    private modalController:ModalController,private navcontroll:NavController,
+    private translate:TranslateService,private menu:MenuPage) { }
   changeResponsable(evento){
     
   }
@@ -58,6 +61,9 @@ export class ReportinicialPage implements OnInit {
     }
   }
   ngOnInit() {
+    this.translate.get("reporteinicial").subscribe(dataTranslate=>{
+      this.message=dataTranslate
+     })
     this.menu.activarmenuDesactivar(false);
     this.master.storage.getItems(this.master.storage.arrayname.Empresas).then((Empresass)=>{
       console.log(Empresass)
@@ -89,12 +95,12 @@ export class ReportinicialPage implements OnInit {
       }else{
         this.espacios=[]
         this.portComponent.close();
-      this.master.toastMensaje("Error debe seleccionar una granja",2000)
+      this.master.toastMensaje(this.message['onopen1'],2000)
       }
     }else{
       this.espacios=[]
       this.portComponent.close();
-      this.master.toastMensaje("Error debe seleccionar una empresa",2000)
+      this.master.toastMensaje(this.message['onopen2'],2000)
     }
   }
   limpiarData(){
@@ -138,29 +144,29 @@ export class ReportinicialPage implements OnInit {
                               if(this.detalles.length>0){
                                 this.seguir()
                               }else{
-                                this.master.MensajeAlert("Debes colocar un detalle al menos","Reporte Inicial")
+                                this.master.MensajeAlert(this.message['validar1'],this.message['validaryguardadotitulo'])
                               }
                             
                           }else{
-                            this.master.MensajeAlert("Lote debe ser mayor a 0","Reporte Inicial")
+                            this.master.MensajeAlert(this.message['validar2'],this.message['validaryguardadotitulo'])
                           }
                     }else{
-                      this.master.MensajeAlert("Debe colocar al menos un Lote","Reporte Inicial")
+                      this.master.MensajeAlert(this.message['validar3'],this.message['validaryguardadotitulo'])
                     }
               }else{
-                this.master.MensajeAlert("Debe seleccionar un Tipo de Reporte","Reporte Inicial")
+                this.master.MensajeAlert(this.message['validar4'],this.message['validaryguardadotitulo'])
               }
             }else{  
-              this.master.MensajeAlert("Debe seleccionar un responsable","Reporte Inicial")
+              this.master.MensajeAlert(this.message['validar5'],this.message['validaryguardadotitulo'])
             }
           }else{
-            this.master.MensajeAlert("Debe seleccionar una granja","Reporte Inicial")
+            this.master.MensajeAlert(this.message['validar6'],this.message['validaryguardadotitulo'])
           }
         }else{
-          this.master.MensajeAlert("Debe seleccionar una empresa","Reporte Inicial")
+          this.master.MensajeAlert(this.message['validar7'],this.message['validaryguardadotitulo'])
         }
       }else{
-        this.master.MensajeAlert("Debe Colocar al menos un Detalle de Saldo","Reporte Inicial")
+        this.master.MensajeAlert(this.message['validar8'],this.message['validaryguardadotitulo'])
       }
   }
   seguir(){
@@ -218,10 +224,10 @@ export class ReportinicialPage implements OnInit {
         this.master.storage.addItem(this.master.storage.arrayname.ReporteGenerados,array).then(()=>{
           if(Enviado){
             this.limpiarData()
-            this.master.MensajeAlert("Registro Guardado y Enviado","Reporte Incial")
+            this.master.MensajeAlert(this.message['guardado1'],this.message['validaryguardadotitulo'])
           }else{
             this.limpiarData()
-            this.master.MensajeAlert("Registro Guardado","Reporte Incial")
+            this.master.MensajeAlert(this.message['guardado2'],this.message['validaryguardadotitulo'])
           }
         })
       })

@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { ReportlistPageRoutingModule } from './reportlist-routing.module';
 
 import { ReportlistPage } from './reportlist.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ReportlistPageRoutingModule
+    ReportlistPageRoutingModule,
+    TranslateModule.forChild()
   ],
   declarations: [ReportlistPage]
 })

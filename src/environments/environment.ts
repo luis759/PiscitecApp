@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   urlApi:'https://agropiscicolahermosa.azurewebsites.net/',
-  lenguajemaster:"es"
+  lenguajemaster:"en"
 };
 
 /*

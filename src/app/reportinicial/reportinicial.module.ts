@@ -8,6 +8,7 @@ import { IonicModule } from '@ionic/angular';
 import { ReportinicialPageRoutingModule } from './reportinicial-routing.module';
 
 import { ReportinicialPage } from './reportinicial.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { ReportinicialPage } from './reportinicial.page';
     FormsModule,
     IonicModule,
     IonicSelectableModule,
-    ReportinicialPageRoutingModule
+    ReportinicialPageRoutingModule,
+    TranslateModule.forChild()
   ],
   declarations: [ReportinicialPage]
 })

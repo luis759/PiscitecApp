@@ -5,7 +5,7 @@
     </ion-buttons>
     <ion-title>
       <div class="ion-text-wrap">
-        Reporte Vacunas
+        {{ 'reportvacun.titulo' | translate }}
        </div>
 
     </ion-title>
@@ -22,7 +22,7 @@
   <ion-list>
 
   <ion-item >
-    <ion-label  color="dark">Empresa *</ion-label>
+    <ion-label  color="dark">{{ 'reportvacun.empresa' | translate }} *</ion-label>
     <ionic-selectable 
       [(ngModel)]="DataForm.empresa"
       [items]="empresas"
@@ -34,7 +34,7 @@
     </ionic-selectable>
   </ion-item>
   <ion-item >
-    <ion-label  color="dark">Granja *</ion-label>
+    <ion-label  color="dark">{{ 'reportvacun.granja' | translate }} *</ion-label>
     <ionic-selectable 
       [(ngModel)]="DataForm.granja"
       [items]="granjas"
@@ -46,7 +46,7 @@
     </ionic-selectable>
   </ion-item>
   <ion-item >
-    <ion-label  color="dark">Responsable *</ion-label>
+    <ion-label  color="dark">{{ 'reportvacun.responsable' | translate }} *</ion-label>
     <ionic-selectable 
       [(ngModel)]="DataForm.responsable"
       [items]="responsables"
@@ -58,62 +58,62 @@
     </ionic-selectable>
   </ion-item>
   <ion-item>
-    <ion-label position="stacked" style="font-size: larger;">Lote * </ion-label>
+    <ion-label position="stacked" style="font-size: larger;">{{ 'reportvacun.lote' | translate }}  * </ion-label>
     <ion-input [(ngModel)]="DataForm.Lote.value"  min="0" placeholder="02111" inputmode="numeric" type="number"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label  position="" class="ion-text-wrap">Fecha *</ion-label>
-    <ion-datetime monthShortNames='Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Sep, Oct, Nov, Dic' min="1980" max="2030" cancelText="CANCELAR"  doneText="ACEPTAR" placeholder="Selecciona la Fecha" [(ngModel)]="DataForm.fecha" ></ion-datetime>
+    <ion-label  position="" class="ion-text-wrap">{{ 'reportvacun.Fecha' | translate }} *</ion-label>
+    <ion-datetime monthShortNames='Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Sep, Oct, Nov, Dic' min="1980" max="2030" cancelText="{{ 'reportvacun.cancelar' | translate }}"  doneText="{{ 'reportvacun.aceptar' | translate }}" placeholder="{{ 'reportvacun.selectfecha' | translate }}" [(ngModel)]="DataForm.fecha" ></ion-datetime>
   </ion-item>
   <ion-item>
-    <ion-label position="stacked" style="font-size: larger;">Proveedor:</ion-label>
-    <ion-input [(ngModel)]="DataForm.proveedor.value"  placeholder="Proveedor" type="text"></ion-input>
+    <ion-label position="stacked" style="font-size: larger;">{{ 'reportvacun.proveedor' | translate }}:</ion-label>
+    <ion-input [(ngModel)]="DataForm.proveedor.value"  placeholder="{{ 'reportvacun.proveedor' | translate }}" type="text"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label position="stacked" style="font-size: larger;">Laboratorio:</ion-label>
-    <ion-input [(ngModel)]="DataForm.laboratorio.value"  placeholder="Laboratorio" type="text"></ion-input>
+    <ion-label position="stacked" style="font-size: larger;">{{ 'reportvacun.laboratorio' | translate }}:</ion-label>
+    <ion-input [(ngModel)]="DataForm.laboratorio.value"  placeholder="{{ 'reportvacun.laboratorio' | translate }}" type="text"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label position="stacked" style="font-size: larger;">Tipo de vacuna:</ion-label>
-    <ion-input [(ngModel)]="DataForm.tipovacuna.value"  placeholder="Tipo de vacuna" type="text"></ion-input>
+    <ion-label position="stacked" style="font-size: larger;">{{ 'reportvacun.tipodevacuna' | translate }}:</ion-label>
+    <ion-input [(ngModel)]="DataForm.tipovacuna.value"  placeholder="{{ 'reportvacun.tipodevacuna' | translate }}" type="text"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label position="stacked" style="font-size: larger;">Lote de vacuna:</ion-label>
-    <ion-input [(ngModel)]="DataForm.lotevacuna.value"  placeholder="Lote de vacuna" type="text"></ion-input>
+    <ion-label position="stacked" style="font-size: larger;">{{ 'reportvacun.lotevacuna' | translate }}:</ion-label>
+    <ion-input [(ngModel)]="DataForm.lotevacuna.value"  placeholder="{{ 'reportvacun.lotevacuna' | translate }}" type="text"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label>Cuentas con horas de vacunacion?</ion-label>
+    <ion-label>{{ 'reportvacun.cuantasconhora' | translate }}</ion-label>
     <ion-toggle [(ngModel)]="DataForm.vacunacionhoras"></ion-toggle>
   </ion-item>
   <ion-row>
     <ion-col size="6">
       <ion-item class="ion-text-center">
-        <ion-label  position="floating" class="ion-text-wrap" style="font-size:12px;">Hora de inicio</ion-label>
+        <ion-label  position="floating" class="ion-text-wrap" style="font-size:12px;">{{ 'reportvacun.horainicio' | translate }}</ion-label>
         <ion-datetime [min]="yearMin"  [max]="yearMax" display-format="HH:mm" picker-format="HH:mm " value="1990-02-19T07:43Z" cancelText="CANCELAR"  doneText="ACEPTAR" [(ngModel)]="DataForm.startdate" ></ion-datetime>
       </ion-item>
     </ion-col>
     <ion-col size="6">
       <ion-item class="ion-text-center">
-        <ion-label  position="floating" class="ion-text-wrap" style="font-size:12px;">Hora de Fin</ion-label>
+        <ion-label  position="floating" class="ion-text-wrap" style="font-size:12px;">{{ 'reportvacun.horafin' | translate }}</ion-label>
         <ion-datetime [min]="yearMin"  [max]="yearMax" display-format="HH:mm" picker-format="HH:mm" value="1990-02-19T07:43Z" cancelText="CANCELAR"  doneText="ACEPTAR" [(ngModel)]="DataForm.enddate" ></ion-datetime>
       </ion-item>
     </ion-col>
   </ion-row>
   <ion-item>
-    <ion-label position="stacked" style="font-size: larger;">Cantidad:</ion-label>
+    <ion-label position="stacked" style="font-size: larger;">{{ 'reportvacun.cantidad' | translate }}:</ion-label>
     <ion-input [(ngModel)]="DataForm.Cantidad.value"  placeholder="0" type="number"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label position="stacked" style="font-size: larger;">Peso:</ion-label>
+    <ion-label position="stacked" style="font-size: larger;">{{ 'reportvacun.peso' | translate }}:</ion-label>
     <ion-input [(ngModel)]="DataForm.Peso.value"  placeholder="0" type="number"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label position="stacked" style="font-size: larger;">Personas:</ion-label>
+    <ion-label position="stacked" style="font-size: larger;">{{ 'reportvacun.persona' | translate }}:</ion-label>
     <ion-input [(ngModel)]="DataForm.Personas.value"  placeholder="0" type="number"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label position="stacked" style="font-size: larger;">Observaciones:</ion-label>
-    <ion-input [(ngModel)]="DataForm.observaciones.value"  placeholder="observaciones" type="text"></ion-input>
+    <ion-label position="stacked" style="font-size: larger;">{{ 'reportvacun.obervacion' | translate }}:</ion-label>
+    <ion-input [(ngModel)]="DataForm.observaciones.value"  placeholder="{{ 'reportvacun.obervacion' | translate }}" type="text"></ion-input>
   </ion-item>
   </ion-list>
 </ion-content>

@@ -4,18 +4,19 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      REPORTES GUARDADOS
+        {{ 'reportlist.titulo' | translate }}
     </ion-title>
   </ion-toolbar>
   <ion-toolbar>
     <ion-item>
-      <ion-label>Selecciona el tipo de reporte</ion-label>
-      <ion-select value="1" okText="Aceptar" cancelText="Cancelar" (ionChange)="seleccionartiporeporte($event)">
-        <ion-select-option value="1">Biometrías</ion-select-option>
-        <ion-select-option value="2">Vacunas</ion-select-option>
-        <ion-select-option value="3">Físico-Químicos</ion-select-option>
-        <ion-select-option value="4">Mortalidad</ion-select-option>
-        <ion-select-option value="5">Consumo de Materias Primas</ion-select-option>
+      <ion-label>
+        {{ 'reportlist.seleccionatipo' | translate }}</ion-label>
+      <ion-select value="1" okText="{{ 'reportlist.menuaccept' | translate }}" cancelText="{{ 'reportlist.menucancel' | translate }}" (ionChange)="seleccionartiporeporte($event)">
+        <ion-select-option value="1"> {{ 'reportlist.menu1' | translate }}</ion-select-option>
+        <ion-select-option value="2"> {{ 'reportlist.menu2' | translate }}</ion-select-option>
+        <ion-select-option value="3"> {{ 'reportlist.menu3' | translate }}</ion-select-option>
+        <ion-select-option value="4"> {{ 'reportlist.menu4' | translate }}</ion-select-option>
+        <ion-select-option value="5"> {{ 'reportlist.menu5' | translate }}</ion-select-option>
       </ion-select>
     </ion-item>
   </ion-toolbar>
@@ -32,11 +33,11 @@
   <ion-list>
       <ion-item *ngFor="let reportes of reportes">
           <ion-label>
-            <p *ngIf="reportes.Reporte.enviado">Numero de Reporte: {{(reportes.Reporte.dataEnviado.Principal.NORC?reportes.Reporte.dataEnviado.Principal.NORC:'NO REGISTRO')}}</p>
-            <p>Empresa:{{reportes.NombreEmpresas}} </p>
-            <p>Granja:{{reportes.GranjasNombre}}</p>
-            <p>Responsable:{{reportes.Responsablenombre}}</p>
-            <p>Lote:{{reportes.Reporte.ReporteInicial.LOTE}}</p>
+            <p *ngIf="reportes.Reporte.enviado">{{ 'reportlist.numeroreport' | translate }}: {{(reportes.Reporte.dataEnviado.Principal.NORC?reportes.Reporte.dataEnviado.Principal.NORC:'NO REGISTRO')}}</p>
+            <p>{{ 'reportlist.empresa' | translate }}:{{reportes.NombreEmpresas}} </p>
+            <p>{{ 'reportlist.granja' | translate }}:{{reportes.GranjasNombre}}</p>
+            <p>{{ 'reportlist.responsable' | translate }}:{{reportes.Responsablenombre}}</p>
+            <p>{{ 'reportlist.lote' | translate }}:{{reportes.Reporte.ReporteInicial.LOTE}}</p>
           </ion-label>
          <!--<ion-button color="primary" (click)="Show(i)" slot="end">  <ion-icon name="open">
           </ion-icon>  </ion-button>--> 
@@ -47,10 +48,10 @@
   <ion-toolbar color="principal" > 
   <ion-segment color="principal" mode="ios" (ionChange)="segmentChanged($event)"  [value]="tipo">
     <ion-segment-button value="Send">
-      <ion-label>Enviado</ion-label>
+      <ion-label>{{ 'reportlist.enviado' | translate }}</ion-label>
     </ion-segment-button>
     <ion-segment-button value="NotSend">
-      <ion-label>No Enviados</ion-label>
+      <ion-label>{{ 'reportlist.noenviados' | translate }}</ion-label>
     </ion-segment-button>
   </ion-segment>
   </ion-toolbar>
