@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  urlApi:'https://agropiscicolahermosa.azurewebsites.net/',
+  urlApi:'https://mazaria.azurewebsites.net/',
   lenguajemaster:"en"
 };
