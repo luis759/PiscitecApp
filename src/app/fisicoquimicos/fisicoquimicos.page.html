@@ -5,7 +5,7 @@
     </ion-buttons>
     <ion-title>
       <div class="ion-text-wrap">
-        Reporte Físico-Químicos
+        {{ 'fiscoquimico.titulo' | translate }}
        </div>
 
     </ion-title>
@@ -67,7 +67,8 @@
     <ion-list>
   
     <ion-item >
-      <ion-label  color="dark">Empresa *</ion-label>
+      <ion-label  color="dark">
+        {{ 'fiscoquimico.empresa' | translate }} *</ion-label>
       <ionic-selectable 
         [(ngModel)]="DataForm.empresa"
         [items]="empresas"
@@ -79,7 +80,8 @@
       </ionic-selectable>
     </ion-item>
     <ion-item >
-      <ion-label  color="dark">Granja *</ion-label>
+      <ion-label  color="dark">
+        {{ 'fiscoquimico.granja' | translate }} *</ion-label>
       <ionic-selectable 
         [(ngModel)]="DataForm.granja"
         [items]="granjas"
@@ -91,7 +93,7 @@
       </ionic-selectable>
     </ion-item>
     <ion-item >
-      <ion-label  color="dark">Responsable *</ion-label>
+      <ion-label  color="dark"> {{ 'fiscoquimico.responsable' | translate }} *</ion-label>
       <ionic-selectable 
         [(ngModel)]="DataForm.responsable"
         [items]="responsables"
@@ -103,7 +105,7 @@
       </ionic-selectable>
     </ion-item>
     <ion-item >
-      <ion-label  color="dark">Espacios *</ion-label>
+      <ion-label  color="dark"> {{ 'fiscoquimico.espacios' | translate }} *</ion-label>
       <ionic-selectable 
       #portComponent
       [(ngModel)]="DataForm.espacio"
@@ -116,7 +118,7 @@
       </ionic-selectable>
     </ion-item>
     <ion-item>
-      <ion-label  position="" class="ion-text-wrap">Fecha *</ion-label>
+      <ion-label  position="" class="ion-text-wrap">{{ 'fiscoquimico.fecha' | translate }} *</ion-label>
       <ion-datetime monthShortNames='Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Sep, Oct, Nov, Dic' min="1980" max="2030" cancelText="CANCELAR"  doneText="ACEPTAR" placeholder="Selecciona la Fecha" [(ngModel)]="DataForm.fecha" ></ion-datetime>
     </ion-item>
     <ion-item *ngFor="let item of todoslosparametros;">
@@ -129,7 +131,7 @@
       </ion-col>
       <ion-col size="6">
         <ion-item class="ion-text-center">
-          <ion-label  position="floating" class="ion-text-wrap" style="font-size:12px;">Hora</ion-label>
+          <ion-label  position="floating" class="ion-text-wrap" style="font-size:12px;">{{ 'fiscoquimico.hora' | translate }}</ion-label>
           <ion-datetime [min]="yearMin"  [max]="yearMax" display-format="HH:mm" picker-format="HH:mm " value="1990-02-19T07:43Z" cancelText="CANCELAR"  doneText="ACEPTAR" [(ngModel)]="DataForm.startdate" ></ion-datetime>
         </ion-item>
       </ion-col>
@@ -137,7 +139,7 @@
       </ion-col>
     </ion-row>
     <ion-item>
-      <ion-label position="stacked" style="font-size: larger;">Observaciones:</ion-label>
+      <ion-label position="stacked" style="font-size: larger;">{{ 'fiscoquimico.observaciones' | translate }}:</ion-label>
       <ion-input [(ngModel)]="DataForm.observaciones"  placeholder="observaciones" type="text"></ion-input>
     </ion-item>
     </ion-list>

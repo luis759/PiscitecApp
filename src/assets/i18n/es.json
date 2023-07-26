@@ -290,6 +290,27 @@
         "enviardataerr1":"Error al ingresar un nuevo Responsable",
         "enviardataerrtitle":"Error al ingresar Responsable"
     },
+    "fiscoquimico": {
+        "titulo":"Reporte Físico-Químicos",
+        "empresa":"Empresa",
+        "granja":"Granja",
+        "responsable":"Responsable",
+        "espacios":"Espacios",
+        "fecha":"Fecha",
+        "hora":"Hora",
+        "observaciones":"Observaciones",
+        "mensajetoast1":"No hay informacion",
+        "validar1":"Debe seleccionar un espacio",
+        "validar2":"Debe seleccionar un responsable",
+        "validar3":"Debe seleccionar una granja",
+        "validar4":"Debe seleccionar una empresa",
+        "validar5":"Debes seleccionar algun parametro",
+        "enviardata1":"Registro Guardado y Enviado",
+        "enviardata2":"Registro Guardado",
+        "enviardatatitle":"Reporte FisicoQuimicos",
+        "dataerr1toast":"Error debe seleccionar una granja",
+        "dataerr2toast":"Error debe seleccionar una empresa"
+    },
     "global":{
         "accept":"Aceptar",
         "cancelar":"Cancelar",

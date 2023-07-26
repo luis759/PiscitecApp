@@ -8,6 +8,7 @@ import { IonicSelectableModule } from 'ionic-selectable';
 import { FisicoquimicosPageRoutingModule } from './fisicoquimicos-routing.module';
 
 import { FisicoquimicosPage } from './fisicoquimicos.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { FisicoquimicosPage } from './fisicoquimicos.page';
     FormsModule,
     IonicModule,
     IonicSelectableModule,
-    FisicoquimicosPageRoutingModule
+    FisicoquimicosPageRoutingModule,
+    TranslateModule.forChild()
   ],
   declarations: [FisicoquimicosPage]
 })

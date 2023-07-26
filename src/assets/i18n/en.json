@@ -289,6 +289,27 @@
         "enviardataerr1":"Error when entering a new Manager",
         "enviardataerrtitle":"Error entering Responsible"
     },
+    "fiscoquimico": {
+        "titulo":"Physical-Chemical Report",
+        "empresa":"Company",
+        "granja":"Farm",
+        "responsable":"Responsible",
+        "espacios":"Spaces",
+        "fecha":"Date",
+        "hora":"Time",
+        "observaciones":"Observations",
+        "mensajetoast1":"There is no information",
+        "validar1":"You must select a space",
+        "validar2":"You must select a manager",
+        "validar3":"You must select a farm",
+        "validar4":"You must select a company",
+        "validar5":"You must select some parameter",
+        "enviardata1":"Record Saved and Sent",
+        "enviardata2":"Record Saved",
+        "enviardatatitle":"Physical Chemical Report",
+        "dataerr1toast":"Error must select a farm",
+        "dataerr2toast":"Error you must select a company"
+    },
     "global":{
         "accept":"ACCEPT",
         "cancelar":"CANCEL",

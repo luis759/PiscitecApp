@@ -4,6 +4,7 @@ import { LoadingController, ModalController, NavController } from '@ionic/angula
 import { IonicSelectableComponent } from 'ionic-selectable';
 import { MenuPage } from '../menu/menu.page';
 import { MasterService } from '../services/master.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-fisicoquimicos',
@@ -30,9 +31,14 @@ export class FisicoquimicosPage implements OnInit {
   todoslosparametros=[]
   yearMax=(new Date().getFullYear())+1
   yearMin=(new Date().getFullYear())-1
-  constructor(private master:MasterService,private loadingController:LoadingController,private modalController:ModalController,private navcontroll:NavController,private menu:MenuPage) { }
+  message=[]
+  constructor(private master:MasterService,private loadingController:LoadingController,
+    private translate:TranslateService,private modalController:ModalController,private navcontroll:NavController,private menu:MenuPage) { }
 
   ngOnInit() {
+    this.translate.get("fiscoquimico").subscribe(dataTranslate=>{
+      this.message=dataTranslate
+     })
     this.menu.activarmenuDesactivar(false);
     this.incializar()
   }
@@ -41,7 +47,7 @@ export class FisicoquimicosPage implements OnInit {
       if(Parametros[0].length>0){
         this.todoslosparametros=Parametros[0]
       }else{
-        this.master.toastMensaje("No hay informacion",2000)
+        this.master.toastMensaje(this.message['mensajetoast1'],2000)
         this.todoslosparametros=[]
       }
     })
@@ -126,20 +132,20 @@ export class FisicoquimicosPage implements OnInit {
               if(infoseguir['paso']){
                 this.seguir()
               }else{
-                this.master.MensajeAlert(infoseguir['mensaje'],"Reporte FisicoQuimicos")
+                this.master.MensajeAlert(infoseguir['mensaje'],this.message['enviardatatitle'])
               }
             }else{
-              this.master.MensajeAlert("Debe seleccionar un espacio","Reporte FisicoQuimicos")
+              this.master.MensajeAlert(this.message['validar1'],this.message['enviardatatitle'])
             }
           
           }else{  
-            this.master.MensajeAlert("Debe seleccionar un responsable","Reporte FisicoQuimicos")
+            this.master.MensajeAlert(this.message['validar2'],this.message['enviardatatitle'])
           }
         }else{
-          this.master.MensajeAlert("Debe seleccionar una granja","Reporte FisicoQuimicos")
+          this.master.MensajeAlert(this.message['validar3'],this.message['enviardatatitle'])
         }
       }else{
-        this.master.MensajeAlert("Debe seleccionar una empresa","Reporte FisicoQuimicos")
+        this.master.MensajeAlert(this.message['validar4'],this.message['enviardatatitle'])
       }
 }
 validarInfoDataEnvio(){
@@ -162,7 +168,7 @@ validarInfoDataEnvio(){
   cantidad=0;  
   if(datajson.paso){
     datajson.paso=false
-    datajson.mensaje="Debes seleccionar algun parametro"
+    datajson.mensaje=this.message['validar5']
     do {
       if((this.todoslosparametros[cantidad]['valoratomar'])){
           datajson.paso=true
@@ -247,10 +253,10 @@ GuardarRegistroDeReportes(Report,Enviado,Erroes){
       this.master.storage.addItem(this.master.storage.arrayname.FisiscosQuimicosRep,array).then(()=>{
         if(Enviado){
           this.limpiarData()
-          this.master.MensajeAlert("Registro Guardado y Enviado","Reporte Incial")
+          this.master.MensajeAlert(this.message['enviardata1'],this.message['enviardatatitle'])
         }else{
           this.limpiarData()
-          this.master.MensajeAlert("Registro Guardado","Reporte Incial")
+          this.master.MensajeAlert(this.message['enviardata2'],this.message['enviardatatitle'])
         }
       })
     })
@@ -276,12 +282,12 @@ GuardarRegistroDeReportes(Report,Enviado,Erroes){
       }else{
         this.espacios=[]
         this.portComponent.close();
-      this.master.toastMensaje("Error debe seleccionar una granja",2000)
+      this.master.toastMensaje(this.message['dataerr1toast'],2000)
       }
     }else{
       this.espacios=[]
       this.portComponent.close();
-      this.master.toastMensaje("Error debe seleccionar una empresa",2000)
+      this.master.toastMensaje(this.message['dataerr2toast'],2000)
     }
   }
 }
