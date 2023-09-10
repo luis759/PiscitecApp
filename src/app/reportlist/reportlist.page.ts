@@ -174,6 +174,326 @@ export class ReportlistPage implements OnInit {
   }
     this.reportes=arrays
   }
+
+  enviarDataTodasTipo1(){
+    this.master.Load(this.loadingController).then(()=>{
+      this.master.storage.getItems(this.master.storage.arrayname.ReporteGenerados).then((Data)=>{
+        let Extraccion=[]
+        let array=[]
+        if(Data){
+          Extraccion=Data[0]
+        }
+        for(var i=0;i<Extraccion.length;i++){
+          if(!Extraccion[i]['enviado']){
+            let agregar=array.push({Reporte:Extraccion[i],numero:i})
+          }
+        }
+        if(array.length>0){
+          this.enviarReportesTodoTipo1(0,array)
+        }else{
+          this.enviarDatatodastipo2()
+        }
+      })
+    })
+  }
+  enviarDatatodastipo2(){
+    this.master.storage.getItems(this.master.storage.arrayname.VacunaReporte).then((Data)=>{
+      let Extraccion=[]
+      let array=[]
+      if(Data){
+        Extraccion=Data[0]
+      }
+      for(var i=0;i<Extraccion.length;i++){
+        if(!Extraccion[i]['enviado']){
+          let agregar=array.push({Reporte:Extraccion[i],numero:i})
+        } 
+      }
+
+      if(array.length>0){
+        this.enviarReportestodoTipo2(0,array)
+
+      }else{
+        this.enviarDatatodastipo3()
+      }
+
+    })
+  }
+  enviarDatatodastipo3(){
+    this.master.storage.getItems(this.master.storage.arrayname.FisiscosQuimicosRep).then((Data)=>{
+      let Extraccion=[]
+      let array=[]
+      if(Data){
+        Extraccion=Data[0]
+      }
+      for(var i=0;i<Extraccion.length;i++){
+        if(!Extraccion[i]['enviado']){
+          let agregar=array.push({Reporte:Extraccion[i],numero:i})
+        }
+      }
+      if(array.length>0){
+        this.enviarReportestodoTipo3(0,array)
+      }else{
+        this.enviarDatatodastipo4()
+      }
+    })
+  }
+  enviarDatatodastipo4(){
+    this.master.storage.getItems(this.master.storage.arrayname.repMortalidd).then((Data)=>{
+      let Extraccion=[]
+      let array=[]
+      if(Data){
+        Extraccion=Data[0]
+      }
+      for(var i=0;i<Extraccion.length;i++){
+        if(!Extraccion[i]['enviado']){
+          let agregar=array.push({Reporte:Extraccion[i],numero:i})
+        }
+      }
+      if(array.length>0){
+        this.enviarReportestodoTipo4(0,array)
+      }else{
+        this.enviarDatatodastipo5()
+      }
+    })
+  }
+  enviarDatatodastipo5(){
+    this.master.storage.getItems(this.master.storage.arrayname.repConsumos).then((Data)=>{
+      let array=[]
+      let Extraccion=[]
+      if(Data){
+        Extraccion=Data[0]
+      }
+      for(var i=0;i<Extraccion.length;i++){
+        if(!Extraccion[i]['enviado']){
+          let agregar=array.push({Reporte:Extraccion[i],numero:i})
+        }
+      }
+      if(array.length>0){
+        this.enviarReportestodoTipo5(0,array)
+      }else{
+        
+        this.segmentChanged({detail:{value:this.tipo}})
+        this.master.MensajeAlert(this.message['enviadoreportes'],this.message['enviadotitle'])
+        this.loadingController.dismiss()
+      }
+    })
+  }
+  enviarReportesTodoTipo1(i,arreglo){
+    let valor=this.master.storage.reportesGenerado
+    valor=arreglo[i]['Reporte']['ReporteInicial']
+    this.master.reportes.postNewReporte(valor).then((ReporteIngreso)=>{
+      if(!ReporteIngreso['correcto'] && ReporteIngreso['data']['status']==-1){
+        arreglo[i]['Reporte']['enviado']=false
+      }else{
+        if(ReporteIngreso['correcto']){
+          arreglo[i]['Reporte']['dataEnviado']=ReporteIngreso['data']
+          arreglo[i]['Reporte']['enviado']=true
+        }else if(ReporteIngreso['correcto'] && ReporteIngreso['mensaje']=="errorapi"){ 
+          arreglo[i]['Reporte']['dataEnviado']=ReporteIngreso['data']
+          arreglo[i]['Reporte']['enviado']=true
+        }else{
+          arreglo[i]['Reporte']['enviado']=false
+        }
+      }
+      let cantidad=i+1
+      if(cantidad<arreglo.length){
+        this.enviarReportesTodoTipo1(cantidad,arreglo)
+      }else{
+        this.GuardarRegistrosDeReportes()
+      }
+    })
+  }
+  guardartodotipo1(arreglo){
+    this.master.storage.getItems(this.master.storage.arrayname.ReporteGenerados).then((DataReportes)=>{
+      if(DataReportes){
+        let ReportesGlobales=DataReportes[0]
+        for(var i=0;i<arreglo.length;i++){
+            ReportesGlobales[arreglo[i]['numero']]=arreglo[i]['Reporte']
+        }
+        this.master.storage.DeleteKey(this.master.storage.arrayname.ReporteGenerados).then(()=>{
+          this.master.storage.addItem(this.master.storage.arrayname.ReporteGenerados,ReportesGlobales).then(()=>{
+            this.enviarDatatodastipo2()
+          })
+        })
+      }else{
+        this.enviarDatatodastipo2()
+      }
+    })
+  }
+  
+  enviarReportestodoTipo2(i,arreglo){
+    let valor=this.master.storage.reportesGenerado
+    valor=arreglo[i]['Reporte']['ReporteInicial']
+    this.master.vacunas.postNewVacunas(valor).then((NewVacunas)=>{
+      if(!NewVacunas['correcto'] && NewVacunas['data']['status']==-1){
+        arreglo[i]['Reporte']['enviado']=false
+      }else{
+        if(NewVacunas['correcto']){
+          arreglo[i]['Reporte']['dataEnviado']=NewVacunas['data']
+          arreglo[i]['Reporte']['enviado']=true
+        }else if(NewVacunas['correcto'] && NewVacunas['mensaje']=="errorapi"){ 
+          arreglo[i]['Reporte']['dataEnviado']=NewVacunas['data']
+          arreglo[i]['Reporte']['enviado']=true
+        }else{
+          arreglo[i]['Reporte']['enviado']=false
+        }
+      }
+      let cantidad=i+1
+      if(cantidad<arreglo.length){
+        this.enviarReportestodoTipo2(cantidad,arreglo)
+      }else{
+        this.guardartodotipo2(arreglo)
+      }
+    })
+  }
+  guardartodotipo2(arreglo){
+    this.master.storage.getItems(this.master.storage.arrayname.VacunaReporte).then((DataReportes)=>{
+      if(DataReportes){
+        let ReportesGlobales=DataReportes[0]
+        for(var i=0;i<arreglo.length;i++){
+            ReportesGlobales[arreglo[i]['numero']]=arreglo[i]['Reporte']
+        }
+        this.master.storage.DeleteKey(this.master.storage.arrayname.VacunaReporte).then(()=>{
+          this.master.storage.addItem(this.master.storage.arrayname.VacunaReporte,ReportesGlobales).then(()=>{
+            this.enviarDatatodastipo3()
+          })
+        })
+      }else{
+        this.enviarDatatodastipo3()
+      }
+    })
+  }
+  enviarReportestodoTipo3(i,arreglo){
+    let valor=this.master.storage.reportesGenerado
+    valor=arreglo[i]['Reporte']['ReporteInicial']
+    this.master.fisicoquimicos.postNewFisicoQuimicos(valor).then((Newfisicoquimicos)=>{
+      if(!Newfisicoquimicos['correcto'] && Newfisicoquimicos['data']['status']==-1){
+        arreglo[i]['Reporte']['enviado']=false
+      }else{
+        if(Newfisicoquimicos['correcto']){
+          arreglo[i]['Reporte']['dataEnviado']=Newfisicoquimicos['data']
+          arreglo[i]['Reporte']['enviado']=true
+        }else if(Newfisicoquimicos['correcto'] && Newfisicoquimicos['mensaje']=="errorapi"){ 
+          arreglo[i]['Reporte']['dataEnviado']=Newfisicoquimicos['data']
+          arreglo[i]['Reporte']['enviado']=true
+        }else{
+          arreglo[i]['Reporte']['enviado']=false
+        }
+      }
+     let cantidad=i+1
+      if(cantidad<arreglo.length){
+        this.enviarReportestodoTipo3(cantidad,arreglo)
+      }else{
+        this.GuardarRegistrosDeReportes()
+      }
+    })
+  }
+  guardartodotipo3(arreglo){
+    this.master.storage.getItems(this.master.storage.arrayname.FisiscosQuimicosRep).then((DataReportes)=>{
+      if(DataReportes){
+        let ReportesGlobales=DataReportes[0]
+        for(var i=0;i<arreglo.length;i++){
+            ReportesGlobales[arreglo[i]['numero']]=arreglo[i]['Reporte']
+        }
+        this.master.storage.DeleteKey(this.master.storage.arrayname.FisiscosQuimicosRep).then(()=>{
+          this.master.storage.addItem(this.master.storage.arrayname.FisiscosQuimicosRep,ReportesGlobales).then(()=>{
+            this.enviarDatatodastipo4()
+          })
+        })
+      }else{
+        this.enviarDatatodastipo4()
+      }
+    })
+  }
+  enviarReportestodoTipo4(i,arreglo){
+    let valor=this.master.storage.reportesGenerado
+    valor=arreglo[i]['Reporte']['ReporteInicial']
+    this.master.mortalidadt.postnewregistromortalidad(valor).then((NewMortalidad)=>{
+      if(!NewMortalidad['correcto'] && NewMortalidad['data']['status']==-1){
+        arreglo[i]['Reporte']['enviado']=false
+      }else{
+        if(NewMortalidad['correcto']){
+          arreglo[i]['Reporte']['dataEnviado']=NewMortalidad['data']
+          arreglo[i]['Reporte']['enviado']=true
+        }else if(NewMortalidad['correcto'] && NewMortalidad['mensaje']=="errorapi"){ 
+          arreglo[i]['Reporte']['dataEnviado']=NewMortalidad['data']
+          arreglo[i]['Reporte']['enviado']=true
+        }else{
+          arreglo[i]['Reporte']['enviado']=false
+        }
+      }
+      let cantidad=i+1
+      if(cantidad<arreglo.limite){
+        this.enviarReportestodoTipo4(cantidad,arreglo)
+      }else{
+        this.GuardarRegistrosDeReportes()
+      }
+    })
+  }
+  guardartodotipo4(arreglo){
+    this.master.storage.getItems(this.master.storage.arrayname.repMortalidd).then((DataReportes)=>{
+      if(DataReportes){
+        let ReportesGlobales=DataReportes[0]
+        for(var i=0;i<arreglo.length;i++){
+            ReportesGlobales[arreglo[i]['numero']]=arreglo[i]['Reporte']
+        }
+        this.master.storage.DeleteKey(this.master.storage.arrayname.repMortalidd).then(()=>{
+          this.master.storage.addItem(this.master.storage.arrayname.repMortalidd,ReportesGlobales).then(()=>{
+            this.enviarDatatodastipo5()
+          })
+        })
+      }else{
+        this.enviarDatatodastipo5()
+      }
+    })
+  }
+  
+  enviarReportestodoTipo5(i,arreglo){
+    let valor=this.master.storage.reportesGenerado
+    valor=arreglo[i]['Reporte']['ReporteInicial']
+    this.master.consumos.postnewregistroconsumos(valor).then((NewConsumos)=>{
+      if(!NewConsumos['correcto'] && NewConsumos['data']['status']==-1){
+        arreglo[i]['Reporte']['enviado']=false
+      }else{
+        if(NewConsumos['correcto']){
+          arreglo[i]['Reporte']['dataEnviado']=NewConsumos['data']
+          arreglo[i]['Reporte']['enviado']=true
+        }else if(NewConsumos['correcto'] && NewConsumos['mensaje']=="errorapi"){ 
+          arreglo[i]['Reporte']['dataEnviado']=NewConsumos['data']
+          arreglo[i]['Reporte']['enviado']=true
+        }else{
+          arreglo[i]['Reporte']['enviado']=false
+        }
+      }
+      let cantidad=i+1
+      if(cantidad<arreglo.limite){
+        this.enviarReportestodoTipo5(cantidad,arreglo)
+      }else{
+        this.GuardarRegistrosDeReportes()
+      }
+    })
+  }
+  guardartodotipo5(arreglo){
+    this.master.storage.getItems(this.master.storage.arrayname.repConsumos).then((DataReportes)=>{
+      if(DataReportes){
+        let ReportesGlobales=DataReportes[0]
+        for(var i=0;i<arreglo.length;i++){
+            ReportesGlobales[arreglo[i]['numero']]=arreglo[i]['Reporte']
+        }
+        this.master.storage.DeleteKey(this.master.storage.arrayname.repConsumos).then(()=>{
+          this.master.storage.addItem(this.master.storage.arrayname.repConsumos,ReportesGlobales).then(()=>{
+            this.loadingController.dismiss().finally(()=>{
+              this.segmentChanged({detail:{value:this.tipo}})
+              this.master.MensajeAlert(this.message['enviadoreportes'],this.message['enviadotitle'])
+            })
+          })
+        })
+      }else{
+        this.loadingController.dismiss()
+      }
+    })
+  }
+  // ENVIOS TODOS
   enviarData(){
     this.master.Load(this.loadingController).then(()=>{
       this.enviado.limite=this.reportes.length
@@ -184,7 +504,6 @@ export class ReportlistPage implements OnInit {
     })
   }
   EnviarRegistros(i){
-    
     let valor=this.master.storage.reportesGenerado
     if(this.tipodereporte==1){
         this.enviarReportesTipo1(i,valor)

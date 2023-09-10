@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  urlApi:'https://mazaria.azurewebsites.net/',
-  lenguajemaster:"en"
+  urlApi:'https://acuaguajaro.azurewebsites.net/',
+  lenguajemaster:"es"
 };
 
 /*

@@ -19,16 +19,17 @@ export class LoadPage implements OnInit {
   ngOnInit() {
   }
   CheckInternet(){
-    
-    this.master.usuario.getInternet().then((usuarios)=>{
-      if(!usuarios['correcto']){
-        if(usuarios['data']['status']==-1){
+    this.master.storage.getItems(this.master.storage.arrayname.Usuarios).then((datoUsuario)=>{
+      console.log(datoUsuario)
+      if(datoUsuario){
+        if(datoUsuario[0].length>0){
           this.finalizaciondeBusqueda()
         }else{
           this.ExtraerData()
         }
       }else{
         this.ExtraerData()
+
       }
     })
   }
@@ -236,6 +237,5 @@ export class LoadPage implements OnInit {
         this.navcontroll.navigateRoot("login")
       }
     })
-
   }
 }
