@@ -6,15 +6,26 @@
     <ion-title class="ion-text-center">
       PISCITEC
     </ion-title>
-    <ion-buttons  slot="end" >
-      <ion-button color="light" (click)="actualizarDato()">
-        <ion-icon slot="icon-only" name="refresh-outline"></ion-icon>
-      </ion-button>
-    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" class="ion-padding ">
+  <ion-item>
+
+    <ion-label>
+      <p>
+        {{ 'home.labelActual' | translate }}
+      </p>
+      
+      <p>
+        {{ UltimaActualizacion }}
+      </p>
+</ion-label>
+
+<ion-button color="principal" (click)="actualizarDato()">
+  <ion-icon slot="icon-only" name="refresh-outline"></ion-icon>
+</ion-button>
+  </ion-item>
   <ion-list style="border: 1px solid var(--ion-color-principal);border-radius: 7px;" >
     <ion-radio-group allow-empty-selection="true"  (ionChange)="radioGroupChange($event)" [value]="valorinicial">
       <ion-list-header>

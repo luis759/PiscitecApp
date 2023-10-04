@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { LoadingController, NavController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { MasterService } from '../services/master.service';
 
@@ -29,9 +29,13 @@ export class LoginPage implements OnInit {
     recordar:false
   }
   message=[]
-  constructor(private master:MasterService,private navcontroller:NavController,private translate:TranslateService) {
+  messageg=[]
+  constructor(private master:MasterService,private navcontroller:NavController,private load:LoadingController,private translate:TranslateService) {
     this.translate.get("login").subscribe(dataTranslate=>{
       this.message=dataTranslate
+     })
+     this.translate.get("global").subscribe(dataTranslate=>{
+      this.messageg=dataTranslate
      })
    }
     validardatosIngreso(){
@@ -47,7 +51,6 @@ export class LoginPage implements OnInit {
     }
     buscarEnbasededatos(){
       this.master.storage.getItems(this.master.storage.arrayname.Usuarios).then((Usuarios)=>{
-        console.log(Usuarios)
         if(Usuarios){
           let usuarioselect=null;
          for (let i = 0; i < Usuarios[0].length; i++) {
@@ -56,11 +59,9 @@ export class LoginPage implements OnInit {
             }
          }
          if(usuarioselect){
-           this.master.storage.DeleteKey(this.master.storage.arrayname.UsuarioActivo).then(()=>{
-             this.master.storage.addItem(this.master.storage.arrayname.UsuarioActivo,usuarioselect).then(()=>{
-               this.navcontroller.navigateRoot("menu/home")
-             })
-           })
+          this.master.LoadMensajeActualizando(this.load,this.messageg['loadMensaje']).then(()=>{
+            this.buscarDato(usuarioselect)
+          })
          }else{
            this.master.MensajeAlert(this.message['buscarbasededatos1'],"Error Login")
          }
@@ -71,5 +72,195 @@ export class LoginPage implements OnInit {
     }
   ngOnInit() {
   }
+  buscarDato(usuarioselect:any){
+    this.master.Empresas.getAllEmpresas().then((empresas)=>{
+      let Dataempresas=empresas
+      this.master.Responsable.getAllREsponsables().then((responsables)=>{
+        let Dataresponsables=responsables
+        this.master.especies.getAllEspecies().then((especies)=>{
+          let Dataespecies=especies
+          this.master.granja.getAllGranjas().then((granjas)=>{
+            let Datagranjas=granjas
+            this.master.permisos.getAllPermisos().then((permisos)=>{
+              let Datapermisos=permisos
+              this.master.fisicoquimicos.getAllFisicosQuimicosParametros().then((fisicoquimicos)=>{
+                let datafisicoquimicos=fisicoquimicos
+                this.master.consumos.getAllMaterias().then((materia)=>{
+                  let dataMaterias=materia
+                  this.master.mortalidadt.getAllCausas().then((allcausas)=>{
+                    let dataCausas=allcausas
+                    this.master.granja.getAllEspaciosWithCOD().then((espacios)=>{
+                      let dataespacios=espacios
+                      this.master.granja.getAllEspaciosLotesDiferentes().then((especieslotesdiferente)=>{
+                        let datoespecieslotesdiferente=especieslotesdiferente
+                          if(Dataempresas['correcto'])
+                          {
+                            if(Dataresponsables['correcto'])
+                            {
+                              if(Dataespecies['correcto'])
+                              {
+                                if(Datagranjas['correcto'])
+                                {
+                                  if(Datapermisos['correcto'])
+                                  {
+                                    if(datafisicoquimicos['correcto'])
+                                      {
+                                        if(dataMaterias['correcto'])
+                                        {
+                                          if(dataCausas['correcto'])
+                                          {
+                                              if(dataespacios['correcto'])
+                                              {
+                                                if(datoespecieslotesdiferente['correcto'])
+                                              {
+                                                this.guardarinfoenBasedeDatos(usuarioselect,Dataempresas['data']['empresas'],Dataresponsables['data']['responsables'],Dataespecies['data']['especies'],Datagranjas['data']['granjas'],Datapermisos['data']['permisos'],datafisicoquimicos['data']['parametros'],dataMaterias['data']['materias'],dataCausas['data']['causas'],dataespacios['data']['espacios'],datoespecieslotesdiferente['data']['espacios'])
+                                        
+                                              }else{
+                                                this.guardarinfoenBasedeDatos(usuarioselect,Dataempresas['data']['empresas'],Dataresponsables['data']['responsables'],Dataespecies['data']['especies'],Datagranjas['data']['granjas'],Datapermisos['data']['permisos'],datafisicoquimicos['data']['parametros'],dataMaterias['data']['materias'],dataCausas['data']['causas'],dataespacios['data']['espacios'],null)             
+                                              }
+                                        }else{
+                                          this.guardarinfoenBasedeDatos(usuarioselect,Dataempresas['data']['empresas'],Dataresponsables['data']['responsables'],Dataespecies['data']['especies'],Datagranjas['data']['granjas'],Datapermisos['data']['permisos'],datafisicoquimicos['data']['parametros'],dataMaterias['data']['materias'],dataCausas['data']['causas'],null,null)
+                                        }
+                                          }else{
+                                            this.guardarinfoenBasedeDatos(usuarioselect,Dataempresas['data']['empresas'],Dataresponsables['data']['responsables'],Dataespecies['data']['especies'],Datagranjas['data']['granjas'],Datapermisos['data']['permisos'],datafisicoquimicos['data']['parametros'],dataMaterias['data']['materias'],null,null,null)
+                                          }
+                                        }else{
+                                          this.guardarinfoenBasedeDatos(usuarioselect,Dataempresas['data']['empresas'],Dataresponsables['data']['responsables'],Dataespecies['data']['especies'],Datagranjas['data']['granjas'],Datapermisos['data']['permisos'],datafisicoquimicos['data']['parametros'],null,null,null,null)
+                                        }
+                                      }
+                                      else
+                                      {
+                                        this.guardarinfoenBasedeDatos(usuarioselect,Dataempresas['data']['empresas'],Dataresponsables['data']['responsables'],Dataespecies['data']['especies'],Datagranjas['data']['granjas'],Datapermisos['data']['permisos'],null,null,null,null,null)                          
+                                      }
+                                  }
+                                  else
+                                  {
+                                    this.guardarinfoenBasedeDatos(usuarioselect,Dataempresas['data']['empresas'],Dataresponsables['data']['responsables'],Dataespecies['data']['especies'],Datagranjas['data']['granjas'],null,null,null,null,null,null)
+                                  }
+                                }
+                                else
+                                {
+                                  this.guardarinfoenBasedeDatos(usuarioselect,Dataempresas['data']['empresas'],Dataresponsables['data']['responsables'],Dataespecies['data']['especies'],null,null,null,null,null,null,null)
+                                }
+                              }
+                              else
+                              {
+                                this.guardarinfoenBasedeDatos(usuarioselect,Dataempresas['data']['empresas'],Dataresponsables['data']['responsables'],null,null,null,null,null,null,null,null)
+                              }
+                            }else{
+                              this.guardarinfoenBasedeDatos(usuarioselect,Dataempresas['data']['empresas'],null,null,null,null,null,null,null,null,null)
+                            }
+                          }
+                          else
+                          {
+                            this.guardarinfoenBasedeDatos(usuarioselect,null,null,null,null,null,null,null,null,null,null)
+                          }
 
+                      })
+                   })
+                  })
+                })
+              })
+            })
+          })
+        })
+      })
+    })
+  }
+  guardarinfoenBasedeDatos(usuarioselect,empresas,responsable,especies,granja,permisos,fisicosquimicosparametros,materias,causas,espacios,lotesespaciodiferentes){
+    if(especies){
+      this.master.storage.DeleteKey(this.master.storage.arrayname.Especies).then(()=>{
+        this.master.storage.addItem(this.master.storage.arrayname.Especies,especies).then(()=>{
+          if(empresas){
+            this.master.storage.DeleteKey(this.master.storage.arrayname.Empresas).then(()=>{
+              this.master.storage.addItem(this.master.storage.arrayname.Empresas,empresas).then(()=>{
+                if(responsable){
+                  this.master.storage.DeleteKey(this.master.storage.arrayname.Responsables).then(()=>{
+                    this.master.storage.addItem(this.master.storage.arrayname.Responsables,responsable).then(()=>{
+                      if(granja){
+                        this.master.storage.DeleteKey(this.master.storage.arrayname.Granjas).then(()=>{
+                          this.master.storage.addItem(this.master.storage.arrayname.Granjas,granja).then(()=>{
+                            if(permisos){
+                              this.master.storage.DeleteKey(this.master.storage.arrayname.Permisos).then(()=>{
+                                this.master.storage.addItem(this.master.storage.arrayname.Permisos,permisos).then(()=>{
+                                  if(fisicosquimicosparametros){
+                                    this.master.storage.DeleteKey(this.master.storage.arrayname.fisicosquimicosparametros).then(()=>{
+                                      this.master.storage.addItem(this.master.storage.arrayname.fisicosquimicosparametros,fisicosquimicosparametros).then(()=>{
+                                        if(materias){
+                                          this.master.storage.DeleteKey(this.master.storage.arrayname.Materias).then(()=>{
+                                            this.master.storage.addItem(this.master.storage.arrayname.Materias,materias).then(()=>{
+                                              if(causas){
+                                                this.master.storage.DeleteKey(this.master.storage.arrayname.Causas).then(()=>{
+                                                  this.master.storage.addItem(this.master.storage.arrayname.Causas,causas).then(()=>{
+                                                    if(espacios){
+                                                      this.master.storage.DeleteKey(this.master.storage.arrayname.EspaciosByCod).then(()=>{
+                                                        this.master.storage.addItem(this.master.storage.arrayname.EspaciosByCod,espacios).then(()=>{
+                                                          if(lotesespaciodiferentes){
+                                                            this.master.storage.DeleteKey(this.master.storage.arrayname.espacioLotesDiferentes).then(()=>{
+                                                              this.master.storage.addItem(this.master.storage.arrayname.espacioLotesDiferentes,lotesespaciodiferentes).then(()=>{
+                                                
+                                                                this.finalizaciondeBusqueda(usuarioselect)
+                                                              })
+                                                            })
+                                                          }else{
+                                                            this.finalizaciondeBusqueda(usuarioselect)
+                                                          }
+                                                        })
+                                                      })
+                                                    }else{
+                                                      this.finalizaciondeBusqueda(usuarioselect)
+                                                    }
+                                                  })
+                                                })
+                                              }else{
+                                                this.finalizaciondeBusqueda(usuarioselect)
+                                              }
+                                            })
+                                          })
+                                        }else{
+                                          this.finalizaciondeBusqueda(usuarioselect)
+                                        }
+                                      })
+                                    })
+                                  }else{
+                                    this.finalizaciondeBusqueda(usuarioselect)
+                                  }
+                                })
+                              })
+                            }else{
+                              this.finalizaciondeBusqueda(usuarioselect)
+                            }
+                          })
+                        })
+                      }else{
+                        this.finalizaciondeBusqueda(usuarioselect)
+                      }
+                    })
+                  })
+                }else{
+                  this.finalizaciondeBusqueda(usuarioselect)
+                }
+              })
+            })
+          }else{
+            this.finalizaciondeBusqueda(usuarioselect)
+          }
+        })
+      })
+    }else{
+      this.finalizaciondeBusqueda(usuarioselect)
+    }
+}
+finalizaciondeBusqueda(usuarioselect:any){
+  this.load.dismiss()
+  this.master.storage.DeleteKey(this.master.storage.arrayname.UsuarioActivo).then(()=>{
+    this.master.storage.addItem(this.master.storage.arrayname.UsuarioActivo,usuarioselect).then(()=>{
+      this.master.storage.DeleteKey(this.master.storage.arrayname.ultimaActualizacion).then(()=>{
+        this.master.storage.addItem(this.master.storage.arrayname.ultimaActualizacion,new Date()).then(()=>{
+          this.navcontroller.navigateRoot("menu/home")
+        })
+      })
+    })
+  })
+}
 }

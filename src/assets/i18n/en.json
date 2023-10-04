@@ -13,6 +13,7 @@
         "controltecnico":"Cultivation Technical Control",
         "controlinventario":"Inventory control",
         "buttonseleccion":"Select",
+        "labelActual":"Last data update:",
         "option1":"Biometrics",
         "option2":"Vaccines",
         "option3":"Mortality",
@@ -24,6 +25,7 @@
         "titulo":"Consumption of Raw Materials",
         "empresa":"Company",
         "granja":"Farm",
+        "espaciosprodu":"Productive Spaces",
         "responsable":"Responsible",
         "fecha":"Date",
         "seleccionefecha":"Select the Date",
@@ -313,6 +315,7 @@
     "global":{
         "accept":"ACCEPT",
         "cancelar":"CANCEL",
+        "loadMensaje":"Piscitec needs to upload all data for you to use this app. Please stay connected to the internet while we download the data",
         "appname":"Fish Management and Control Software"
     }
    }

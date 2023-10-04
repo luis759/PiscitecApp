@@ -13,6 +13,7 @@
         "controltecnico":"Control Técnico de Cultivo",
         "controlinventario":"Control de Inventarios",
         "buttonseleccion":"Seleccionar",
+        "labelActual":"Última actualización de datos:",
         "option1":"Biometrías",
         "option2":"Vacunas",
         "option3":"Mortalidad",
@@ -26,6 +27,7 @@
         "granja":"Granja",
         "responsable":"Responsable",
         "fecha":"Fecha",
+        "espaciosprodu":"Espacios Productivos",
         "seleccionefecha":"Selecciona la Fecha",
         "observaciones":"Observaciones",
         "resumenconsumo":"Resumen de Consumos",
@@ -314,6 +316,8 @@
     "global":{
         "accept":"Aceptar",
         "cancelar":"Cancelar",
+        "loadMensaje":"Piscitec necesita cargar todos los datos para que puedas usar esta aplicación. Por favor mantente conectado a internet mientras descargamos los datos",
+        
         "appname":"Software de Gestión y Control Piscícola"
     }
    }

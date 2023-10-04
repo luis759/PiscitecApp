@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { LoadingController, NavController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { MasterService } from '../services/master.service';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-home',
@@ -28,6 +29,7 @@ export class HomePage {
   }]
   valorinicial=0
   message=[]
+  UltimaActualizacion=""
   constructor(private navcontorll:NavController,private translate:TranslateService,private master:MasterService,private load:LoadingController) {
     this.translate.get("home").subscribe(dataTranslate=>{
       this.message=dataTranslate
@@ -41,6 +43,15 @@ export class HomePage {
   }
   radioGroupChange(evento){
     this.valorinicial=evento.detail.value;
+  }
+  MostrarInfo(){
+    this.master.storage.getItems(this.master.storage.arrayname.ultimaActualizacion).then((Dato)=>{
+      if(Dato){
+        if(Dato.length){
+          this.UltimaActualizacion=formatDate(Dato[0] , 'yyyy-MM-dd HH:mm:ss', 'en')
+        }
+      }
+    })
   }
   irAlGenerarReporte(){
     if(this.valorinicial==0){

@@ -33,7 +33,8 @@ export class StorageService {
     "repConsumos":"repConsumos",
     "repMortalidd":"repMortalidd",
     "fisicosquimicosparametros":"fisicosquimicosparametros",
-    "espacioLotesDiferentes":"espacioLotesDiferentes"
+    "espacioLotesDiferentes":"espacioLotesDiferentes",
+    "ultimaActualizacion":"ultimaActualizacion"
   } 
   constructor(private storage:Storage) {
     this.storage.create()

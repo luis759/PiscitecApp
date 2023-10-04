@@ -33,6 +33,14 @@ export class MasterService {
        })
        return load.present()
      };
+     async LoadMensajeActualizando(LoadingControllers:LoadingController,Mensaje:string):Promise<void> {
+      let load = await LoadingControllers.create({
+         message:Mensaje,
+         translucent: true,
+         cssClass: 'custom-class custom-loading'
+       })
+       return load.present()
+     };
   public async MensajeAlert(Mensajes,Titulos){
     let titulo=Titulos
     let mensaje=Mensajes
