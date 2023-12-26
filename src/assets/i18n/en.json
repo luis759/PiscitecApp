@@ -69,7 +69,10 @@
         "agregarotro3":"a subject is necessary",
         "agregarotro4":"Lots must be Greater than 0",
         "agregarotro5":"quantity must be greater than 0",
-        "espacionnolotes":"This productive space does not have Planted Lots"
+        "agregarotro6":"Company Lot must be less than 30",
+        "internetfail":"You don't have Internet",
+        "espacionnolotes":"This productive space does not have Planted Lots",
+        "consultardieta":"Diet Consultant"
     },
     "modalmortalidadreg": {
         "titulo":"Mortality Record",
@@ -312,10 +315,15 @@
         "dataerr1toast":"Error must select a farm",
         "dataerr2toast":"Error you must select a company"
     },
+    "reportsave":{
+        "titulo":"Saved forms"
+    },
     "global":{
         "accept":"ACCEPT",
         "cancelar":"CANCEL",
         "loadMensaje":"Piscitec needs to upload all data for you to use this app. Please stay connected to the internet while we download the data",
+
         "appname":"Fish Management and Control Software"
+        
     }
    }

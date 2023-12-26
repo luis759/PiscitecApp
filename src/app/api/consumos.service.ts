@@ -104,6 +104,45 @@ postnewregistroconsumos(consumos:any):Promise<any>{
     
   }  
    //API PARA LLAMAR TODAS LAS MATERIAS
+     //API PARA LLAMAR LAS DIETAS
+    getConsultaDieta(IDEMP,IDGRAN,CODESPA):Promise<any>{
+      return new Promise((resolve)=>{
+        this.httpnative.setRequestTimeout(60)
+        let nativecall=this.httpnative.get(environment.urlApi+'consumos/consultadieta/'+IDEMP+'/'+IDGRAN+'/'+CODESPA,{},{'Content-Type': 'application/json'})
+        nativecall.then((Data)=>{
+            if(Data.status==200 || Data.status==201){
+              if(this.isJson(Data.data)){
+                let DataRetorno=JSON.parse(Data.data)
+                resolve({
+                  correcto:true,
+                  data:DataRetorno,
+                  mensaje:''
+                })
+              }else{
+                resolve({
+                  correcto:false,
+                  data:Data,
+                  mensaje:'errorjson'
+                })
+              }
+            }else{
+              resolve({
+                correcto:false,
+                data:Data,
+                mensaje:'succes-failed'
+              })
+            }
+        },(errorData)=>{
+          resolve({
+            correcto:false,
+            data:errorData,
+            mensaje:'failed-failed'
+          })
+        })
+      })
+      
+    }  
+     //API PARA LLAMAR LAS DIETAS
 isJson(str) {
   try {
      let val= JSON.parse(str);

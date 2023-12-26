@@ -17,7 +17,11 @@ const routes: Routes = [
   {
     path: 'load',
     loadChildren: () => import('./load/load.module').then( m => m.LoadPageModule)
+  },  {
+    path: 'report-save',
+    loadChildren: () => import('./report-save/report-save.module').then( m => m.ReportSavePageModule)
   }
+
 
 
 ];

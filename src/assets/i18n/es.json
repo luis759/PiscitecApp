@@ -69,7 +69,10 @@
         "agregarotro3":"es necesario una Materia",
         "agregarotro4":"Lotes debe ser Mayor a 0",
         "agregarotro5":"la cantidad debe ser Mayor a 0",
-        "espacionnolotes":"Este espacio productivo no tiene Lotes Sembrados"
+        "agregarotro6":"Lote Empresa tiene que se menor a 30",
+        "espacionnolotes":"Este espacio productivo no tiene Lotes Sembrados",
+        "internetfail":"No cuentas con Internet",
+        "consultardieta":"Consultar Dieta"
     },
     "modalmortalidadreg":  {
         "titulo":"Registro de Mortalidad",
@@ -277,6 +280,7 @@
         "guardar2":"Registro Guardado",
         "guardartitulo":"Reporte de vacunacion"
     },
+
     "responsable": {
         "titulo":"Nuevo Responsable",
         "empresa":"Empresa",
@@ -312,6 +316,9 @@
         "enviardatatitle":"Reporte FisicoQuimicos",
         "dataerr1toast":"Error debe seleccionar una granja",
         "dataerr2toast":"Error debe seleccionar una empresa"
+    },
+    "reportsave":{
+        "titulo":"Formularios guardados"
     },
     "global":{
         "accept":"Aceptar",

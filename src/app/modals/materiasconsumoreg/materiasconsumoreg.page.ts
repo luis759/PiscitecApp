@@ -62,21 +62,55 @@ export class MateriasconsumoregPage implements OnInit {
           this.materias=datamateria[0].map((valor)=>{
             return({
               ID:valor.COD,
-              NOMBRE:valor.NOMBRE+"-"+valor.TIPOCOSTO
+              NOMBRE:valor.NOMBRE+(valor.TIPOCOSTO?"-"+valor.TIPOCOSTO:"")
             })
           })
         }
       })
       this.agregarValorAlista()
    }
+   changedecimal(ev){
+    this.DataForm.cantidad=parseFloat(this.DataForm.cantidad).toFixed(3)
+   }
+   BuscarDieta(){
+    this.master.Load(this.loadingController).then(()=>{
+      this.master.consumos.getConsultaDieta(this.idempresa,this.idgranja,this.DataForm.espacios.COD).then((dato)=>{
+
+        this.loadingController.dismiss()
+        if(dato.correcto){
+          var datoIndex=this.listConsumos.filter(datoFind=>datoFind.CODESPA ===this.DataForm.espacios.COD).length;
+            console.log(dato)
+          if(dato.data.consultadieta.length>0){            
+            this.DataForm.cantidad=dato.data.consultadieta[datoIndex].CANTIDAD
+           var ProductoMate= this.materias.find(datoMateria=>datoMateria.ID===dato.data.consultadieta[datoIndex].PRODUCTO)
+            if(ProductoMate){
+              this.DataForm.materia=ProductoMate
+            }
+          }
+          
+        }else{
+          if(dato.data.status===-6){
+            this.master.toastMensaje(this.message['internetfail'],3000)
+          }
+
+        }
+      })
+    })
+   }
    agregarotro(){
-    if(Number(this.DataForm.cantidad)>0){
+    this.DataForm.cantidad=parseFloat(this.DataForm.cantidad).toFixed(3)
+    if(parseFloat(this.DataForm.cantidad)>=0){
       if(Number(this.DataForm.Lotes)>0){
         if(this.DataForm.materia){
           if(this.DataForm.espacios){
             if(this.Lote.length>0){
               if(this.DataForm.LoteSelec){
-                this.agregarValor()
+                if(!this.DataForm.LotesEMP || this.DataForm.LotesEMP.length<=30){
+                  this.agregarValor()
+                }else{
+                  this.master.toastMensaje(this.message['agregarotro6'],3000)
+
+                }
               }else{
                 this.master.toastMensaje(this.message['agregarotro1'],3000)
               }
@@ -197,7 +231,7 @@ export class MateriasconsumoregPage implements OnInit {
         this.DataForm.LoteSelec=null
         this.Lote=datoss
       }else{
-        if(!datoss[0]['LOTE']){
+        if(datoss.length===0){
           this.master.toastMensaje(this.message['espacionnolotes'],3000)
           this.Lote=datoss
           this.DataForm.LoteSelec=null

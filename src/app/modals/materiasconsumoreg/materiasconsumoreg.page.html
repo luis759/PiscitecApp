@@ -28,6 +28,14 @@
         closeButtonText="Cerrar">
       </ionic-selectable>
     </ion-item>
+    <ion-item>
+      <ion-label>
+      </ion-label>
+      <ion-label slot="end" class="ion-text-right">
+        {{ 'modalmateriasconsumo.consultardieta' | translate }}:
+        <img src="./assets/Lupa.png"  (click)="BuscarDieta()" slot="end" style="width: 24px;height: 24px;"/>
+      </ion-label>
+    </ion-item>
     <ion-item >
       <ion-label  color="dark" > {{ 'modalmateriasconsumo.seleccionlote' | translate }} *</ion-label>
       <ionic-selectable 
@@ -42,7 +50,7 @@
     </ion-item>
     <ion-item>
       <ion-label position="stacked" style="font-size: larger;">{{ 'modalmateriasconsumo.cantidad' | translate }} : *</ion-label>
-      <ion-input [(ngModel)]="DataForm.cantidad"  placeholder="{{ 'modalmateriasconsumo.cantidad' | translate }}" type="number"></ion-input>
+      <ion-input [(ngModel)]="DataForm.cantidad"(ionBlur)="changedecimal($event)" placeholder="{{ 'modalmateriasconsumo.cantidad' | translate }}" type="number"></ion-input>
     </ion-item>
     <ion-item >
       <ion-label  color="dark">{{ 'modalmateriasconsumo.materiaprima' | translate }} *</ion-label>
@@ -58,7 +66,7 @@
     </ion-item>
     
     <ion-item>
-      <ion-label position="stacked" style="font-size: larger;">{{ 'modalmateriasconsumo.loteetiqueta' | translate }}: *</ion-label>
+      <ion-label position="stacked" style="font-size: larger;">{{ 'modalmateriasconsumo.loteetiqueta' | translate }}: </ion-label>
       <ion-input [(ngModel)]="DataForm.LotesEMP"  placeholder="{{ 'modalmateriasconsumo.loteetiqueta' | translate }}" type="text"></ion-input>
     </ion-item>
     

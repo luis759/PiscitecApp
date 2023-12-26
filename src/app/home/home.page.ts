@@ -39,7 +39,7 @@ export class HomePage {
       this.reportes[2].name=this.message['option3']
       this.reportes[3].name=this.message['option4']
      })
-
+     this.MostrarInfo()
   }
   radioGroupChange(evento){
     this.valorinicial=evento.detail.value;
@@ -47,7 +47,7 @@ export class HomePage {
   MostrarInfo(){
     this.master.storage.getItems(this.master.storage.arrayname.ultimaActualizacion).then((Dato)=>{
       if(Dato){
-        if(Dato.length){
+        if(Dato.length>0){
           this.UltimaActualizacion=formatDate(Dato[0] , 'yyyy-MM-dd HH:mm:ss', 'en')
         }
       }
@@ -372,6 +372,12 @@ export class HomePage {
       }
   }
   finalizaciondeBusqueda(){
+    this.master.storage.DeleteKey(this.master.storage.arrayname.ultimaActualizacion).then(()=>{
+      this.master.storage.addItem(this.master.storage.arrayname.ultimaActualizacion,new Date()).then(()=>{
+       
+     this.MostrarInfo()
+      })
+    })
     this.load.dismiss()
   }
 }
