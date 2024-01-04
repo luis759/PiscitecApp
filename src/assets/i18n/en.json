@@ -50,9 +50,10 @@
      },
     "menu": {
         "option1":"Home",
-        "option2":"New Responsible",
-        "option3":"Saved Reports",
-        "option4":"Go out"
+        "option2":"New Managers",
+        "option3":"Reports Sent",
+        "option4":"Saved Reports",
+        "option5":"Log Out"
     },
     "modalmateriasconsumo": {
         "titulo":"Record of Consumption of Materials",

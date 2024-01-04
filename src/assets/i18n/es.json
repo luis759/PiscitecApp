@@ -51,8 +51,9 @@
      "menu": {
         "option1":"Principal",
         "option2":"Nuevo Responsables",
-        "option3":"Reportes Guardados",
-        "option4":"Salir"
+        "option3":"Reportes Enviados",
+        "option4":"Reportes Guardados",
+        "option5":"Salir"
     },
     "modalmateriasconsumo": {
         "titulo":"Registro de Consumo de Materias",

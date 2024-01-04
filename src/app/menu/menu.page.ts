@@ -25,9 +25,16 @@ export class MenuPage implements OnInit {
       forw:false,
       function:''
     },{
-      title:'Reportes Guardados',
+      title:'Reportes Enviados',
       url:'/menu/reportlist',
-      icon:'assets/iconmenu/report.png',
+      icon:'assets/saveicon.png',
+      routerdi:'root',
+      forw:false,
+      function:''
+    },{
+      title:'Reportes Guardados',
+      url:'/menu/report-save',
+      icon:'assets/reporteguar.png',
       routerdi:'root',
       forw:false,
       function:''
@@ -48,6 +55,7 @@ message=[]
       this.pages[1].title=this.message['option2']
       this.pages[2].title=this.message['option3']
       this.pages[3].title=this.message['option4']
+      this.pages[4].title=this.message['option5']
      })
    }
 
