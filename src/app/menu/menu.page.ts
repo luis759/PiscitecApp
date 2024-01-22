@@ -26,7 +26,7 @@ export class MenuPage implements OnInit {
       function:''
     },{
       title:'Reportes Enviados',
-      url:'/menu/reportlist',
+      url:'/menu/report-send',
       icon:'assets/saveicon.png',
       routerdi:'root',
       forw:false,

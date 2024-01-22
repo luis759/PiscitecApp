@@ -255,7 +255,7 @@ GuardarRegistroDeReportes(Report,Enviado,Erroes){
     this.lotestotal=this.listConsumos.length
      this.cantidadtotal=0
     this.listConsumos.forEach((valorList)=>{
-      this.cantidadtotal=this.cantidadtotal+valorList.CANTIDAD
+      this.cantidadtotal=this.cantidadtotal+parseFloat(valorList.CANTIDAD)
     })
   }
 }

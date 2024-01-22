@@ -42,6 +42,14 @@ const routes: Routes = [
       {
         path: 'mortalidad',
         loadChildren: () => import('../mortalidad/mortalidad.module').then( m => m.MortalidadPageModule)
+      },
+      {
+        path: 'report-save',
+        loadChildren: () => import('../report-save/report-save.module').then( m => m.ReportSavePageModule)
+      },
+      {
+        path: 'report-send',
+        loadChildren: () => import('../report-send/report-send.module').then( m => m.ReportSendPageModule)
       }
     ]
   }

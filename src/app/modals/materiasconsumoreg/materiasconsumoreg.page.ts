@@ -79,8 +79,9 @@ export class MateriasconsumoregPage implements OnInit {
         this.loadingController.dismiss()
         if(dato.correcto){
           var datoIndex=this.listConsumos.filter(datoFind=>datoFind.CODESPA ===this.DataForm.espacios.COD).length;
-            console.log(dato)
-          if(dato.data.consultadieta.length>0){            
+    
+          if(dato.data.consultadieta.length>0 && datoIndex<dato.data.consultadieta.length){
+                        
             this.DataForm.cantidad=dato.data.consultadieta[datoIndex].CANTIDAD
            var ProductoMate= this.materias.find(datoMateria=>datoMateria.ID===dato.data.consultadieta[datoIndex].PRODUCTO)
             if(ProductoMate){
@@ -92,7 +93,7 @@ export class MateriasconsumoregPage implements OnInit {
           if(dato.data.status===-6){
             this.master.toastMensaje(this.message['internetfail'],3000)
           }
-
+          console.log(dato)
         }
       })
     })

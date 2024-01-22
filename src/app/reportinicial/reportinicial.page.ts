@@ -183,6 +183,7 @@ export class ReportinicialPage implements OnInit {
         valor.saldojson=JSON.stringify(this.saldoss)
         valor.TIPO=this.DataForm.TipoReporte.value
         valor.USUARIO=id
+        valor.IDESPACIO=this.DataForm.espacio['COD']
         valor.detalljson=JSON.stringify(this.detalles)
           this.master.reportes.postNewReporte(valor).then((ReporteIngreso)=>{
             let ReporteGen=this.master.storage.reportesGenerado
@@ -291,7 +292,7 @@ export class ReportinicialPage implements OnInit {
     if(this.detalles.length>0){
       this.Pesos.Aritemitico=Math.round((sumaPesoPromedio/this.detalles.length)*100)/100
       this.Pesos.Promedio=Math.round((sumaPesosTotales/sumacantidadAnimales)*100)/100
-      console.log( this.Pesos)
+
     }else{
       this.Pesos.Aritemitico=0
       this.Pesos.Promedio=0

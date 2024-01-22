@@ -317,7 +317,18 @@
         "dataerr2toast":"Error you must select a company"
     },
     "reportsave":{
-        "titulo":"Saved forms"
+        "titulo":"Saved forms",
+        "fecha":"Date",
+        "jaulon":"Cage",
+        "granja":"Farm",
+        "promedio":"Average",
+        "variables":"Variables",
+        "lote":"Batch",
+        "cantidad":"Amount",
+        "enviadoreportes":"Sent the reports",
+        "enviadotitle":"Messages",
+        "enviadoFormulatio":"Send forms",
+        "sendall":"Send Alls"
     },
     "global":{
         "accept":"ACCEPT",

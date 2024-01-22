@@ -17,7 +17,8 @@ export class ReportesService {
     RESPONSABLE:'',
     OBSERVA:'',
     USUARIO:'',
-    detalljson:''
+    detalljson:'',
+    IDESPACIO:''
   }
   constructor(private httpnative:HTTP) { 
 
@@ -27,7 +28,6 @@ export class ReportesService {
       this.httpnative.setRequestTimeout(60)
       let nativecall=this.httpnative.post(environment.urlApi+'reportes/registro',Report,{'Accept': 'application/json','Content-Type': 'application/json'})
       nativecall.then((Data)=>{
-        console.log(Data)
           if(Data.status==200 || Data.status==201){
             if(this.isJson(Data.data)){
               let DataRetorno=JSON.parse(Data.data)
