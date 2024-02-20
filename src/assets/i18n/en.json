@@ -53,6 +53,7 @@
         "option2":"New Managers",
         "option3":"Reports Sent",
         "option4":"Saved Reports",
+        "option6":"Assigned Diet",
         "option5":"Log Out"
     },
     "modalmateriasconsumo": {
@@ -329,6 +330,15 @@
         "enviadotitle":"Messages",
         "enviadoFormulatio":"Send forms",
         "sendall":"Send Alls"
+    },
+    "dietasignada":{
+        "titulo":"ALLOCATED DIETS",
+        "empresa":"Company",
+        "granja":"Farm",
+        "detail":"These diets were updated on: ",
+        "espacio":"PRODUCTIVE SPACE",
+        "alimencant":"FOOD AND QUANTITY",
+        "cantidad":"Amount"
     },
     "global":{
         "accept":"ACCEPT",

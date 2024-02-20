@@ -105,10 +105,10 @@ postnewregistroconsumos(consumos:any):Promise<any>{
   }  
    //API PARA LLAMAR TODAS LAS MATERIAS
      //API PARA LLAMAR LAS DIETAS
-    getConsultaDieta(IDEMP,IDGRAN,CODESPA):Promise<any>{
+    getConsultaDieta():Promise<any>{
       return new Promise((resolve)=>{
         this.httpnative.setRequestTimeout(60)
-        let nativecall=this.httpnative.get(environment.urlApi+'consumos/consultadieta/'+IDEMP+'/'+IDGRAN+'/'+CODESPA,{},{'Content-Type': 'application/json'})
+        let nativecall=this.httpnative.get(environment.urlApi+'consumos/consultadieta',{},{'Content-Type': 'application/json'})
         nativecall.then((Data)=>{
             if(Data.status==200 || Data.status==201){
               if(this.isJson(Data.data)){

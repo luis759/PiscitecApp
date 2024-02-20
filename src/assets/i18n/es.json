@@ -53,6 +53,7 @@
         "option2":"Nuevo Responsables",
         "option3":"Reportes Enviados",
         "option4":"Reportes Guardados",
+        "option6":"Dieta Asignada",
         "option5":"Salir"
     },
     "modalmateriasconsumo": {
@@ -331,6 +332,15 @@
         "enviadotitle":"Mensajes",
         "enviadoFormulatio":"Formularios Enviados",
         "sendall":"Enviar Todos"
+    },
+    "dietasignada":{
+        "titulo":"DIETAS ASIGNADAS",
+        "empresa":"Empresa",
+        "granja":"Granja",
+        "detail":"Esta dietas se actualizaron el: ",
+        "espacio":"ESPACIO PRODUCTIVO",
+        "alimencant":"ALIMENTO Y CANTIDAD",
+        "cantidad":"Cantidad"
     },
     "global":{
         "accept":"Aceptar",

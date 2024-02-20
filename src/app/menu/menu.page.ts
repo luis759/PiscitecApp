@@ -25,6 +25,13 @@ export class MenuPage implements OnInit {
       forw:false,
       function:''
     },{
+      title:'Dieta Asignadas',
+      url:'/menu/dietasignada',
+      icon:'assets/dietas.png',
+      routerdi:'root',
+      forw:false,
+      function:''
+    },{
       title:'Reportes Enviados',
       url:'/menu/report-send',
       icon:'assets/saveicon.png',
@@ -53,9 +60,10 @@ message=[]
       this.message=dataTranslate
       this.pages[0].title=this.message['option1']
       this.pages[1].title=this.message['option2']
-      this.pages[2].title=this.message['option3']
-      this.pages[3].title=this.message['option4']
-      this.pages[4].title=this.message['option5']
+      this.pages[2].title=this.message['option6']
+      this.pages[3].title=this.message['option3']
+      this.pages[4].title=this.message['option4']
+      this.pages[5].title=this.message['option5']
      })
    }
 

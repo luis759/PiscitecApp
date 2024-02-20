@@ -50,6 +50,10 @@ const routes: Routes = [
       {
         path: 'report-send',
         loadChildren: () => import('../report-send/report-send.module').then( m => m.ReportSendPageModule)
+      },
+      {
+        path: 'dietasignada',
+        loadChildren: () => import('../dietasignada/dietasignada.module').then( m => m.DietasignadaPageModule)
       }
     ]
   }

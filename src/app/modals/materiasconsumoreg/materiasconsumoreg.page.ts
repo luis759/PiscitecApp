@@ -74,27 +74,26 @@ export class MateriasconsumoregPage implements OnInit {
    }
    BuscarDieta(){
     this.master.Load(this.loadingController).then(()=>{
-      this.master.consumos.getConsultaDieta(this.idempresa,this.idgranja,this.DataForm.espacios.COD).then((dato)=>{
-
-        this.loadingController.dismiss()
-        if(dato.correcto){
-          var datoIndex=this.listConsumos.filter(datoFind=>datoFind.CODESPA ===this.DataForm.espacios.COD).length;
-    
-          if(dato.data.consultadieta.length>0 && datoIndex<dato.data.consultadieta.length){
-                        
-            this.DataForm.cantidad=dato.data.consultadieta[datoIndex].CANTIDAD
-           var ProductoMate= this.materias.find(datoMateria=>datoMateria.ID===dato.data.consultadieta[datoIndex].PRODUCTO)
-            if(ProductoMate){
-              this.DataForm.materia=ProductoMate
-            }
-          }
-          
-        }else{
-          if(dato.data.status===-6){
-            this.master.toastMensaje(this.message['internetfail'],3000)
-          }
-          console.log(dato)
+      this.master.storage.getItems(this.master.storage.arrayname.ConsultaDieta).then((datoConsumos)=>{
+        let consumos=[]
+        if(datoConsumos){
+          consumos=datoConsumos[0]
         }
+
+        var datoIndex=this.listConsumos.filter(datoFind=>datoFind.CODESPA ===this.DataForm.espacios.COD).length;
+        var datoConsumosUsar=consumos.filter(datofind=> (datofind.CODESPA==this.DataForm.espacios.COD) && (datofind.IDGRA==this.idgranja) && (datofind.IDEMP==this.idempresa));
+      
+        this.loadingController.dismiss()
+        if(datoConsumosUsar.length>0 && datoIndex<datoConsumosUsar.length){
+                        
+          this.DataForm.cantidad=datoConsumosUsar[datoIndex].CANTIDAD
+         var ProductoMate= this.materias.find(datoMateria=>datoMateria.ID===datoConsumosUsar[datoIndex].PRODUCTO)
+          if(ProductoMate){
+            this.DataForm.materia=ProductoMate
+          }
+        }
+      
+      
       })
     })
    }

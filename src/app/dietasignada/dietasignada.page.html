@@ -1,0 +1,67 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="principal">
+    <ion-buttons  slot="start" >
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      <div class="ion-text-wrap">
+        {{ 'dietasignada.titulo' | translate }}
+       </div>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-item >
+    <ion-label  color="dark">
+      {{ 'dietasignada.empresa' | translate }} *</ion-label>
+    <ionic-selectable 
+      [(ngModel)]="DataForm.empresa"
+      [items]="empresas"
+      itemValueField="IDEMP"
+      itemTextField="EMPRESA"
+      [canSearch]="true"
+      (onChange)="changeEmpresas($event)"
+      closeButtonText="Cerrar">
+    </ionic-selectable>
+  </ion-item>
+  <ion-item >
+    <ion-label  color="dark">
+      {{ 'dietasignada.granja' | translate }} *</ion-label>
+    <ionic-selectable 
+      [(ngModel)]="DataForm.granja"
+      [items]="granjas"
+      itemValueField="IDGRA"
+      itemTextField="NOMBRE"
+      [canSearch]="true"
+      (onChange)="changeGranjas($event)"
+      closeButtonText="Cerrar">
+    </ionic-selectable>
+  </ion-item>
+  <p class="ion-margin ion-text-justify">
+    {{ 'dietasignada.detail' | translate }} {{UltimaActualizacion}}
+  </p>
+  <ion-grid>
+    <ion-row>
+      <ion-col class="ion-margin-left" style="border-right: 1px solid black;font-weight: bold;" size="5">
+        {{ 'dietasignada.espacio' | translate }}
+      </ion-col>
+      
+      <ion-col class="ion-margin-left ion-text-end ion-margin-right" style="font-weight: bold;" size="7">
+        {{ 'dietasignada.alimencant' | translate }}
+      </ion-col>
+    </ion-row>
+    <ion-row  *ngFor="let item of listadodeespacios,let i = index"  class="ion-margin-top ion-align-items-center" style="border: 5px solid var(--ion-color-principal); border-radius: 20px;">
+      <ion-col class="ion-margin-left ion-text-center" style="font-weight: bold;" size="5">
+        <p style="font-size: xx-large;">{{item.CODESPA}}</p>
+        
+      </ion-col>
+      
+      <ion-col class="ion-margin-left ion-text-start ion-margin-right" style="font-weight: bold;" size="7">
+        <p>{{item.productoname}}</p>
+        <p>{{item.CANTIDAD}} {{ 'dietasignada.cantidad' | translate }}</p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -24,6 +24,7 @@ export class StorageService {
     "Causas":"Causas",
     "Especies":"Especies",
     "Granjas":"Granjas",
+    "ConsultaDieta":"ConsultaDieta",
     "DetallePrueb":"DetallePrueb",
     "ReporteGenerados":"ReporteGenerados",
     "VacunaReporte":"VacunaReporte",
