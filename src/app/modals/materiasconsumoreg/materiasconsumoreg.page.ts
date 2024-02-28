@@ -70,7 +70,7 @@ export class MateriasconsumoregPage implements OnInit {
       this.agregarValorAlista()
    }
    changedecimal(ev){
-    this.DataForm.cantidad=parseFloat(this.DataForm.cantidad).toFixed(3)
+    this.DataForm.cantidad=parseFloat(this.DataForm.cantidad).toFixed(1)
    }
    BuscarDieta(){
     this.master.Load(this.loadingController).then(()=>{
@@ -86,7 +86,7 @@ export class MateriasconsumoregPage implements OnInit {
         this.loadingController.dismiss()
         if(datoConsumosUsar.length>0 && datoIndex<datoConsumosUsar.length){
                         
-          this.DataForm.cantidad=datoConsumosUsar[datoIndex].CANTIDAD
+          this.DataForm.cantidad=parseFloat(datoConsumosUsar[datoIndex].CANTIDAD?datoConsumosUsar[datoIndex].CANTIDAD:0).toFixed(1)
          var ProductoMate= this.materias.find(datoMateria=>datoMateria.ID===datoConsumosUsar[datoIndex].PRODUCTO)
           if(ProductoMate){
             this.DataForm.materia=ProductoMate
@@ -98,7 +98,7 @@ export class MateriasconsumoregPage implements OnInit {
     })
    }
    agregarotro(){
-    this.DataForm.cantidad=parseFloat(this.DataForm.cantidad).toFixed(3)
+    this.DataForm.cantidad=parseFloat(this.DataForm.cantidad).toFixed(1)
     if(parseFloat(this.DataForm.cantidad)>=0){
       if(Number(this.DataForm.Lotes)>0){
         if(this.DataForm.materia){

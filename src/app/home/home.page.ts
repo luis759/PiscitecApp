@@ -189,28 +189,61 @@ export class HomePage {
     })
   }
   ExtraerData(){
+    this.load.dismiss().then(()=>{
+      this.master.LoadMensajeActualizando(this.load,this.message['actualizacion1'])
+    })
     this.master.usuario.getAllUsers().then((usuarios)=>{
       let Datausuarios=usuarios
+      this.load.dismiss().then(()=>{
+        this.master.LoadMensajeActualizando(this.load,this.message['actualizacion2'])
+      })
       this.master.Empresas.getAllEmpresas().then((empresas)=>{
         let Dataempresas=empresas
+        this.load.dismiss().then(()=>{
+          this.master.LoadMensajeActualizando(this.load,this.message['actualizacion3'])
+        })
         this.master.Responsable.getAllREsponsables().then((responsables)=>{
           let Dataresponsables=responsables
+          this.load.dismiss().then(()=>{
+            this.master.LoadMensajeActualizando(this.load,this.message['actualizacion4'])
+          })
           this.master.especies.getAllEspecies().then((especies)=>{
             let Dataespecies=especies
+            this.load.dismiss().then(()=>{
+              this.master.LoadMensajeActualizando(this.load,this.message['actualizacion5'])
+            })
             this.master.granja.getAllGranjas().then((granjas)=>{
               let Datagranjas=granjas
+              this.load.dismiss().then(()=>{
+                this.master.LoadMensajeActualizando(this.load,this.message['actualizacion6'])
+              })
               this.master.permisos.getAllPermisos().then((permisos)=>{
                 let Datapermisos=permisos
+                this.load.dismiss().then(()=>{
+                  this.master.LoadMensajeActualizando(this.load,this.message['actualizacion7'])
+                })
                 this.master.fisicoquimicos.getAllFisicosQuimicosParametros().then((fisicoquimicos)=>{
                   let datafisicoquimicos=fisicoquimicos
+                  this.load.dismiss().then(()=>{
+                    this.master.LoadMensajeActualizando(this.load,this.message['actualizacion8'])
+                  })
                   this.master.consumos.getAllMaterias().then((materia)=>{
                     let dataMaterias=materia
+                    this.load.dismiss().then(()=>{
+                      this.master.LoadMensajeActualizando(this.load,this.message['actualizacion9'])
+                    })
                     this.master.mortalidadt.getAllCausas().then((allcausas)=>{
                       let dataCausas=allcausas
+                      this.load.dismiss().then(()=>{
+                        this.master.LoadMensajeActualizando(this.load,this.message['actualizacion10'])
+                      })
                       this.master.granja.getAllEspaciosWithCOD().then((espacios)=>{
                         let dataespacios=espacios
                         this.master.granja.getAllEspaciosLotesDiferentes().then((especieslotesdiferente)=>{
                           let datoespecieslotesdiferente=especieslotesdiferente
+                          this.load.dismiss().then(()=>{
+                            this.master.LoadMensajeActualizando(this.load,this.message['actualizacion11'])
+                          })
                           this.master.consumos.getConsultaDieta().then((dataConsumosall)=>{
                             let datoconsumoallinfo=dataConsumosall
                           if(Datausuarios['correcto'])

@@ -20,7 +20,18 @@
         "option4":"Physical-Chemical",
         "optionoth1":"Consumption of Raw Materials",
         "mensajenopermiso":"You do not have permission to enter",
-        "noactualizada":"The APP is outdated, it is necessary to update it to continue using it"
+        "noactualizada":"The APP is outdated, it is necessary to update it to continue using it" ,
+        "actualizacion1":"1/11  Updating Users",
+        "actualizacion2":"2/11  Updating Companies",
+        "actualizacion3":"3/11  Updating Responsible",
+        "actualizacion4":"4/11  Updating Species",
+        "actualizacion5":"5/11  Updating Farms",
+        "actualizacion6":"6/11  Updating Permissions",
+        "actualizacion7":"7/11  Updating Fiscal-Chemical Parameters",
+        "actualizacion8":"8/11  Updating Subjects",
+        "actualizacion9":"9/11  Updating Causes",
+        "actualizacion10":"10/11  Updating Spaces",
+        "actualizacion11":"11/11  Updating Diet"
      },
     "materiaconsumos": {
         "titulo":"Consumption of Raw Materials",

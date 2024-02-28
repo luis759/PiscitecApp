@@ -20,7 +20,18 @@
         "option4":"Físico-Químicos",
         "optionoth1":"Consumo de Materias Primas",
         "mensajenopermiso":"No tienes Permiso para ingresar",
-        "noactualizada":"La APP esta desactualizada, es necesario de su actualizacion para poder continuar usandola"
+        "noactualizada":"La APP esta desactualizada, es necesario de su actualizacion para poder continuar usandola",
+        "actualizacion1":"1/11  Actualizando Usuarios",
+        "actualizacion2":"2/11  Actualizando Empresas",
+        "actualizacion3":"3/11  Actualizando Responsable",
+        "actualizacion4":"4/11  Actualizando Especies",
+        "actualizacion5":"5/11  Actualizando Granjas",
+        "actualizacion6":"6/11  Actualizando Permisos",
+        "actualizacion7":"7/11  Actualizando Fisco-Quimico Parametros",
+        "actualizacion8":"8/11  Actualizando Materias",
+        "actualizacion9":"9/11  Actualizando Causas",
+        "actualizacion10":"10/11  Actualizando Espacios",
+        "actualizacion11":"11/11  Actualizando Dieta"
      },
      "materiaconsumos": {
         "titulo":"Consumo de Materias Primas",
