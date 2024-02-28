@@ -19,7 +19,8 @@
         "option3":"Mortality",
         "option4":"Physical-Chemical",
         "optionoth1":"Consumption of Raw Materials",
-        "mensajenopermiso":"You do not have permission to enter"
+        "mensajenopermiso":"You do not have permission to enter",
+        "noactualizada":"The APP is outdated, it is necessary to update it to continue using it"
      },
     "materiaconsumos": {
         "titulo":"Consumption of Raw Materials",

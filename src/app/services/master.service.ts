@@ -13,6 +13,7 @@ import { ResponsablesService } from '../api/responsables.service';
 import { UsuarioService } from '../api/usuario.service';
 import { VacunaService } from '../api/vacuna.service';
 import { StorageService } from './storage.service';
+import { VersionService } from '../api/version.service';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,7 @@ export class MasterService {
   constructor(private platform:Platform,public storage:StorageService,public reportes:ReportesService,
     public usuario:UsuarioService,public Empresas:EmpresasService,public granja:GranjasService,public Responsable:ResponsablesService,
     public permisos:PermisosService,public especies:EspeciesService,public vacunas:VacunaService,public fisicoquimicos:FisicoquimicosService,
-    public alertController: AlertController,private routr:Router,private navController:NavController,private toast:ToastController,
+    public version:VersionService,public alertController: AlertController,private routr:Router,private navController:NavController,private toast:ToastController,
     public consumos:ConsumosService,public mortalidadt:MortalidadService) { }
     
     async Load(LoadingControllers:LoadingController):Promise<void> {

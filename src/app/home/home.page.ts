@@ -53,6 +53,19 @@ export class HomePage {
       }
     })
   }
+  CheckVersion(){
+    this.master.version.getVersion().then((getAllVersion)=>{
+      let dataversion=getAllVersion
+      if(dataversion['correcto']){
+        if(dataversion['data']['version'][0].VERSIONES==this.master.version.DataVersion){
+          this.ExtraerData()
+        }else{
+          this.master.MensajeAlert(this.message['noactualizada'],"Error")
+          this.load.dismiss()
+        }
+      }
+    })
+  }
   irAlGenerarReporte(){
     if(this.valorinicial==0){
 
@@ -172,7 +185,7 @@ export class HomePage {
   }
   actualizarDato(){
     this.master.Load(this.load).then(()=>{
-      this.ExtraerData()
+      this.CheckVersion()
     })
   }
   ExtraerData(){

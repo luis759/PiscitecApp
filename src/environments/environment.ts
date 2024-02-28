@@ -4,8 +4,9 @@
 
 export const environment = {
   production: false,
-  urlApi:'https://acuaguajaro.azurewebsites.net/',
-  lenguajemaster:"es"
+  urlApi:'https://boteroapp.azurewebsites.net/',
+  lenguajemaster:"es",
+  AppVersion:17
 };
 
 /*

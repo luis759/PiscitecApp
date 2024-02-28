@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="principal">
     <ion-buttons  slot="start" >
-      <ion-back-button></ion-back-button>
+      <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
       <div class="ion-text-wrap">
@@ -60,7 +60,7 @@
       
       <ion-col class="ion-margin-left ion-text-start ion-margin-right" style="font-weight: bold;" size="7">
         <p>{{item.productoname}}</p>
-        <p>{{item.CANTIDAD}} {{ 'dietasignada.cantidad' | translate }}</p>
+        <p>{{item.CANTIDAD |number : '1.1-1'}} {{ 'dietasignada.cantidad' | translate }}</p>
       </ion-col>
     </ion-row>
   </ion-grid>

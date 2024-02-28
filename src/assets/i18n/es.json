@@ -19,7 +19,8 @@
         "option3":"Mortalidad",
         "option4":"Físico-Químicos",
         "optionoth1":"Consumo de Materias Primas",
-        "mensajenopermiso":"No tienes Permiso para ingresar"
+        "mensajenopermiso":"No tienes Permiso para ingresar",
+        "noactualizada":"La APP esta desactualizada, es necesario de su actualizacion para poder continuar usandola"
      },
      "materiaconsumos": {
         "titulo":"Consumo de Materias Primas",

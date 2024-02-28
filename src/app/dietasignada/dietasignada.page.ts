@@ -68,11 +68,20 @@ export class DietasignadaPage implements OnInit {
           if(ConsultaDietas){
         this.listadodeespacios=ConsultaDietas[0].filter(datoB=>datoB.IDEMP==this.DataForm.empresa.IDEMP && datoB.IDGRA==idgranjas).map((datoIM)=>{
           
-          let producto=this.materias.find(datofind=>datofind.ID==datoIM.PRODUCTO).NOMBRE
+          let producto=this.materias.find(datofind=>datofind.ID==datoIM.PRODUCTO)?.NOMBRE
           return({
             ...datoIM,
             productoname:producto
           })
+        })
+        this.listadodeespacios.sort(function (a, b) {
+          if (a.CODESPA < b.CODESPA) {
+            return -1;
+          }
+          if (a.CODESPA > b.CODESPA) {
+            return 1;
+          }
+          return 0;
         })
           }
         })

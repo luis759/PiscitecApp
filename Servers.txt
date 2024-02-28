@@ -1,5 +1,8 @@
-https://acuaguajaro.azurewebsites.net
-https://biso.azurewebsites.net/
+
 https://laagricola.azurewebsites.net/
+https://acuaguajaro.azurewebsites.net/
 https://lahermosa.azurewebsites.net/
 https://mazariaapp.azurewebsites.net/
+https://fishco.azurewebsites.net/
+https://losangelesapp.azurewebsites.net/
+https://boteroapp.azurewebsites.net/
