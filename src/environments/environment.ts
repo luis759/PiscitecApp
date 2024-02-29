@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   urlApi:'https://boteroapp.azurewebsites.net/',
   lenguajemaster:"es",
-  AppVersion:17
+  AppVersion:18
 };
 
 /*

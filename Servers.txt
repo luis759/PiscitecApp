@@ -1,8 +1,7 @@
-
-https://laagricola.azurewebsites.net/
-https://acuaguajaro.azurewebsites.net/
-https://lahermosa.azurewebsites.net/
-https://mazariaapp.azurewebsites.net/
-https://fishco.azurewebsites.net/
-https://losangelesapp.azurewebsites.net/
-https://boteroapp.azurewebsites.net/
+https://laagricola.azurewebsites.net/  es
+https://acuaguajaro.azurewebsites.net/ es
+https://lahermosa.azurewebsites.net/ es
+https://mazariaapp.azurewebsites.net/  en
+https://fishco.azurewebsites.net/ es
+https://losangelesapp.azurewebsites.net/ es
+https://boteroapp.azurewebsites.net/ es
